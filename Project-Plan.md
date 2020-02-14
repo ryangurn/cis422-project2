@@ -15,4 +15,8 @@
 
 ## Project Tracking
 
+#### Build Plan
+|Task|Date Assigned|Date Completed|Time Spent| Completed By|
+|---|---|---|---|---|
+|First Group Meeting|2020-02-12|2020-02-13|4 Hours| ALL|
 ## Rationale
