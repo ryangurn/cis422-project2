@@ -2,7 +2,7 @@
 
 ## Revision History
 | Date | Author | Description |
-| -- | -- |
+| -- | -- | -- |
 | 2/13/2020 | rg | initial document creation |
 
 ## Team Organization
