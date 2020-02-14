@@ -39,6 +39,8 @@ Can a standalone prototype be developed within the given time?
 ## Communication Procedures
 
 ## Milestones
+* Successfully scraped/parsed data
+* Successfully created UI (Tkinter)
 
 ## Project Tracking
 
