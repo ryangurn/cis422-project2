@@ -1,1 +1,2 @@
-# SDS
+# regtools
+# Software Design Specification
