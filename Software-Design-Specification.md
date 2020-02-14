@@ -1,2 +1,0 @@
-# regtools
-# Software Design Specification
