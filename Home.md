@@ -1,8 +1,8 @@
 # r3gT0Ols
 
 ## Revision History
-| -- | -- | -- |
 | Date | Author | Description | 
+| -- | -- | -- |
 | 2/13/20 | rg | Setting up initial document | 
 
 ## Table of content
