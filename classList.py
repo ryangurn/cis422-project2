@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import *
 
 
-def main():
+def createClassList():
     root = tk.Tk()
     root.grid_rowconfigure(0, weight=1)
     root.columnconfigure(0, weight=1)
@@ -41,7 +41,7 @@ def main():
     subjectsCanvas.config(scrollregion = subjectsCanvas.bbox("all"))
 
     #The 'central column' displaying the list of classes for a given course subject
-    specificCourses = tk.Frame(frame_main, bg = "gray54", width=175, height=500, relief="sunken", borderwidth=2)
+    specificCourses = tk.Frame(frame_main, bg = "gray54", width=150, height=500, relief="sunken", borderwidth=2)
     #specificCourses.pack(expand=True, fill='both', side='left', anchor='center')
     specificCourses.grid(row=0, column=2, pady=(5, 0), sticky="nw")
     specificCourses.grid_rowconfigure(0, weight=1)
@@ -70,5 +70,8 @@ def main():
 
 
     root.mainloop()
+
+def main():
+    createClassList()
 
 main()
