@@ -24,6 +24,8 @@ class ClassParser:
         specified that will generate a set of tables in the form of lists
         of lists
 
+        TODO: Remove the parameter of the parser and just request some of the URL parameters
+        TODO CONT: to determine which major, subject, or CRN...
         :param parser:
 
         Example Usage:
@@ -32,7 +34,7 @@ class ClassParser:
         """
         self._parser = parser
         self._tables = parser.tables
-        self._intermediateData = []
+        self._intermediateData = None
         self._dict = {}
 
     def deleteFormatting(self):
@@ -84,4 +86,22 @@ class ClassParser:
         self._intermediateData = ret_arr
 
     def parseData(self, parser: Parser):
-        pass
+        for key, val in enumerate(self._intermediateData):
+            # init obj
+            obj =  {
+                'name': '',
+                'credits': '',
+                'grading': '',
+                'sections': [],
+            }
+
+            # get the name and credits
+            if len(self._intermediateData[key][-2]) == 2:
+                obj['name'] = ' '.join(self._intermediateData[key][-2][0].split(" ")[2:]).replace('\u00a0', "")
+                obj['credits'] = self._intermediateData[key][-2][1]
+
+            # get the grading info
+            if len(self._intermediateData[key][-1]) == 2:
+                obj['grading'] = self._intermediateData[key][-1][1]
+
+            print(obj)
