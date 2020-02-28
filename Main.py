@@ -15,16 +15,16 @@ Priority credit to:
 Ryan Gurnick - 2/25/20  Creation
 
 """
-import requests
 import Parser
 import ClassParser
 import RequirementsParser
 import Datastore
+import ClassModel
 
 # # call ClassParser
-p = ClassParser.ClassParser("201903", "CIS")
-p.deleteFormatting()
-p.parseData()
+# p = ClassParser.ClassParser("201903", "CIS")
+# p.deleteFormatting()
+# p.parseData()
 
 # call RequirementsParser
 # rp = RequirementsParser.RequirementsParser()
@@ -33,3 +33,7 @@ p.parseData()
 # setup datastore
 #ds = Datastore.DB("testing.db")
 #ds.generateTables()
+
+# classModel = ClassModel.ClassModel('testing.db')
+# print(classModel.insert(321321, 201901, '123', '{}', '{}'))
+# print(classModel.find_by('term', 201901))
