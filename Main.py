@@ -18,9 +18,17 @@ Ryan Gurnick - 2/25/20  Creation
 import requests
 import Parser
 import ClassParser
-
+import RequirementsParser
+import Datastore
 
 # # call ClassParser
-p = ClassParser.ClassParser("201903", "CIS")
-p.deleteFormatting()
+# p = ClassParser.ClassParser("201903", "CIS")
+# p.deleteFormatting()
 
+# call RequirementsParser
+# rp = RequirementsParser.RequirementsParser()
+# rp.parseData()
+
+# setup datastore
+ds = Datastore.DB("testing.db")
+ds.generateTables()
