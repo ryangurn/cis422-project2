@@ -65,6 +65,7 @@ def createClassList():
     courseCanvas.config(scrollregion = courseCanvas.bbox("all"))
     #The section of the window with information regarding the course
     courseBio = tk.Frame(root, bg='gray30', width=500, height=500, relief = "sunken")
+    # TODO: LINE #69 is causing errors, please reference (https://stackoverflow.com/questions/23584325/cannot-use-geometry-manager-pack-inside)
     courseBio.pack(expand=True, fill='both', side='right')
     courseBio.grid(row = 0, column = 4)
 
