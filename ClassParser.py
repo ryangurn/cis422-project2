@@ -15,25 +15,28 @@ Ryan Gurnick - 2/25/20  Creation
 
 """
 import Parser
+import requests
 
 
 class ClassParser:
-    def __init__(self, parser: Parser):
+    def __init__(self, term: str, subject: str):
         """
         Initializer for the class parser. This will allow a parser to be
         specified that will generate a set of tables in the form of lists
         of lists
 
-        TODO: Remove the parameter of the parser and just request some of the URL parameters
-        TODO CONT: to determine which major, subject, or CRN...
-        :param parser:
-
         Example Usage:
         p = Parser.Parser()
-        parser = ClassParser.Parser(p)
+        parser = ClassParser.Parser("201903", "CIS")
         """
-        self._parser = parser
-        self._tables = parser.tables
+        cis_catalog_url = "http://classes.uoregon.edu/pls/prod/hwskdhnt.P_ListCrse?term_in=" + term + "&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&sel_cred=dummy&sel_tuition=dummy&sel_open=dummy&sel_weekend=dummy&sel_title=&sel_to_cred=&sel_from_cred=&sel_subj=" + subject + "&sel_crse=&sel_crn=&sel_camp=%25&sel_levl=%25&sel_attr=%25&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&submit_btn=Show+Classes"
+        catalog = requests.get(cis_catalog_url)
+
+        p = Parser.Parser()
+        p.feed(str(catalog.content))
+
+        self._parser = p
+        self._tables = self._parser.tables
         self._intermediateData = None
         self._dict = {}
 
