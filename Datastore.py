@@ -38,6 +38,9 @@ class DB:
         self.conn = conn
         return
 
+    def ret(self):
+        return self
+
 
     def _create_table(self, create_table_sql):
         """ create a table from the create_table_sql statement
@@ -52,6 +55,14 @@ class DB:
             print(e)
 
     def generateTables(self):
+        """
+        This function will generate all of the required tables within the sqlite file for
+        us and allow us to start with a common basis in sql.
+
+        Example Usage:
+        ds = Datastore.Datastore('testing.db')
+        ds.generateTables()
+        """
         if self.conn is not None:
 
             self._create_table("""CREATE TABLE classes (
