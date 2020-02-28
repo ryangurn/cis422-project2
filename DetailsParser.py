@@ -19,8 +19,8 @@ import Parser
 import requests
 
 
-class RequirementsParser:
-    def __init__(self, crn, subject):
+class DetailsParser:
+    def __init__(self, subject: str, crn: str):
         content = requests.get("http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term="+subject+"&crn="+crn)
         parser = Parser.Parser()
         parser.feed(str(content.content))
@@ -29,9 +29,52 @@ class RequirementsParser:
         self.crn = crn
         self._parser = parser
         self._tables = self._parser.tables
+        self._intermediateData = None
+        self._dict = {}
 
     def deleteFormatting(self):
-        pass
+        del self._tables[:3]
+        del self._tables[1]
+        del self._tables[-3:]
+        del self._tables[-3:-1]
+
+        ret_arr = []
+        for data in self._tables:
+            ret_arr.append(data)
+
+        self._intermediateData = ret_arr
 
     def parseData(self):
-        pass
+        for key, val in enumerate(self._intermediateData):
+            data = self._intermediateData[key]
+
+            if key == 0:
+                for k, v in enumerate(data):
+                    if k == 2:
+                        self._dict.update({
+                            "description": data[k][0]
+                        })
+                    if "Prereqs/Comments" in data[k][0]:
+                        self._dict.update({
+                            "prereqs": data[k][1].replace('Prereq: ', '')
+                        })
+
+            elif key == 1:
+                #TODO: add functionality to parse academic deadlines
+                pass
+
+            elif key == 2:
+                #TODO: add functionality to parse long course description
+                pass
+
+    def getPrereqs(self):
+        if 'prereqs' in self._dict.keys():
+            return self._dict['prereqs']
+        else:
+            return ''
+
+    def getDescription(self):
+        if 'description' in self._dict.keys():
+            return self._dict['description']
+        else:
+            return ''

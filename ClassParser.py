@@ -16,6 +16,7 @@ Ryan Gurnick - 2/25/20  Creation
 """
 import Parser
 import requests
+import DetailsParser
 
 
 class ClassParser:
@@ -131,6 +132,8 @@ class ClassParser:
                         'day': '',
                         'location': '',
                         'instructor': '',
+                        'prereqs': '',
+                        'description': '',
                         'notes': '',
                         'url': '',
                     }
@@ -145,6 +148,14 @@ class ClassParser:
                     section_obj['instructor'] = item[7]
                     section_obj['notes'] = item[8]
                     section_obj['url'] = "http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term="+self.term+"&crn="+item[1]
+
+                    if "Lecture" in section_obj['type'] or section_obj['type'] == "":
+                        p = DetailsParser.DetailsParser(self.term, section_obj['crn'])
+                        p.deleteFormatting()
+                        p.parseData()
+                        section_obj['prereqs'] = p.getPrereqs()
+                        section_obj['description'] = p.getDescription()
+
                     class_obj['sections'].append(section_obj)
 
             if class_obj != {'subject': '', 'number': '', 'name': '', 'credits': '', 'grading': '','sections': [],}:
