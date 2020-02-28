@@ -23,3 +23,6 @@ class DB:
 
     def __init__(self, db_name: string):
         self.conn = sqlite3.connect(db_name)
+
+    def createTables(self):
+        pass
