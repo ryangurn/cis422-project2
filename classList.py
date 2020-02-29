@@ -1,75 +1,61 @@
 import tkinter as tk
 from tkinter import *
+from tkinter import font
+from jsonPythonParser import * 
 
 
-def createClassList():
-    root = tk.Tk()
-    root.grid_rowconfigure(0, weight=1)
-    root.columnconfigure(0, weight=1)
+class classMgmt(tk.Tk):
+    def __init__(self, master):
+        self.master = master
+        master.geometry("800x450")
+        self.title = "RegTools"
+        subfont= font.Font(family="Helvetica", size=26)
+        courseFont = font.Font(family = "Helvetica", size = 16)
+        self.courseSubjects = Listbox(master, selectmode="browse", bg="red", width = 6, height = 11, borderwidth=2, font = subfont)
+        self.courseSubjects.insert(0, "CIS")
+        self.courseSubjects.insert(1, "MATH")
+        self.courseSubjects.insert(2, "ENG")
+        self.courseSubjects.bind("<Double-Button-1>", self.subjectClick)
+        self.offeredCourses = Listbox(master, selectmode = "browse", bg = "red", width = 35, height = 17, borderwidth = 2, font = courseFont)
+        self.offeredCourses.bind("<Double-Button-1>", self.courseClick)
+        self.courseBio = Listbox(master, selectmode = "browse", bg = "red", width = 40, height = 20, borderwidth = 2)
+        self.courseBio.pack(side = "right", fill = NONE, expand = FALSE, padx = 10, pady = 10)
+        self.courseSubjects.pack(side = "left", fill = NONE, expand = FALSE, padx = 10, pady = 10)
+        self.offeredCourses.pack(side = "left", fill = NONE, expand = FALSE, padx = 15, pady = 10)
 
-    frame_main = tk.Frame(root, bg="gray")
-    frame_main.grid(sticky='news')
+    def subjectClick(self, event):
+        w = event.widget
+        index = int(w.curselection()[0])
+        value = w.get(index)
+        currentSubject = value
+        keys = get_keys()
+        self.offeredCourses.delete(0, END)
+        i = 0
+        for key in keys:
+            if currentSubject == get_subject(key):
+                self.offeredCourses.insert(i, key)
+                i += 1
+            else:
+                continue
 
-    #REFERENCE: https://stackoverflow.com/questions/43731784/tkinter-canvas-scrollbar-with-grid
-
-    #A side bar displaying all the course subjects
-    courseSubjects = tk.Frame(frame_main, width=150, bg="gray30", height=500, relief="sunken", borderwidth=2)
-    courseSubjects.grid(row=0, column=0, pady=(5, 0), sticky="nw")
-    courseSubjects.grid_rowconfigure(0, weight=1)
-    courseSubjects.grid_columnconfigure(0, weight=1)
-    #this will allow for button resizing later
-    courseSubjects.grid_propagate(FALSE)
-    #add canvas to the frame
-    subjectsCanvas = Canvas(courseSubjects, bg = "gray30")
-    subjectsCanvas.grid(row = 0, column = 0, sticky = "news")
-    # Link the scrollbar to the canvas
-    subjectScroller = tk.Scrollbar(courseSubjects, orient="vertical", command=subjectsCanvas.yview)
-    subjectScroller.grid(row=0, column=1, sticky="ns")
-    subjectsCanvas.configure(yscrollcommand=subjectScroller.set)
-
-    subjectButtons = tk.Frame(subjectsCanvas, bg="blue", relief = "sunken")
-    subjectsCanvas.create_window((0, 0), window=subjectButtons, anchor="nw")
-    rows = 200
-    columns = 2
-    buttons = [[tk.Button() for j in range(columns)] for i in range(rows)]
-    for i in range(0, rows):
-        for j in range(0, columns):
-            buttons[i][j] = tk.Button(subjectButtons, text=("%d,%d" % (i+1, j+1)))
-            buttons[i][j].grid(row=i, column=j, sticky="news")
-
-    subjectButtons.update_idletasks()
-    subjectsCanvas.config(scrollregion = subjectsCanvas.bbox("all"))
-
-    #The 'central column' displaying the list of classes for a given course subject
-    specificCourses = tk.Frame(frame_main, bg = "gray54", width=150, height=500, relief="sunken", borderwidth=2)
-    #specificCourses.pack(expand=True, fill='both', side='left', anchor='center')
-    specificCourses.grid(row=0, column=2, pady=(5, 0), sticky="nw")
-    specificCourses.grid_rowconfigure(0, weight=1)
-    specificCourses.grid_columnconfigure(2, weight=1)
-    specificCourses.grid_propagate(FALSE)
-
-    courseCanvas = Canvas(specificCourses, bg = "gray32")
-    courseCanvas.grid(row = 0, column = 2, sticky = "news")
-    courseScroller = tk.Scrollbar(specificCourses, orient = "vertical", command = courseCanvas.yview)
-    courseScroller.grid(row = 0, column = 3, sticky = "ns")
-    courseCanvas.configure(yscrollcommand = courseScroller.set)
-
-    courseButtons = tk.Frame(courseCanvas, bg = "red", relief = "sunken")
-    courseCanvas.create_window((1,1), window = courseButtons, anchor = "nw")
-    cButtons = [[tk.Button() for j in range(columns)] for i in range(rows)]
-    for i in range(0, rows):
-        for j in range(0, columns):
-            cButtons[i][j] = tk.Button(courseButtons, text=("%d,%d" % (i+1, j+1)))
-            cButtons[i][j].grid(row=i, column=j, sticky="news")
-    courseButtons.update_idletasks()
-    courseCanvas.config(scrollregion = courseCanvas.bbox("all"))
-    #The section of the window with information regarding the course
-    courseBio = tk.Frame(root, bg='gray30', width=500, height=500, relief = "sunken")
-    courseBio.grid(row = 0, column = 4)
-
-    root.mainloop()
+    def courseClick(self, event):
+        courseData = []
+        w = event.widget
+        index = int(w.curselection()[0])
+        value = w.get(index)
+        currentCourse = value
+        self.courseBio.delete(0, END)
+        courseData.append("Instructor: " + get_sec_instructor(currentCourse, 0))
+        courseData.append("Room: " + get_sec_location(currentCourse, 0))
+        courseData.append("Schedule: " + get_sec_days(currentCourse, 0) + " - " + get_sec_times(currentCourse, 0))
+        courseData.append("Credits: " + get_credits(currentCourse))
+        courseData.append("Grading: " + get_grading(currentCourse))
+        for i in range(len(courseData)):
+            self.courseBio.insert(i, courseData[i])
 
 def main():
-    createClassList()
+    root = tk.Tk()
+    myGUI = classMgmt(root)
+    root.mainloop()
 
 main()
