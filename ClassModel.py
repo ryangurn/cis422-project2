@@ -19,6 +19,7 @@ import Datastore
 import sqlite3
 from datetime import date, datetime
 
+
 class ClassModel:
 
     def __init__(self, db_file):
@@ -76,7 +77,7 @@ class ClassModel:
         cm.find_by('term', 201901)
         cm.find_by('crn', 321321)
         """
-        sql = "SELECT * FROM \"main\".\"classes\" WHERE \"{}\" = {}".format(haystack, needle)
+        sql = "SELECT * FROM \"main\".\"classes\" WHERE \"{}\" = \"{}\"".format(haystack, needle)
         cur = self.conn.cursor()
         try:
             cur.execute(sql)
