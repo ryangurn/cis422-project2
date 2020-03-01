@@ -14,13 +14,15 @@ Priority credit to:
 Ryan Gurnick - 2/25/20  Creation
 
 """
+import json
 import Parser
 import requests
 import DetailsParser
+import ClassModel
 
 
 class ClassParser:
-    def __init__(self, term: str, subject: str):
+    def __init__(self, term: str, subject: str, db='testing.db'):
         """
         Initializer for the class parser. This will allow a parser to be
         specified that will generate a set of tables in the form of lists
@@ -36,6 +38,7 @@ class ClassParser:
         p = Parser.Parser()
         p.feed(str(catalog.content))
 
+        self.db = db
         self.term = term
         self.subject = subject
         self._parser = p
@@ -94,7 +97,7 @@ class ClassParser:
     def parseData(self):
         for key, val in enumerate(self._intermediateData):
             # init obj
-            class_obj =  {
+            class_obj = {
                 'subject': '',
                 'number': '',
                 'name': '',
@@ -104,50 +107,30 @@ class ClassParser:
             }
 
             # get the name and credits
-            if len(self._intermediateData[key-1][-2]) == 2:
-                name_info = self._intermediateData[key-1][-2][0].split(" ")
+            if len(self._intermediateData[key - 1][-2]) == 2:
+                name_info = self._intermediateData[key - 1][-2][0].split(" ")
                 num = name_info[1]
                 sub = name_info[0]
                 course_name = ' '.join(name_info[2:]).replace('\u00a0', "")
                 class_obj['number'] = num
                 class_obj['subject'] = sub
                 class_obj['name'] = course_name
-                class_obj['credits'] = self._intermediateData[key-1][-2][1]
+                class_obj['credits'] = self._intermediateData[key - 1][-2][1]
 
             # get the grading info
-            if len(self._intermediateData[key-1][-1]) == 2:
-                class_obj['grading'] = self._intermediateData[key-1][-1][1]
+            if len(self._intermediateData[key - 1][-1]) == 2:
+                class_obj['grading'] = self._intermediateData[key - 1][-1][1]
 
             data = self._intermediateData[key]
             for k, v in enumerate(data):
                 item = data[k]
                 if len(item) == 9:
-                    section_obj = {
-                        'type': '',
-                        'crn': '',
-                        'avail': 0,
-                        'max': 0,
-                        'taken': 0,
-                        'time': '',
-                        'day': '',
-                        'location': '',
-                        'instructor': '',
-                        'prereqs': '',
-                        'description': '',
-                        'notes': '',
-                        'url': '',
-                    }
-                    section_obj['type'] = item[0]
-                    section_obj['crn'] = item[1]
-                    section_obj['avail'] = int(item[2])
-                    section_obj['max'] = int(item[3])
-                    section_obj['taken'] = int(int(item[3])-int(item[2]))
-                    section_obj['time'] = item[4]
-                    section_obj['day'] = item[5]
-                    section_obj['location'] = item[6]
-                    section_obj['instructor'] = item[7]
-                    section_obj['notes'] = item[8]
-                    section_obj['url'] = "http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term="+self.term+"&crn="+item[1]
+                    section_obj = {'type': item[0], 'crn': item[1], 'avail': int(item[2]), 'max': int(item[3]),
+                                   'taken': int(int(item[3]) - int(item[2])), 'time': item[4], 'day': item[5],
+                                   'location': item[6], 'instructor': item[7], 'prereqs': '', 'description': '',
+                                   'notes': item[8],
+                                   'url': "http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=" + self.term + "&crn=" + \
+                                          item[1]}
 
                     if "Lecture" in section_obj['type'] or section_obj['type'] == "":
                         p = DetailsParser.DetailsParser(self.term, section_obj['crn'])
@@ -158,8 +141,12 @@ class ClassParser:
 
                     class_obj['sections'].append(section_obj)
 
-            if class_obj != {'subject': '', 'number': '', 'name': '', 'credits': '', 'grading': '','sections': [],}:
+            if class_obj != {'subject': '', 'number': '', 'name': '', 'credits': '', 'grading': '', 'sections': [], }:
+                self._saveData(class_obj)
                 self._dict.update({
-                    str(class_obj['subject'] + " " + class_obj['number'] + " - [" + class_obj['name'] +"]"): class_obj
+                    str(class_obj['subject'] + " " + class_obj['number'] + " - [" + class_obj['name'] + "]"): class_obj
                 })
-        print(self._dict)
+
+    def _saveData(self, obj):
+        cm = ClassModel.ClassModel(db_file=self.db)
+        cm.insert(self.term, obj['name'], obj['subject'], obj['number'], obj['credits'], json.dumps(obj['sections']))

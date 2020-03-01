@@ -66,16 +66,17 @@ class DB:
         if self.conn is not None:
 
             self._create_table("""CREATE TABLE classes (
-                        id integer NOT NULL CONSTRAINT classes_pk PRIMARY KEY AUTOINCREMENT,
-                        crn integer NOT NULL,
-                        term integer NOT NULL,
-                        type varchar(100),
-                        seats text NOT NULL,
-                        sections text NOT NULL,
-                        created_at datetime NOT NULL,
-                        updated_at datetime NOT NULL,
-                        CONSTRAINT class_unique UNIQUE (crn, term)
-                    );""")
+                                id integer NOT NULL CONSTRAINT classes_pk PRIMARY KEY AUTOINCREMENT,
+                                term integer NOT NULL,
+                                name text NOT NULL,
+                                subject text NOT NULL,
+                                number text NOT NULL,
+                                credits text NOT NULL,
+                                sections text NOT NULL,
+                                created_at datetime NOT NULL,
+                                updated_at datetime NOT NULL,
+                                CONSTRAINT class_unique UNIQUE (term, subject, number)
+                            );""")
 
             self._create_table("""CREATE TABLE students (
                         id integer NOT NULL CONSTRAINT students_pk PRIMARY KEY AUTOINCREMENT,

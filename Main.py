@@ -20,20 +20,24 @@ import ClassParser
 import RequirementsParser
 import Datastore
 import ClassModel
+import os
+
+DB = 'testing.db'
+
+if not os.path.exists('testing.db'):
+    # setup datastore
+    ds = Datastore.DB(DB)
+    ds.generateTables()
 
 # # call ClassParser
-# p = ClassParser.ClassParser("201903", "CIS")
-# p.deleteFormatting()
-# p.parseData()
+p = ClassParser.ClassParser("201903", "BI")
+p.deleteFormatting()
+p.parseData()
 
 # call RequirementsParser
 # rp = RequirementsParser.RequirementsParser()
 # rp.parseData()
 
-# setup datastore
-#ds = Datastore.DB("testing.db")
-#ds.generateTables()
-
 # classModel = ClassModel.ClassModel('testing.db')
 # print(classModel.insert(321321, 201901, '123', '{}', '{}'))
-# print(classModel.find_by('term', 201901))
+# print(classModel.find_by('term', 201903))

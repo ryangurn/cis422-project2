@@ -21,10 +21,6 @@ from datetime import date, datetime
 
 class ClassModel:
 
-
-    table = None
-    output = None
-
     def __init__(self, db_file):
         """
         Initializer for the class model. This will want to know which file to look at for the db.
@@ -39,29 +35,27 @@ class ClassModel:
         # init db connection using the datastore
         self.conn = Datastore.DB(db_file).ret().conn
 
-    def insert(self, crn, term, type, seats, sections):
+    def insert(self, term, name, subject, number, credits, sections):
         """
         Insert method for the class model that allows the caller to provide the specified
         information and create a record within the database, this will return the id of
         the row created.
 
         :param
-        crn :int
-        term :int
-        type :str
-        seats :str
+        name :str
+        subject :str
+        number :str
+        credits :str
         sections :str
-
-        return :int
 
         Example Usage:
         cm = ClassModel.ClassModel('testing.db')
         cm.insert(321321, 201901, '123', '{}', '{}')
         """
-        sql = '''INSERT INTO "main"."classes" ("crn", "term", "type", "seats", "sections", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?);'''
+        sql = '''INSERT INTO "main"."classes"("term","name","subject","number","credits","sections","created_at","updated_at") VALUES (?,?,?,?,?,?,?,?);'''
         cur = self.conn.cursor()
         try:
-            cur.execute(sql, (crn, term, type, seats, sections, date.today(), date.today()))
+            cur.execute(sql, (term, name, subject, number, credits, sections, date.today(), date.today()))
             self.conn.commit()
             return cur.lastrowid
         except sqlite3.IntegrityError:
