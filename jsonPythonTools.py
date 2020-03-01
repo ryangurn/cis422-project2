@@ -1,8 +1,10 @@
 from tkinter import *
 from tkinter import messagebox
+from classMgmt import *
 import csv
 import os
 import sys
+
 
 # Initialize name list
 nameList = []
@@ -91,19 +93,25 @@ def openAddStudentWindow():
 
 def onlbclick(event):
 # Creates the event when a name is selected in the lisdtbox
-    w=event.widget
-    index = int(w.curselection()[0])
-    value = w.get(index)
-    labl['text'] = lb.get(lb.curselection())
+	w=event.widget
+	index = int(w.curselection()[0])
+	value = w.get(index)
+	labl['text'] = lb.get(lb.curselection())
+	cMgmt = classMgmt(root)
+	fr.destroy()
+	button.destroy()
+	searchbox.destroy()
+	labl.place(x=2 , y=105, height=40, width=180)
+
 
 
 def update_listbox(*args):
 # Dynamically updates listbox as user types
-  search_term = search_var.get()
-  lb.delete(0, END)
-  for item in all_items:
-    if search_term.lower() in item.lower():
-      lb.insert(END, item)
+	search_term = search_var.get()
+	lb.delete(0, END)
+	for item in all_items:
+		if search_term.lower() in item.lower():
+			lb.insert(END, item)
 
 
 # Specifies the window
@@ -181,7 +189,7 @@ lb.grid(row=1, rowspan=10, column=0,columnspan=5, sticky='W', padx=5, pady=5,ipa
 all_items = lb.get(0, END)
 
 # Binds the enter key as selection to the listbox. Calls the onlbclick() function
-lb.bind("<Return>", onlbclick)
+lb.bind("<Double-Button-1>", onlbclick)
 
 root.mainloop()
 
