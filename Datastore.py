@@ -80,11 +80,7 @@ class DB:
 
             self._create_table("""CREATE TABLE students (
                         id integer NOT NULL CONSTRAINT students_pk PRIMARY KEY AUTOINCREMENT,
-                        duckID integer NOT NULL,
-                        first_name varchar(255) NOT NULL,
-                        last_name varchar(255) NOT NULL,
-                        majors text NOT NULL,
-                        minors text NOT NULL,
+                        name varchar(255) NOT NULL,
                         created_at datetime NOT NULL,
                         updated_at datetime NOT NULL
                         );""")
