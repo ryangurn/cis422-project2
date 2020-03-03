@@ -60,3 +60,25 @@ class StudentClassModel:
             return cur.lastrowid
         except sqlite3.IntegrityError:
             return None
+
+    def find(self, haystack, needle):
+        """
+        Search for records within the class database and return them as lists of lists.
+
+        :param
+        needle :str
+        haystack :str
+
+        return :list
+
+        Example Usage:
+        scm = StudentClassModel.StudentClassModel('testing.db')
+        scm.find("Ryan Gurnick")
+        """
+        sql = "SELECT * FROM \"main\".\"students\" WHERE \"{}\" = \"{}\"".format(haystack, needle)
+        cur = self.conn.cursor()
+        try:
+            cur.execute(sql)
+        except ValueError:
+            return cur.fetchall()
+        return cur.fetchall()
