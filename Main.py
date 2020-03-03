@@ -20,6 +20,7 @@ import ClassParser
 import RequirementsParser
 import Datastore
 import ClassModel
+import StudentModel
 import os
 
 DB = 'testing.db'
@@ -30,14 +31,19 @@ if not os.path.exists('testing.db'):
     ds.generateTables()
 
 # # call ClassParser
-p = ClassParser.ClassParser("201903", "BI")
-p.deleteFormatting()
-p.parseData()
+# p = ClassParser.ClassParser("201903", "BA")
+# p.deleteFormatting()
+# p.parseData()
 
 # call RequirementsParser
 # rp = RequirementsParser.RequirementsParser()
 # rp.parseData()
 
 # classModel = ClassModel.ClassModel('testing.db')
-# print(classModel.insert(321321, 201901, '123', '{}', '{}'))
+# print(classModel.update(201901, 'testing123', 'BIC', '123', '{}', '{}'))
 # print(classModel.find_by('term', 201903))
+
+# studentModel = StudentModel.StudentModel('testing.db')
+# studentModel.insert("Ryan Gurnick")
+# print(studentModel.find("Ryan Gurnick"))
+# print(studentModel.search("Gurnick"))
