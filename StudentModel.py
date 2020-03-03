@@ -73,7 +73,7 @@ class StudentModel:
 
         Example Usage:
         sm = StudentModel.StudentModel('testing.db')
-        sm.find_by("Ryan Gurnick")
+        sm.find("Ryan Gurnick")
         """
         sql = "SELECT * FROM \"main\".\"students\" WHERE \"name\" = \"{}\"".format(name)
         cur = self.conn.cursor()
