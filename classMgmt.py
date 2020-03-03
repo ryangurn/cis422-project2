@@ -1,10 +1,12 @@
 import tkinter as tk
 from tkinter import *
+from tkinter import messagebox
 from tkinter import font
 from jsonPythonParser import * 
 
 class classMgmt(tk.Tk):
     def __init__(self, master):
+        self.master = master
         self.newWindow = Frame(master, bg = "#003011", height = 400, width = 810)
         self.newWindow.place(x = 0, y = 200)
         subfont= font.Font(family="Helvetica", size=26)
@@ -16,13 +18,14 @@ class classMgmt(tk.Tk):
         self.courseSubjects.bind("<Double-Button-1>", self.subjectClick)
         self.offeredCourses = Listbox(self.newWindow, selectmode = "browse", bg = "#ffcc00", width = 35, borderwidth = 2, font = courseFont)
         self.offeredCourses.bind("<Double-Button-1>", self.courseClick)
-        self.courseBio = Listbox(self.newWindow, selectmode = "browse", bg = "#ffcc00", width = 40, borderwidth = 2)
+        self.takenClasses = Listbox(self.newWindow, selectmode = "browse", bg = "#ffcc00", width = 40, borderwidth = 2)
+        self.takenClasses.bind("<Double-Button-1>", self.removeClass)
         #self.courseSubjects.pack(side = "left", fill = NONE, expand = FALSE, padx = 10, pady = 10)
         self.courseSubjects.place(x = 10, y = 0, height = 325)
         #self.offeredCourses.pack(side = "left", fill = NONE, expand = FALSE, padx = 15, pady = 10)
         self.offeredCourses.place(x = 100, y = 0, height = 325)
         #self.courseBio.pack(side = "left", fill = NONE, expand = FALSE, padx = 10, pady = 10)
-        self.courseBio.place(x = 390, y = 0, height = 325)
+        self.takenClasses.place(x = 390, y = 0, height = 325)
         self.goHome = Button(self.newWindow, text='Go Home', command=self.goHomeClick)
         self.goHome.place(x = 475, y = 330, height = 15)
         #self.goHome.pack(side = "top")
@@ -47,6 +50,7 @@ class classMgmt(tk.Tk):
                 continue
 
     def courseClick(self, event):
+        """
         courseData = []
         w = event.widget
         index = int(w.curselection()[0])
@@ -61,3 +65,15 @@ class classMgmt(tk.Tk):
         courseData.append("Notes: " + get_sec_notes(currentCourse, 0))
         for i in range(len(courseData)):
             self.courseBio.insert(i, courseData[i])
+        """
+        w = event.widget
+        index = int(w.curselection()[0])
+        currentCourse = w.get(index)
+        self.takenClasses.insert(END, currentCourse)
+    def removeClass(self, event):
+        w = event.widget
+        index = int(w.curselection()[0])
+        MsgBox = tk.messagebox.askquestion ('Delete Conifrmation','Are you sure you would like to delete this class', icon = 'warning')
+        if MsgBox == 'yes':
+            self.takenClasses.delete(index)
+        
