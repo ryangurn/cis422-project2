@@ -91,8 +91,4 @@ class DB:
                         classes_id integer NOT NULL,
                         created_at datetime NOT NULL,
                         updated_at datetime NOT NULL,
-                        CONSTRAINT students_classes_students FOREIGN KEY (students_id)
-                        REFERENCES students (id),
-                        CONSTRAINT students_classes_classes FOREIGN KEY (classes_id)
-                        REFERENCES classes (id)
                         );""")

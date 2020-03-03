@@ -21,6 +21,7 @@ import RequirementsParser
 import Datastore
 import ClassModel
 import StudentModel
+import StudentClassModel
 import os
 
 DB = 'testing.db'
@@ -47,3 +48,6 @@ if not os.path.exists('testing.db'):
 # studentModel.insert("Ryan Gurnick")
 # print(studentModel.find("Ryan Gurnick"))
 # print(studentModel.search("Gurnick"))
+
+# studentClassModel = StudentClassModel.StudentClassModel('testing.db')
+# studentClassModel.associate(1,1)
