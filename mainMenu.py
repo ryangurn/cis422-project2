@@ -11,7 +11,7 @@ class mainMenu(tk.Tk):
     def __init__(self, master):
         self.master = master
         master.geometry("810x600")
-        master.title("List Box Test")
+        master.title("RegTools")
         master.configure(background="#323232")
         self.nameList = []
         self.numberOfNames = 0
@@ -19,6 +19,9 @@ class mainMenu(tk.Tk):
         grayBoxFrame.place(x = 0, y = 150)
         fr = Frame(master, width=200, height=200, bg="#369148")
         fr.place(x=310,y=280)
+
+        menubar = Menu(self.master)
+        self.master.config(menu=menubar)
 
         addStudentButton = Label(master, text='Add Student')
         addStudentButton.config(font=("Arial Bold", 13), bg="#369148", fg="#ffcc00")
@@ -31,6 +34,28 @@ class mainMenu(tk.Tk):
         label = Label(image = logo, borderwidth = 0)
         label.image = logo
         label.place(x=100,y=40)
+
+        # Makes the really cool RegTool title
+        oolsLabel = Label(root, text='')
+        oolsLabel.place(x=95,y=40, height=5, width=620)
+        oolsLabel.config(font=("Mincho Bold", 60))
+        oolsLabel.config(bg="#323232", fg="#323232")
+
+        oolsLabel = Label(root, text='')
+        oolsLabel.place(x=98,y=40, height=90, width=5)
+        oolsLabel.config(font=("Mincho Bold", 60))
+        oolsLabel.config(bg="#323232", fg="#323232")
+
+        oolsLabel = Label(root, text='')
+        oolsLabel.place(x=701,y=40, height=90, width=5)
+        oolsLabel.config(font=("Mincho Bold", 60))
+        oolsLabel.config(bg="#323232", fg="#323232")
+
+        oolsLabel = Label(root, text='')
+        oolsLabel.place(x=95,y=121, height=5, width=620)
+        oolsLabel.config(font=("Mincho Bold", 60))
+        oolsLabel.config(bg="#323232", fg="#323232")
+
         # "Search" Label
 
         self.lb = Listbox(fr,selectmode="browse",bg="#323232", selectbackground="#05761B")
@@ -104,5 +129,6 @@ class mainMenu(tk.Tk):
 
 
 root = tk.Tk()
+root.resizable(False, False)
 myGUI = mainMenu(root)
 root.mainloop()
