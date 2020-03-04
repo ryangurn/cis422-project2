@@ -92,7 +92,7 @@ class mainMenu(tk.Tk):
         w=event.widget
         index = int(w.curselection()[0])
         selectedStudent = w.get(index)
-        MsgBox = tk.messagebox.askquestion ('Delete Conifrmation','Are you sure you would like to delete this student %s' % selectedStudent, icon = 'warning')
+        MsgBox = tk.messagebox.askquestion ('Delete Conifrmation','Are you sure you would like to delete this student %s, deleting all of their saved data?' % selectedStudent, icon = 'warning')
         if MsgBox == 'yes':
             print("Will have to delete student from sql database")
             self.lb.delete(index)
