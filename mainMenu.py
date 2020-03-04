@@ -15,7 +15,7 @@ class mainMenu(tk.Tk):
         master.configure(background="#323232")
         self.nameList = []
         self.numberOfNames = 0
-        grayBoxFrame = Frame(master, width = 810, height = 400, bg="#262929")
+        grayBoxFrame = Frame(master, width = 810, height = 390, bg="#262929")
         grayBoxFrame.place(x = 0, y = 150)
         fr = Frame(master, width=200, height=200, bg="#369148")
         fr.place(x=310,y=280)
@@ -25,7 +25,7 @@ class mainMenu(tk.Tk):
 
         addStudentButton = Label(master, text='Add Student')
         addStudentButton.config(font=("Arial Bold", 13), bg="#369148", fg="#ffcc00")
-        addStudentButton.place(x=358,y=500, height=27, width=106)
+        addStudentButton.place(x=358,y=495, height=27, width=106)
 
         #button1.bind()
         addStudentButton.bind("<Double-Button-1>", self.addStudentButtonClick)
@@ -78,11 +78,21 @@ class mainMenu(tk.Tk):
         searchbox = Entry(master, textvariable=self.search_var, bg="#b8b8b8")
         searchbox.config(highlightthickness=0)
         searchbox.place(x=360,y=215, height=20, width=145)
+        
+        dKeyLabel = Label(root, text='= Deletes Name')
+        dKeyLabel.place(x=547,y=550, height=30, width=200)
+        dKeyLabel.config(font=("Arial Bold", 18))
+        dKeyLabel.config(bg="#323232", fg="Grey")
+
+        dKey = Label(root, text="'D'")
+        dKey.place(x=543,y=550, height=30, width=30)
+        dKey.config(font=("Arial Bold", 20))
+        dKey.config(bg="Grey", fg="#323232")
+
 
         # List box geometry
        # self.lb.grid(row=1, rowspan=10, column=0,columnspan=5, sticky='W', padx=5, pady=5,ipadx=5, ipady=5)
         
-
         # All items in the listbox get stored in "all_items"
 
     def loadLB(self):
