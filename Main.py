@@ -17,7 +17,6 @@ Ryan Gurnick - 2/25/20  Creation
 """
 import Parser
 import ClassParser
-import RequirementsParser
 import Datastore
 import ClassModel
 import StudentModel
