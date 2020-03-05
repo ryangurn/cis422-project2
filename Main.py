@@ -37,10 +37,6 @@ if not os.path.exists('testing.db'):
 # p.deleteFormatting()
 # p.parseData()
 
-# call RequirementsParser
-# rp = RequirementsParser.RequirementsParser()
-# rp.parseData()
-
 # classModel = ClassModel.ClassModel('testing.db')
 # print(classModel.update(201901, 'testing123', 'BIC', '123', '{}', '{}'))
 # print(classModel.find_by('term', 201903))
