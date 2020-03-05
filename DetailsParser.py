@@ -16,14 +16,17 @@ Ryan Gurnick - 2/27/20  Creation
 
 """
 import Parser
-import requests
+import urllib.request
 
 
 class DetailsParser:
     def __init__(self, subject: str, crn: str):
-        content = requests.get("http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term="+subject+"&crn="+crn)
+        content = "http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term="+subject+"&crn="+crn
+        with urllib.request.urlopen(content) as response:
+            html = response.read()
+
         parser = Parser.Parser()
-        parser.feed(str(content.content))
+        parser.feed(str(html))
 
         self.subject = subject
         self.crn = crn
