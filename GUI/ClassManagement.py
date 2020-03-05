@@ -7,6 +7,9 @@ import StudentClassModel
 import StudentModel
 
 
+# import GUI.classRoadmap
+
+
 class ClassManagement(tk.Tk):
     def __init__(self, master, studentName, db_file):
         self.db = db_file
@@ -68,9 +71,17 @@ class ClassManagement(tk.Tk):
         goHome.bind("<Double-Button-1>", self.goHomeClick)
         goHome.place(x=605, y=380, height=15)
 
+        goToRoadmap = Label(self.newWindow, text='See Road Map')
+        goToRoadmap.config(font=("Arial Bold", 13), bg="#369148", fg="#ffcc00")
+        goToRoadmap.bind("<Double-Button-1>", self.goRoadmap)
+        goToRoadmap.place(x=490, y=380, height=15)
+
     def goHomeClick(self, event):
         # mainMenu(self.master)
         self.newWindow.destroy()
+
+    def goRoadmap(self, event):
+        pass
 
     def subjectClick(self, event):
         w = event.widget
