@@ -1,0 +1,1763 @@
+{
+   "CIS 407 - [Sem Career/Internships]":{
+      "credits":"2.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Sem Career/Internships",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31651",
+            "day":"m",
+            "time":"1530-1650",
+            "max":35,
+            "instructor":"Wills E",
+            "location":"220 DES",
+            "notes":"!",
+            "type":"",
+            "avail":23,
+            "taken":12,
+            "crn":"31651"
+         }
+      ],
+      "number":"407"
+   },
+   "CIS 410 - [Computational Science]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Computational Science",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36862",
+            "day":"tr",
+            "time":"0830-0950",
+            "max":20,
+            "instructor":"Erickson B",
+            "location":"101 VOL",
+            "notes":"!",
+            "type":"",
+            "avail":14,
+            "taken":6,
+            "crn":"36862"
+         }
+      ],
+      "number":"410"
+   },
+   "CIS 410 - [Peer Advising]":{
+      "credits":"1.00-2.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Peer Advising",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31653",
+            "day":"tba",
+            "time":"tba",
+            "max":5,
+            "instructor":"Wilson C",
+            "location":"tba",
+            "notes":"",
+            "type":"",
+            "avail":5,
+            "taken":0,
+            "crn":"31653"
+         }
+      ],
+      "number":"410"
+   },
+   "CIS 507 - [Sem Research Colloq]":{
+      "credits":"1.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Sem Research Colloq",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31669",
+            "day":"r",
+            "time":"1530-1650",
+            "max":20,
+            "instructor":"Nguyen T",
+            "location":"220 DES",
+            "notes":"",
+            "type":"",
+            "avail":19,
+            "taken":1,
+            "crn":"31669"
+         }
+      ],
+      "number":"507"
+   },
+   "CIS 607 - [Sem Domain-Spec Lang]":{
+      "credits":"2.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Sem Domain-Spec Lang",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36966",
+            "day":"f",
+            "time":"1400-1520",
+            "max":16,
+            "instructor":"Young M",
+            "location":"200 DES",
+            "notes":"",
+            "type":"",
+            "avail":10,
+            "taken":6,
+            "crn":"36966"
+         }
+      ],
+      "number":"607"
+   },
+   "CIS 399 - [Sp St Data Visualiztn]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Sp St Data Visualiztn",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=37057",
+            "day":"tr",
+            "time":"1200-1320",
+            "max":20,
+            "instructor":"Sane S",
+            "location":"220 DES",
+            "notes":"!",
+            "type":"",
+            "avail":7,
+            "taken":13,
+            "crn":"37057"
+         }
+      ],
+      "number":"399"
+   },
+   "CIS 212 - [Computer Science III >4]":{
+      "credits":"4.00 cr.",
+      "grading":"Graded for Majors;Optional for all other students",
+      "name":"Computer Science III >4",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31627",
+            "day":"tr",
+            "time":"0830-0950",
+            "max":125,
+            "instructor":"Sventek J",
+            "location":"110 FEN",
+            "notes":"! A",
+            "type":"Lecture",
+            "avail":74,
+            "taken":51,
+            "crn":"31627"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31628",
+            "day":"t",
+            "time":"1400-1450",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":4,
+            "taken":21,
+            "crn":"31628"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31630",
+            "day":"t",
+            "time":"1500-1550",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":22,
+            "taken":3,
+            "crn":"31630"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31631",
+            "day":"w",
+            "time":"1500-1550",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":8,
+            "taken":17,
+            "crn":"31631"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36811",
+            "day":"r",
+            "time":"1400-1450",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":18,
+            "taken":7,
+            "crn":"36811"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36814",
+            "day":"r",
+            "time":"1500-1550",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":22,
+            "taken":3,
+            "crn":"36814"
+         }
+      ],
+      "number":"212"
+   },
+   "CIS 510 - [Data Science Studio]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Data Science Studio",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36932",
+            "day":"mw",
+            "time":"1000-1120",
+            "max":15,
+            "instructor":"Fickas S",
+            "location":"42 LIB",
+            "notes":"M",
+            "type":"",
+            "avail":1,
+            "taken":14,
+            "crn":"36932"
+         }
+      ],
+      "number":"510"
+   },
+   "CIS 410 - [Comp Vision]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Comp Vision",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36827",
+            "day":"wf",
+            "time":"1000-1120",
+            "max":15,
+            "instructor":"Shi H",
+            "location":"233 TYKE",
+            "notes":"k",
+            "type":"",
+            "avail":8,
+            "taken":7,
+            "crn":"36827"
+         }
+      ],
+      "number":"410"
+   },
+   "CIS 410 - [Data Science Studio]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Data Science Studio",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36931",
+            "day":"mw",
+            "time":"1000-1120",
+            "max":5,
+            "instructor":"Fickas S",
+            "location":"42 LIB",
+            "notes":"M",
+            "type":"",
+            "avail":0,
+            "taken":5,
+            "crn":"36931"
+         }
+      ],
+      "number":"410"
+   },
+   "CIS 111 - [Intro Web Programming >4]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Intro Web Programming >4",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31607",
+            "day":"tr",
+            "time":"1000-1120",
+            "max":150,
+            "instructor":"Little R",
+            "location":"129 MCK",
+            "notes":"!",
+            "type":"Lecture",
+            "avail":67,
+            "taken":83,
+            "crn":"31607"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31608",
+            "day":"w",
+            "time":"0800-0850",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":21,
+            "taken":4,
+            "crn":"31608"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31609",
+            "day":"w",
+            "time":"0900-0950",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":4,
+            "taken":21,
+            "crn":"31609"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31610",
+            "day":"w",
+            "time":"1200-1250",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":0,
+            "taken":25,
+            "crn":"31610"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31612",
+            "day":"w",
+            "time":"1300-1350",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":0,
+            "taken":25,
+            "crn":"31612"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31613",
+            "day":"f",
+            "time":"0800-0850",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":24,
+            "taken":1,
+            "crn":"31613"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36817",
+            "day":"f",
+            "time":"0900-0950",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":18,
+            "taken":7,
+            "crn":"36817"
+         }
+      ],
+      "number":"111"
+   },
+   "CIS 630 - [Distributed Systems]":{
+      "credits":"4.00 cr.",
+      "grading":"Graded for Majors;Optional for all other students",
+      "name":"Distributed Systems",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31695",
+            "day":"tr",
+            "time":"1400-1520",
+            "max":35,
+            "instructor":"Rejaie R",
+            "location":"253 STB",
+            "notes":"!",
+            "type":"",
+            "avail":26,
+            "taken":9,
+            "crn":"31695"
+         }
+      ],
+      "number":"630"
+   },
+   "CIS 409 - [Prac Supv Consulting]":{
+      "credits":"1.00-2.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Prac Supv Consulting",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31652",
+            "day":"tba",
+            "time":"tba",
+            "max":25,
+            "instructor":"Freeman Hennessy K",
+            "location":"tba",
+            "notes":"!",
+            "type":"",
+            "avail":25,
+            "taken":0,
+            "crn":"31652"
+         }
+      ],
+      "number":"409"
+   },
+   "CIS 510 - [Comp Vision]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Comp Vision",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36829",
+            "day":"wf",
+            "time":"1000-1120",
+            "max":10,
+            "instructor":"tba",
+            "location":"233 TYKE",
+            "notes":"",
+            "type":"",
+            "avail":0,
+            "taken":10,
+            "crn":"36829"
+         }
+      ],
+      "number":"510"
+   },
+   "CIS 602 - [Superv College Teach]":{
+      "credits":"1.00-5.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Superv College Teach",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31681",
+            "day":"tba",
+            "time":"tba",
+            "max":25,
+            "instructor":"STAFF",
+            "location":"tba",
+            "notes":"",
+            "type":"",
+            "avail":25,
+            "taken":0,
+            "crn":"31681"
+         }
+      ],
+      "number":"602"
+   },
+   "CIS 407 - [Sem Prog Challenges]":{
+      "credits":"1.00-2.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Sem Prog Challenges",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31650",
+            "day":"m",
+            "time":"1700-1820",
+            "max":10,
+            "instructor":"Wilson C",
+            "location":"220 DES",
+            "notes":"!",
+            "type":"",
+            "avail":10,
+            "taken":0,
+            "crn":"31650"
+         }
+      ],
+      "number":"407"
+   },
+   "CIS 510 - [Dist Sys & Ntwk Sec]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Dist Sys & Ntwk Sec",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36826",
+            "day":"tr",
+            "time":"1000-1120",
+            "max":5,
+            "instructor":"Li J",
+            "location":"101 VOL",
+            "notes":"",
+            "type":"",
+            "avail":1,
+            "taken":4,
+            "crn":"36826"
+         }
+      ],
+      "number":"510"
+   },
+   "CIS 607 - [Sem D Anlytcs Tens Dec]":{
+      "credits":"2.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Sem D Anlytcs Tens Dec",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36963",
+            "day":"t",
+            "time":"0830-0950",
+            "max":16,
+            "instructor":"Choi J",
+            "location":"200 DES",
+            "notes":"",
+            "type":"",
+            "avail":15,
+            "taken":1,
+            "crn":"36963"
+         }
+      ],
+      "number":"607"
+   },
+   "CIS 110 - [Fluency with Info Tech >3]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Fluency with Info Tech >3",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31597",
+            "day":"mwf",
+            "time":"1500-1550",
+            "max":200,
+            "instructor":"Colbert P",
+            "location":"282 LIL",
+            "notes":"",
+            "type":"Lecture",
+            "avail":165,
+            "taken":35,
+            "crn":"31597"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31598",
+            "day":"m",
+            "time":"1600-1650",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":7,
+            "taken":18,
+            "crn":"31598"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31599",
+            "day":"t",
+            "time":"0900-0950",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":22,
+            "taken":3,
+            "crn":"31599"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31600",
+            "day":"r",
+            "time":"0900-0950",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":23,
+            "taken":2,
+            "crn":"31600"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31601",
+            "day":"w",
+            "time":"1000-1050",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":21,
+            "taken":4,
+            "crn":"31601"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31603",
+            "day":"r",
+            "time":"0800-0850",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":25,
+            "taken":0,
+            "crn":"31603"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31604",
+            "day":"f",
+            "time":"1100-1150",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":18,
+            "taken":7,
+            "crn":"31604"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31605",
+            "day":"t",
+            "time":"1600-1650",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":24,
+            "taken":1,
+            "crn":"31605"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31606",
+            "day":"t",
+            "time":"0800-0850",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":25,
+            "taken":0,
+            "crn":"31606"
+         }
+      ],
+      "number":"110"
+   },
+   "CIS 407 - [Sem Research Colloq]":{
+      "credits":"1.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Sem Research Colloq",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31649",
+            "day":"r",
+            "time":"1530-1650",
+            "max":10,
+            "instructor":"Nguyen T",
+            "location":"220 DES",
+            "notes":"!",
+            "type":"",
+            "avail":9,
+            "taken":1,
+            "crn":"31649"
+         }
+      ],
+      "number":"407"
+   },
+   "CIS 545 - [Modeling & Simulation]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Modeling & Simulation",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31676",
+            "day":"wf",
+            "time":"1600-1720",
+            "max":10,
+            "instructor":"Jiao L",
+            "location":"254 STB",
+            "notes":"",
+            "type":"",
+            "avail":8,
+            "taken":2,
+            "crn":"31676"
+         }
+      ],
+      "number":"545"
+   },
+   "CIS 322 - [Intro Software Engin]":{
+      "credits":"4.00 cr.",
+      "grading":"Graded for Majors;Optional for all other students",
+      "name":"Intro Software Engin",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31637",
+            "day":"wf",
+            "time":"1600-1720",
+            "max":50,
+            "instructor":"Durairajan R",
+            "location":"16 PAC",
+            "notes":"!",
+            "type":"Lecture",
+            "avail":19,
+            "taken":31,
+            "crn":"31637"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31635",
+            "day":"f",
+            "time":"0900-0950",
+            "max":25,
+            "instructor":"tba",
+            "location":"100 DES",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":18,
+            "taken":7,
+            "crn":"31635"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31636",
+            "day":"f",
+            "time":"1100-1150",
+            "max":25,
+            "instructor":"tba",
+            "location":"100 DES",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":1,
+            "taken":24,
+            "crn":"31636"
+         }
+      ],
+      "number":"322"
+   },
+   "CIS 607 - [Sem Al for Social Good]":{
+      "credits":"2.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Sem Al for Social Good",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36965",
+            "day":"m",
+            "time":"1400-1520",
+            "max":16,
+            "instructor":"Nguyen T",
+            "location":"200 DES",
+            "notes":"",
+            "type":"",
+            "avail":10,
+            "taken":6,
+            "crn":"36965"
+         }
+      ],
+      "number":"607"
+   },
+   "CIS 610 - [Supervised Consulting]":{
+      "credits":"1.00-2.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Supervised Consulting",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31694",
+            "day":"tba",
+            "time":"tba",
+            "max":15,
+            "instructor":"Freeman Hennessy K",
+            "location":"tba",
+            "notes":"",
+            "type":"",
+            "avail":15,
+            "taken":0,
+            "crn":"31694"
+         }
+      ],
+      "number":"610"
+   },
+   "CIS 415 - [Operating Systems]":{
+      "credits":"4.00 cr.",
+      "grading":"Graded for all students",
+      "name":"Operating Systems",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31656",
+            "day":"tr",
+            "time":"1400-1520",
+            "max":75,
+            "instructor":"Malony A",
+            "location":"125 MCK",
+            "notes":"! A",
+            "type":"Lecture",
+            "avail":21,
+            "taken":54,
+            "crn":"31656"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31657",
+            "day":"f",
+            "time":"1000-1050",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Dis",
+            "avail":0,
+            "taken":25,
+            "crn":"31657"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31658",
+            "day":"f",
+            "time":"1200-1250",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Dis",
+            "avail":10,
+            "taken":15,
+            "crn":"31658"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31659",
+            "day":"f",
+            "time":"1300-1350",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Dis",
+            "avail":11,
+            "taken":14,
+            "crn":"31659"
+         }
+      ],
+      "number":"415"
+   },
+   "CIS 211 - [Computer Science II >4]":{
+      "credits":"4.00 cr.",
+      "grading":"Graded for Majors;Optional for all other students",
+      "name":"Computer Science II >4",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31623",
+            "day":"tr",
+            "time":"0830-0950",
+            "max":125,
+            "instructor":"Young M",
+            "location":"129 MCK",
+            "notes":"! A",
+            "type":"Lecture",
+            "avail":87,
+            "taken":38,
+            "crn":"31623"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31621",
+            "day":"t",
+            "time":"1200-1250",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":9,
+            "taken":16,
+            "crn":"31621"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31622",
+            "day":"t",
+            "time":"1300-1350",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":23,
+            "taken":2,
+            "crn":"31622"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31624",
+            "day":"w",
+            "time":"1100-1150",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":13,
+            "taken":12,
+            "crn":"31624"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31625",
+            "day":"r",
+            "time":"1100-1150",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":19,
+            "taken":6,
+            "crn":"31625"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31626",
+            "day":"r",
+            "time":"1200-1250",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":23,
+            "taken":2,
+            "crn":"31626"
+         }
+      ],
+      "number":"211"
+   },
+   "CIS 510 - [Game Programming]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Game Programming",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31672",
+            "day":"wf",
+            "time":"1200-1320",
+            "max":5,
+            "instructor":"Wills E",
+            "location":"204 TYKE",
+            "notes":"",
+            "type":"",
+            "avail":3,
+            "taken":2,
+            "crn":"31672"
+         }
+      ],
+      "number":"510"
+   },
+   "CIS 604 - [Internship]":{
+      "credits":"1.00-4.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Internship",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31683",
+            "day":"tba",
+            "time":"tba",
+            "max":10,
+            "instructor":"STAFF",
+            "location":"tba",
+            "notes":"",
+            "type":"",
+            "avail":10,
+            "taken":0,
+            "crn":"31683"
+         }
+      ],
+      "number":"604"
+   },
+   "CIS 445 - [Modeling & Simulation]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Modeling & Simulation",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31665",
+            "day":"wf",
+            "time":"1600-1720",
+            "max":20,
+            "instructor":"Jiao L",
+            "location":"254 STB",
+            "notes":"!",
+            "type":"",
+            "avail":14,
+            "taken":6,
+            "crn":"31665"
+         }
+      ],
+      "number":"445"
+   },
+   "CIS 403 - [Thesis]":{
+      "credits":"1.00-12.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Thesis",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31642",
+            "day":"tba",
+            "time":"tba",
+            "max":10,
+            "instructor":"STAFF",
+            "location":"tba",
+            "notes":"!",
+            "type":"",
+            "avail":8,
+            "taken":2,
+            "crn":"31642"
+         }
+      ],
+      "number":"403"
+   },
+   "CIS 503 - [Thesis]":{
+      "credits":"1.00-16.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Thesis",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31668",
+            "day":"tba",
+            "time":"tba",
+            "max":25,
+            "instructor":"STAFF",
+            "location":"tba",
+            "notes":"",
+            "type":"",
+            "avail":25,
+            "taken":0,
+            "crn":"31668"
+         }
+      ],
+      "number":"503"
+   },
+   "CIS 401 - [Research]":{
+      "credits":"1.00-21.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Research",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31641",
+            "day":"tba",
+            "time":"tba",
+            "max":10,
+            "instructor":"STAFF",
+            "location":"tba",
+            "notes":"!",
+            "type":"",
+            "avail":10,
+            "taken":0,
+            "crn":"31641"
+         }
+      ],
+      "number":"401"
+   },
+   "CIS 507 - [Sem Career/Internships]":{
+      "credits":"2.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Sem Career/Internships",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31670",
+            "day":"m",
+            "time":"1530-1650",
+            "max":15,
+            "instructor":"Wills E",
+            "location":"220 DES",
+            "notes":"",
+            "type":"",
+            "avail":15,
+            "taken":0,
+            "crn":"31670"
+         }
+      ],
+      "number":"507"
+   },
+   "CIS 410 - [Dist Sys & Ntwk Sec]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Dist Sys & Ntwk Sec",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36819",
+            "day":"tr",
+            "time":"1000-1120",
+            "max":20,
+            "instructor":"Li J",
+            "location":"101 VOL",
+            "notes":"!",
+            "type":"",
+            "avail":16,
+            "taken":4,
+            "crn":"36819"
+         }
+      ],
+      "number":"410"
+   },
+   "CIS 510 - [Multi-Agent Systems]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Multi-Agent Systems",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31671",
+            "day":"mw",
+            "time":"1600-1720",
+            "max":15,
+            "instructor":"Nguyen T",
+            "location":"340 TYKE",
+            "notes":"",
+            "type":"",
+            "avail":11,
+            "taken":4,
+            "crn":"31671"
+         }
+      ],
+      "number":"510"
+   },
+   "CIS 601 - [Research]":{
+      "credits":"1.00-16.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Research",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31679",
+            "day":"tba",
+            "time":"tba",
+            "max":50,
+            "instructor":"STAFF",
+            "location":"tba",
+            "notes":"",
+            "type":"",
+            "avail":48,
+            "taken":2,
+            "crn":"31679"
+         }
+      ],
+      "number":"601"
+   },
+   "CIS 330 - [C/C++ and Unix]":{
+      "credits":"4.00 cr.",
+      "grading":"Graded for all students",
+      "name":"C/C++ and Unix",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31638",
+            "day":"mw",
+            "time":"1000-1120",
+            "max":76,
+            "instructor":"Choi J",
+            "location":"110 WIL",
+            "notes":"! A",
+            "type":"Lecture",
+            "avail":41,
+            "taken":35,
+            "crn":"31638"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31639",
+            "day":"f",
+            "time":"1000-1050",
+            "max":76,
+            "instructor":"tba",
+            "location":"110 WIL",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":41,
+            "taken":35,
+            "crn":"31639"
+         }
+      ],
+      "number":"330"
+   },
+   "CIS 405 - [Reading]":{
+      "credits":"1.00-12.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Reading",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31645",
+            "day":"tba",
+            "time":"tba",
+            "max":15,
+            "instructor":"STAFF",
+            "location":"tba",
+            "notes":"!",
+            "type":"",
+            "avail":15,
+            "taken":0,
+            "crn":"31645"
+         }
+      ],
+      "number":"405"
+   },
+   "CIS 122 - [Intro Prg & Prob Solv >4]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Intro Prg & Prob Solv >4",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31614",
+            "day":"mwf",
+            "time":"0900-0950",
+            "max":150,
+            "instructor":"Wilkins D",
+            "location":"182 LIL",
+            "notes":"!",
+            "type":"Lecture",
+            "avail":105,
+            "taken":45,
+            "crn":"31614"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31615",
+            "day":"m",
+            "time":"1000-1050",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":4,
+            "taken":21,
+            "crn":"31615"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31616",
+            "day":"m",
+            "time":"1100-1150",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":20,
+            "taken":5,
+            "crn":"31616"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31617",
+            "day":"m",
+            "time":"1200-1250",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":20,
+            "taken":5,
+            "crn":"31617"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31618",
+            "day":"m",
+            "time":"1300-1350",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":18,
+            "taken":7,
+            "crn":"31618"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31619",
+            "day":"t",
+            "time":"1000-1050",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":21,
+            "taken":4,
+            "crn":"31619"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31620",
+            "day":"t",
+            "time":"1100-1150",
+            "max":25,
+            "instructor":"tba",
+            "location":"026 KLA",
+            "notes":"",
+            "type":"+ Lab",
+            "avail":22,
+            "taken":3,
+            "crn":"31620"
+         }
+      ],
+      "number":"122"
+   },
+   "CIS 510 - [Computational Science]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Computational Science",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36865",
+            "day":"tr",
+            "time":"0830-0950",
+            "max":5,
+            "instructor":"Erickson B",
+            "location":"101 VOL",
+            "notes":"",
+            "type":"",
+            "avail":0,
+            "taken":5,
+            "crn":"36865"
+         }
+      ],
+      "number":"510"
+   },
+   "CIS 510 - [Secure SW Development]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Secure SW Development",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36831",
+            "day":"mw",
+            "time":"1400-1520",
+            "max":5,
+            "instructor":"tba",
+            "location":"101 VOL",
+            "notes":"",
+            "type":"",
+            "avail":3,
+            "taken":2,
+            "crn":"36831"
+         }
+      ],
+      "number":"510"
+   },
+   "CIS 605 - [Reading]":{
+      "credits":"1.00-16.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Reading",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31684",
+            "day":"tba",
+            "time":"tba",
+            "max":30,
+            "instructor":"STAFF",
+            "location":"tba",
+            "notes":"",
+            "type":"",
+            "avail":30,
+            "taken":0,
+            "crn":"31684"
+         }
+      ],
+      "number":"605"
+   },
+   "CIS 609 - [Final Project]":{
+      "credits":"1.00-16.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Final Project",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31693",
+            "day":"tba",
+            "time":"tba",
+            "max":10,
+            "instructor":"STAFF",
+            "location":"tba",
+            "notes":"",
+            "type":"",
+            "avail":10,
+            "taken":0,
+            "crn":"31693"
+         }
+      ],
+      "number":"609"
+   },
+   "CIS 410 - [Multi-Agent Systems]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Multi-Agent Systems",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31655",
+            "day":"mw",
+            "time":"1600-1720",
+            "max":15,
+            "instructor":"Nguyen T",
+            "location":"340 TYKE",
+            "notes":"!",
+            "type":"",
+            "avail":13,
+            "taken":2,
+            "crn":"31655"
+         }
+      ],
+      "number":"410"
+   },
+   "CIS 406 - [Field Studies]":{
+      "credits":"1.00-4.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Field Studies",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31648",
+            "day":"tba",
+            "time":"tba",
+            "max":10,
+            "instructor":"STAFF",
+            "location":"tba",
+            "notes":"!",
+            "type":"",
+            "avail":10,
+            "taken":0,
+            "crn":"31648"
+         }
+      ],
+      "number":"406"
+   },
+   "CIS 410 - [Secure SW Development]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Secure SW Development",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36830",
+            "day":"mw",
+            "time":"1400-1520",
+            "max":20,
+            "instructor":"Li J",
+            "location":"101 VOL",
+            "notes":"!",
+            "type":"",
+            "avail":9,
+            "taken":11,
+            "crn":"36830"
+         }
+      ],
+      "number":"410"
+   },
+   "CIS 572 - [Machine Learning]":{
+      "credits":"4.00 cr.",
+      "grading":"Graded for Majors;Optional for all other students",
+      "name":"Machine Learning",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31678",
+            "day":"tr",
+            "time":"1200-1320",
+            "max":20,
+            "instructor":"Nguyen T",
+            "location":"105 ESL",
+            "notes":"",
+            "type":"",
+            "avail":15,
+            "taken":5,
+            "crn":"31678"
+         }
+      ],
+      "number":"572"
+   },
+   "CIS 522 - [Software Method I]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Software Method I",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31674",
+            "day":"tr",
+            "time":"1000-1120",
+            "max":2,
+            "instructor":"Hornof A",
+            "location":"116 ESL",
+            "notes":"A",
+            "type":"",
+            "avail":2,
+            "taken":0,
+            "crn":"31674"
+         }
+      ],
+      "number":"522"
+   },
+   "CIS 410 - [Game Programming]":{
+      "credits":"4.00 cr.",
+      "grading":"Optional for all students",
+      "name":"Game Programming",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31654",
+            "day":"wf",
+            "time":"1200-1320",
+            "max":55,
+            "instructor":"Wills E",
+            "location":"204 TYKE",
+            "notes":"!",
+            "type":"",
+            "avail":0,
+            "taken":55,
+            "crn":"31654"
+         }
+      ],
+      "number":"410"
+   },
+   "CIS 404 - [Internship]":{
+      "credits":"1.00-4.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Internship",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31643",
+            "day":"tba",
+            "time":"tba",
+            "max":10,
+            "instructor":"STAFF",
+            "location":"tba",
+            "notes":"!",
+            "type":"",
+            "avail":10,
+            "taken":0,
+            "crn":"31643"
+         }
+      ],
+      "number":"404"
+   },
+   "CIS 422 - [Software Method I]":{
+      "credits":"4.00 cr.",
+      "grading":"Graded for all students",
+      "name":"Software Method I",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31661",
+            "day":"tr",
+            "time":"1000-1120",
+            "max":35,
+            "instructor":"Hornof A",
+            "location":"116 ESL",
+            "notes":"! A",
+            "type":"",
+            "avail":1,
+            "taken":34,
+            "crn":"31661"
+         }
+      ],
+      "number":"422"
+   },
+   "CIS 607 - [Sem Edge Computing]":{
+      "credits":"2.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Sem Edge Computing",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31688",
+            "day":"f",
+            "time":"1400-1520",
+            "max":10,
+            "instructor":"Jiao L",
+            "location":"220 DES",
+            "notes":"",
+            "type":"",
+            "avail":8,
+            "taken":2,
+            "crn":"31688"
+         }
+      ],
+      "number":"607"
+   },
+   "CIS 603 - [Dissertation]":{
+      "credits":"1.00-16.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Dissertation",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31682",
+            "day":"tba",
+            "time":"tba",
+            "max":15,
+            "instructor":"STAFF",
+            "location":"tba",
+            "notes":"",
+            "type":"",
+            "avail":15,
+            "taken":0,
+            "crn":"31682"
+         }
+      ],
+      "number":"603"
+   },
+   "CIS 425 - [Princ of Program Lang]":{
+      "credits":"4.00 cr.",
+      "grading":"Graded for all students",
+      "name":"Princ of Program Lang",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31662",
+            "day":"mw",
+            "time":"0830-0950",
+            "max":75,
+            "instructor":"Ariola Z",
+            "location":"229 MCK",
+            "notes":"! A",
+            "type":"Lecture",
+            "avail":29,
+            "taken":46,
+            "crn":"31662"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31663",
+            "day":"f",
+            "time":"0830-0950",
+            "max":75,
+            "instructor":"tba",
+            "location":"229 MCK",
+            "notes":"",
+            "type":"+ Dis",
+            "avail":29,
+            "taken":46,
+            "crn":"31663"
+         }
+      ],
+      "number":"425"
+   },
+   "CIS 640 - [Writing in Comput Res]":{
+      "credits":"2.00 cr.",
+      "grading":"Pass/No Pass Only for all students",
+      "name":"Writing in Comput Res",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=36967",
+            "day":"w",
+            "time":"1530-1650",
+            "max":16,
+            "instructor":"Hornof A",
+            "location":"200 DES",
+            "notes":"",
+            "type":"",
+            "avail":14,
+            "taken":2,
+            "crn":"36967"
+         }
+      ],
+      "number":"640"
+   },
+   "CIS 315 - [Intermed Algorithms]":{
+      "credits":"4.00 cr.",
+      "grading":"Graded for all students",
+      "name":"Intermed Algorithms",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31632",
+            "day":"mwf",
+            "time":"1400-1450",
+            "max":80,
+            "instructor":"Wilson C",
+            "location":"123 PAC",
+            "notes":"! A",
+            "type":"Lecture",
+            "avail":34,
+            "taken":46,
+            "crn":"31632"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31633",
+            "day":"f",
+            "time":"1200-1250",
+            "max":40,
+            "instructor":"tba",
+            "location":"107 ESL",
+            "notes":"",
+            "type":"+ Dis",
+            "avail":24,
+            "taken":16,
+            "crn":"31633"
+         },
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31634",
+            "day":"f",
+            "time":"1300-1350",
+            "max":40,
+            "instructor":"tba",
+            "location":"107 ESL",
+            "notes":"",
+            "type":"+ Dis",
+            "avail":10,
+            "taken":30,
+            "crn":"31634"
+         }
+      ],
+      "number":"315"
+   },
+   "CIS 472 - [Machine Learning]":{
+      "credits":"4.00 cr.",
+      "grading":"Graded for Majors;Optional for all other students",
+      "name":"Machine Learning",
+      "subject":"CIS",
+      "sections":[
+         {
+            "url":"http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=201903&crn=31667",
+            "day":"tr",
+            "time":"1200-1320",
+            "max":40,
+            "instructor":"Nguyen T",
+            "location":"105 ESL",
+            "notes":"!",
+            "type":"",
+            "avail":24,
+            "taken":16,
+            "crn":"31667"
+         }
+      ],
+      "number":"472"
+   }
+}
