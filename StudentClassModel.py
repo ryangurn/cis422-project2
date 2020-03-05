@@ -37,16 +37,13 @@ class StudentClassModel:
 
     def associate(self, student_id, class_id):
         """
-        Insert method for the class model that allows the caller to provide the specified
-        information and create a record within the database, this will return the id of
-        the row created.
+        Associate will allow you to insert a record into the students_classes model
+        and create a relationship between a student and class based on completion of
+        the couse.
 
         :param
-        name :str
-        subject :str
-        number :str
-        credits :str
-        sections :str
+        student_id :int
+        class_id :int
 
         Example Usage:
         scm = StudentModel.StudentModel('testing.db')
@@ -63,30 +60,26 @@ class StudentClassModel:
 
     def disassociate(self, student_id, class_id):
         """
-        Insert method for the class model that allows the caller to provide the specified
-        information and create a record within the database, this will return the id of
-        the row created.
+        The disassociate function allows you to delete the relationship between the student
+        and class model. This should also help update the list in the case of a reload of the
+        view later on.
 
         :param
-        name :str
-        subject :str
-        number :str
-        credits :str
-        sections :str
+        student_id :int
+        class_id :int
 
         Example Usage:
         scm = StudentModel.StudentModel('testing.db')
-        scm.associate(1, 3) where 1 is the student_id and 3 is the class_id
+        scm.disassociate(1, 3) where 1 is the student_id and 3 is the class_id
         """
-        sql = "DELETE FROM \"main\".\"students_classes\" WHERE students_id = '{}' AND classes_id = '{}';".format(student_id, class_id)
+        sql = "DELETE FROM \"main\".\"students_classes\" WHERE \"students_id\" = '{}' AND \"classes_id\" = '{}';".format(student_id, class_id)
         cur = self.conn.cursor()
         try:
             cur.execute(sql)
+            self.conn.commit()
         except ValueError:
             return cur.fetchall()
         return cur.fetchall()
-
-    """DELETE FROM "main"."students_classes" WHERE _rowid_ IN ('27');"""
 
     def find(self, haystack, needle):
         """
@@ -102,7 +95,7 @@ class StudentClassModel:
         scm = StudentClassModel.StudentClassModel('testing.db')
         scm.find("student_id", 1)
         """
-        sql = "SELECT * FROM \"main\".\"students\" WHERE \"{}\" = \"{}\"".format(haystack, needle)
+        sql = "SELECT * FROM \"main\".\"students_classes\" WHERE \"{}\" = \"{}\"".format(haystack, needle)
         cur = self.conn.cursor()
         try:
             cur.execute(sql)
