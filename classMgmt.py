@@ -104,4 +104,5 @@ class classMgmt(tk.Tk):
         MsgBox = tk.messagebox.askquestion ('Delete Conifrmation','Are you sure you would like to delete this class', icon = 'warning')
         if MsgBox == 'yes':
             self.takenClasses.delete(index)
+            # TODO: remove the associated student class from sqlite
         

@@ -98,16 +98,10 @@ class mainMenu(tk.Tk):
     def loadLB(self):
         self.numberOfNames = 0
         self.nameList = []
-        with open('names.csv', 'r') as csv_file:
-            csv_reader = csv.reader(csv_file)
-            for line in csv_reader:
-                # Adds each name to list
-                self.nameList.append(line[0])
-                # Updates the number of students in list
-                self.numberOfNames += 1
-        for i in range(0, self.numberOfNames):
-		    # Inserts name data into listbox
-            self.lb.insert(i, self.nameList[i])
+        # TODO: HOOK UP DB
+        # self.nameList.append(line[0])
+        # self.numberOfNames += 1
+        # self.lb.insert(i, self.nameList[i])
 
     def update_listbox(self, *args):
         self.loadLB()
