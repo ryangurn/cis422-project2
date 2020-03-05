@@ -41,8 +41,20 @@ class ClassManagement(tk.Tk):
         self.courseSubjects.bind("<Double-Button-1>", self.subjectClick)
         self.offeredCourses = Listbox(self.newWindow, selectmode="browse", bg="#ffcc00", width=35, borderwidth=2,
                                       font=courseFont)
+
         self.offeredCourses.bind("<Double-Button-1>", self.courseClick)
-        self.takenClasses = Listbox(self.newWindow, selectmode="browse", bg="red", width=40, borderwidth=2)
+        self.takenClasses = Listbox(self.newWindow, selectmode="browse", bg="#ffcc00", width=40, borderwidth=2)
+
+        # add in previously taken classes
+        scm = StudentClassModel.StudentClassModel(self.db)
+        prev = scm.find('students_id', self.student_id)
+        for i in prev:
+            class_id = i[2]
+
+            cm = ClassModel.ClassModel(self.db)
+            clas = cm.find_by('id', class_id)
+            self.takenClasses.insert(END, self._compose(clas))
+
         self.takenClasses.bind("<Double-Button-1>", self.removeClass)
         # self.courseSubjects.pack(side = "left", fill = NONE, expand = FALSE, padx = 10, pady = 10)
         self.courseSubjects.place(x=10, y=50, height=325)
@@ -56,17 +68,9 @@ class ClassManagement(tk.Tk):
         goHome.bind("<Double-Button-1>", self.goHomeClick)
         goHome.place(x=605, y=380, height=15)
 
-        saveData = Label(self.newWindow, text='Save Data')
-        saveData.config(font=("Arial Bold", 13), bg="#369148", fg="#ffcc00")
-        saveData.bind("<Double-Button-1>", self.saveDataClick)
-        saveData.place(x=505, y=380, height=15)
-
     def goHomeClick(self, event):
         # mainMenu(self.master)
         self.newWindow.destroy()
-
-    def saveDataClick(self, event):
-        print("Send data to SQL")
 
     def subjectClick(self, event):
         w = event.widget
@@ -81,39 +85,23 @@ class ClassManagement(tk.Tk):
                 self.offeredCourses.insert(key, insertLine)
 
     def courseClick(self, event):
-        """
-        courseData = []
-        w = event.widget
-        index = int(w.curselection()[0])
-        value = w.get(index)
-        currentCourse = value
-        self.courseBio.delete(0, END)
-        courseData.append("Instructor: " + get_sec_instructor(currentCourse, 0))
-        courseData.append("Room: " + get_sec_location(currentCourse, 0))
-        courseData.append("Schedule: " + get_sec_days(currentCourse, 0) + " - " + get_sec_times(currentCourse, 0))
-        courseData.append("Credits: " + get_credits(currentCourse))
-        courseData.append("Grading: " + get_grading(currentCourse))
-        courseData.append("Notes: " + get_sec_notes(currentCourse, 0))
-        for i in range(len(courseData)):
-            self.courseBio.insert(i, courseData[i])
-        """
         w = event.widget
         if not w.curselection() == ():
             index = int(w.curselection()[0])
             currentCourse = w.get(index)
-
-            # locate class record
-            cm = ClassModel.ClassModel(self.db)
-            clas = cm.find_course(self._decompose(currentCourse)[2], self._decompose(currentCourse)[0],
+            if not self._contain(currentCourse, self.takenClasses):
+                # locate class record
+                cm = ClassModel.ClassModel(self.db)
+                clas = cm.find_course(self._decompose(currentCourse)[2], self._decompose(currentCourse)[0],
                                       self._decompose(currentCourse)[1])
-            class_id = clas[0][0]
+                class_id = clas[0][0]
 
-            # associate the item
-            scm = StudentClassModel.StudentClassModel(self.db)
-            scm.associate(self.student_id, class_id)
+                # associate the item
+                scm = StudentClassModel.StudentClassModel(self.db)
+                scm.associate(self.student_id, class_id)
 
-            # insert item into the list
-            self.takenClasses.insert(END, currentCourse)
+                # insert item into the list
+                self.takenClasses.insert(END, currentCourse)
 
     def removeClass(self, event):
         w = event.widget
@@ -124,18 +112,15 @@ class ClassManagement(tk.Tk):
                                                'Are you sure you would like to delete this class',
                                                icon='warning')
             if MsgBox == 'yes':
-                print(self._decompose(currentCourse))
-
                 cm = ClassModel.ClassModel(self.db)
                 clas = cm.find_course(self._decompose(currentCourse)[2], self._decompose(currentCourse)[0],
                                       self._decompose(currentCourse)[1])
                 class_id = clas[0][0]
 
                 scm = StudentClassModel.StudentClassModel(self.db)
-                print(scm.disassociate(self.student_id, class_id))
+                scm.disassociate(self.student_id, class_id)
+
                 self.takenClasses.delete(index)
-
-
 
     def _decompose(self, str):
         split = str.split(" ")
@@ -146,4 +131,8 @@ class ClassManagement(tk.Tk):
         return subject, code, course
 
     def _compose(self, value):
-        return value[3] + " " + value[4] + " - [" + value[2] + "]"
+        v = value[0]
+        return v[3] + " " + v[4] + " - [" + v[2] + "]"
+
+    def _contain(self, item, box):
+        return item in box.get(0, "end")
