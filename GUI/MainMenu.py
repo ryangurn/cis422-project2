@@ -12,83 +12,90 @@ import sqlite3
 class MainMenu(tk.Tk):
     def __init__(self, master, db_file):
         self.db = db_file
+        self._lightGrey = "#b8b8b8"
+        self._backgroundColor = "#323232"
+        self._darkGrey = "#282929"
+        self._green = "#369148"
+        self._yellow = "#ffcc00"
+        self._button = "<Button-1>"
+
         self.master = master
-        master.geometry("810x600")
+        master.geometry("800x600+120+120")
         master.title("RegTools")
-        master.configure(background="#323232")
+        master.configure(background=self._backgroundColor)
         self.nameList = []
         self.numberOfNames = 0
-        grayBoxFrame = Frame(master, width=810, height=390, bg="#262929")
-        grayBoxFrame.place(x=0, y=150)
-        fr = Frame(master, width=200, height=200, bg="#369148")
-        fr.place(x=310, y=280)
 
+        # Dark grey background box
+        grayBoxFrame = Frame(master, width = 800, height = 390, bg=self._darkGrey)
+        grayBoxFrame.place(x = 0, y = 150)
+        fr = Frame(master, width=200, height=200, bg=self._green)
+        fr.place(x=300,y=252)
+
+        # Creates Menu Bar
         menubar = Menu(self.master)
         self.master.config(menu=menubar)
 
-        addStudentButton = Label(master, text='Add Student')
-        addStudentButton.config(font=("Arial Bold", 13), bg="#369148", fg="#ffcc00")
-        addStudentButton.place(x=358, y=495, height=27, width=106)
-
-        # button1.bind()
-        addStudentButton.bind("<Double-Button-1>", self.addStudentButtonClick)
+        # Add Student label
+        studentBtn = Label(master, text='Add Student')
+        studentBtn.config(font=("Arial Bold", 13), bg=self._green, fg=self._yellow)
+        studentBtn.place(x=348,y=465, height=27, width=106)
+        studentBtn.bind(self._button, self.addStudentButtonClick)
 
         logo = PhotoImage(file="./img/RegToolsLogo.gif")
-        label = Label(image=logo, borderwidth=0)
+        label = Label(image = logo, borderwidth = 0)
         label.image = logo
-        label.place(x=100, y=40)
+        label.place(x=100,y=40)
 
-        # Makes the really cool RegTool title
-        oolsLabel = Label(master, text='')
-        oolsLabel.place(x=95, y=40, height=5, width=620)
-        oolsLabel.config(font=("Mincho Bold", 60))
-        oolsLabel.config(bg="#323232", fg="#323232")
+        # Makes RegTool title
+        logoPad = Label(master, text='')
+        logoPad.place(x=95,y=40, height=5, width=620)
+        logoPad.config(bg=self._backgroundColor)
+        logoPad = Label(master, text='')
+        logoPad.place(x=98,y=40, height=90, width=5)
+        logoPad.config(bg=self._backgroundColor)
+        logoPad = Label(master, text='')
+        logoPad.place(x=701,y=40, height=90, width=5)
+        logoPad.config(bg=self._backgroundColor)
+        logoPad = Label(master, text='')
+        logoPad.place(x=95,y=121, height=5, width=620)
+        logoPad.config(bg=self._backgroundColor)
 
-        oolsLabel = Label(master, text='')
-        oolsLabel.place(x=98, y=40, height=90, width=5)
-        oolsLabel.config(font=("Mincho Bold", 60))
-        oolsLabel.config(bg="#323232", fg="#323232")
 
-        oolsLabel = Label(master, text='')
-        oolsLabel.place(x=701, y=40, height=90, width=5)
-        oolsLabel.config(font=("Mincho Bold", 60))
-        oolsLabel.config(bg="#323232", fg="#323232")
-
-        oolsLabel = Label(master, text='')
-        oolsLabel.place(x=95, y=121, height=5, width=620)
-        oolsLabel.config(font=("Mincho Bold", 60))
-        oolsLabel.config(bg="#323232", fg="#323232")
-
-        # "Search" Label
-        self.lb = Listbox(fr, selectmode="browse", bg="#323232", selectbackground="#05761B")
+        # Name listbox properties
+        self.lb = Listbox(fr,selectmode="browse",bg=self._backgroundColor, selectbackground=self._green)
         self.loadLB()
-        self.lb.config(font=("Mincho Bold", 16), fg="#e6e6e6")
-        self.lb.place(x=5, y=5, height=190, width=190)
-        self.lb.bind("<Double-Button-1>", self.onClick)
+        self.lb.config(font=("Mincho Bold", 16),fg="#e6e6e6")
+        self.lb.place(x = 5, y = 5, height = 190, width = 190)
+        self.lb.bind('<Double-Button-1>', self.onClick)
         self.lb.bind("d", self.deleteName)
 
+        # "Search" Label
         searchLabel = Label(master, text='Search:')
-        searchLabel.place(x=290, y=205, height=40, width=80)
-        searchLabel.config(font=("Arial Bold", 16))
-        searchLabel.config(bg="#262929", fg="#ffcc00")
+        searchLabel.place(x=290,y=205, height=40, width=80)
+        searchLabel.config(font=("Arial Bold", 16), bg=self._darkGrey, fg=self._yellow)
 
-        # Creates the search textbox/entrybox
+
         self.nameVar = StringVar()
         self.search_var = StringVar()
         self.search_var.trace('w', self.update_listbox)
-        searchbox = Entry(master, textvariable=self.search_var, bg="#b8b8b8")
+
+        # Creates the search textbox/entrybox
+        searchbox = Entry(master, textvariable=self.search_var, bg=self._lightGrey)
+        searchbox.place(x=360,y=215, height=20, width=141)
         searchbox.config(highlightthickness=0)
-        searchbox.place(x=360, y=215, height=20, width=145)
 
+        # 'D' Key label
         dKeyLabel = Label(master, text='= Deletes Name')
-        dKeyLabel.place(x=547, y=550, height=30, width=200)
+        dKeyLabel.place(x=547,y=550, height=30, width=200)
         dKeyLabel.config(font=("Arial Bold", 18))
-        dKeyLabel.config(bg="#323232", fg="Grey")
+        dKeyLabel.config(bg=self._backgroundColor, fg="Grey")
 
+        # Key label
         dKey = Label(master, text="'D'")
-        dKey.place(x=543, y=550, height=30, width=30)
+        dKey.place(x=543,y=550, height=30, width=30)
         dKey.config(font=("Arial Bold", 20))
-        dKey.config(bg="Grey", fg="#323232")
+        dKey.config(bg="Grey", fg=self._backgroundColor)
 
     def loadLB(self):
         self.numberOfNames = 0
