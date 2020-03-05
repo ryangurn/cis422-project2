@@ -2,12 +2,10 @@ import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
 from tkinter import font
-import ClassModel
-import StudentClassModel
+from tkinter.ttk import Notebook, Entry
 import StudentModel
-
-
-# import GUI.classRoadmap
+import StudentClassModel
+import ClassModel
 
 
 class ClassManagement(tk.Tk):
@@ -29,6 +27,7 @@ class ClassManagement(tk.Tk):
         self._buttonWidth = 60
         self._buttonText = ("Arial Bold", 16)
 
+        self.studentName = studentName
         self.master = master
         self.window = Frame(master, bg=self._darkGrey, height=800, width=800)
         self.window.place(x=0, y=125)
@@ -40,11 +39,11 @@ class ClassManagement(tk.Tk):
         logoUO = PhotoImage(file="./img/UOicon.gif")
         labelUO = Label(self.windowTop, image=logoUO, borderwidth=0)
         labelUO.image = logoUO
-        labelUO.place(x=670, y=5)
+        labelUO.place(x=670, y=4)
 
         # Title of the window (Not top menu)
         title = Label(self.windowTop, text='CLASS SELECTION', borderwidth=0)
-        title.config(font=("Arial", 50), bg=self._grey, fg=self._yellow)
+        title.config(font=("Arial", 44), bg=self._grey, fg=self._yellow)
         title.place(x=10, y=22, width=500, height=80)
 
         # Green line
@@ -72,7 +71,7 @@ class ClassManagement(tk.Tk):
         info.place(x=486, y=345, height=self._buttonHeight, width=278)
 
         # Category classes label
-        category = Label(self.window, text="Category", background=self._green, font=self._buttonText, fg=self._darkGrey)
+        category = Label(self.window, text="Subject", background=self._green, font=self._buttonText, fg=self._darkGrey)
         category.place(x=31, y=50, height=self._buttonHeight, width=90)
 
         # Course classes label
@@ -82,8 +81,8 @@ class ClassManagement(tk.Tk):
         subfont = font.Font(family="Helvetica", size=26)
         courseFont = font.Font(family="Helvetica", size=16)
         self.courseSubjects = Listbox(self.window, selectmode="browse", bg=self._yellow, fg=self._darkGrey,
-                                      selectbackground=self._green, font=subfont)
-        self.courseSubjects.place(x=30, y=80, height=295, width=92)
+                                      selectbackground=self._green, width=6, font=subfont)
+        self.courseSubjects.place(x=30, y=80, height=295)
         self.courseSubjects.bind(self._button, self.subjectClick)
 
         cm = ClassModel.ClassModel(self.db)
@@ -103,8 +102,8 @@ class ClassManagement(tk.Tk):
 
         # Offered Classes listbox
         self.offeredCourses = Listbox(self.window, selectmode="browse", bg=self._lightGrey, fg=self._darkGrey,
-                                      selectbackground=self._yellow, font=courseFont)
-        self.offeredCourses.place(x=130, y=80, height=255, width=317)
+                                      selectbackground=self._yellow, width=35, font=courseFont)
+        self.offeredCourses.place(x=130, y=80, height=255)
         self.offeredCourses.bind(self._button, self.courseClick)
 
         # Taken Classes listbox
@@ -174,8 +173,262 @@ class ClassManagement(tk.Tk):
         print("Send data to SQL")
 
     def classRoadmap(self, event):
-        print("Send data to SQL")
-        ClassRoadmap(self.master, studentName)
+        print("bet")
+        self.idx = 0
+
+        def box1_update():
+            # Updates listbox 1 with class data given the key
+            self.listBx1
+            for i in range(len(classMap[self.classMapKeys[self.idx]])):
+                self.listBx1.insert(0, classMap[self.classMapKeys[self.idx]][i])
+
+        def box2_update():
+            # Updates listbox 2 with class data given the key
+            self.listBx2
+            for i in range(len(classMap[self.classMapKeys[self.idx + 1]])):
+                self.listBx2.insert(0, classMap[self.classMapKeys[self.idx + 1]][i])
+
+        def box3_update():
+            # Updates listbox 3 with class data given the key
+            self.listBx3
+            for i in range(len(classMap[self.classMapKeys[2]])):
+                self.listBx3.insert(0, classMap[self.classMapKeys[self.idx + 2]][i])
+
+        def box4_update():
+            # Updates listbox 4 with class data given the key
+            self.listBx4
+            for i in range(len(classMap[self.classMapKeys[self.idx + 3]])):
+                self.listBx4.insert(0, classMap[self.classMapKeys[self.idx + 3]][i])
+
+        def update_next(event):
+            # Function for the "Next" button
+            self.idx
+            # Checks to see if end has been reached
+            if (self.idx >= (len(classMap) - 4)):
+                return
+            else:
+                # Sets button to green
+                buttonPrev.config(background="#369148", fg="#e6e6e6")
+
+                if ((self.idx >= len(classMap) - 5)):
+                    # Sets button to grey
+                    buttonNext.config(background="#808080", fg="#e6e6e6")
+
+                self.idx += 1
+                # Erases listboxes
+                self.listBx1.delete(0, END)
+                self.listBx2.delete(0, END)
+                self.listBx3.delete(0, END)
+                self.listBx4.delete(0, END)
+
+                # Updates listboxes
+                box1_update()
+                box2_update()
+                box3_update()
+                box4_update()
+
+                # Modifies the listbox text titles with quarter info
+                self.classMapKeys
+                label1['text'] = self.classMapKeys[self.idx]
+                label2['text'] = self.classMapKeys[self.idx + 1]
+                label3['text'] = self.classMapKeys[self.idx + 2]
+                label4['text'] = self.classMapKeys[self.idx + 3]
+
+        def update_prev(event):
+            # Function for the "Prev" button
+            self.idx
+            # Checks to see if beginning has been reached
+            if (self.idx == 0):
+                return
+            else:
+                # Sets button to green
+                buttonNext.config(background="#369148", fg="#e6e6e6")
+
+                if (self.idx - 1 == 0):
+                    # Sets button to grey
+                    buttonPrev.config(background="#808080", fg="#e6e6e6")
+
+                self.idx -= 1
+                # Erases listboxes
+                self.listBx1.delete(0, END)
+                self.listBx2.delete(0, END)
+                self.listBx3.delete(0, END)
+                self.listBx4.delete(0, END)
+
+                # Updates listboxes
+                box1_update()
+                box2_update()
+                box3_update()
+                box4_update()
+
+                # Modifies the listbox text titles with quarter info
+                self.classMapKeys
+                label1['text'] = self.classMapKeys[self.idx]
+                label2['text'] = self.classMapKeys[self.idx + 1]
+                label3['text'] = self.classMapKeys[self.idx + 2]
+                label4['text'] = self.classMapKeys[self.idx + 3]
+
+        def backToClassMenu(event):
+            # Function to go back to the classes menu
+            roadMapWindow.destroy()
+
+        # Empty list that will store the class keys in same order as dictionary
+        self.classMapKeys = []
+
+        # Dummy class data I made
+        classMap = {
+            "Spring 2019": ["CIS 210", "SOC/SCI (4 Cr)", "ARTS/LETTER (4 Cr)", "MATH 241"],
+            "Summer 2019": ["CIS 211", "MATH 242", "ARTS/LETTER (4 Cr)"],
+            "Fall 2019": ["CIS 212", "ENG 380", "ARTS/LETTER (4 Cr)"],
+            "Winter 2020": ["CIS 315", "CIS 330", "CIS 422", "MATH 341"],
+            "Spring 2020": ["CIS 415", "CIS 407", "HIST 122", "ARTS/LETTER (4 Cr)"],
+            "Summer 2020": ["CIS 425", "MATH 253", "MATH 254", "PHIL 310"],
+            "Fall 2020": ["MATH 433", "SOC/SCI (4 Cr)", "SOC/SCI (4 Cr)", "MATH 488"],
+            "Winter 2021": ["CIS 443", "MATH 343", "SOCIAL SCIENCE (4 Cr)", "SOCIAL SCIENCE (4 Cr)"]
+        }
+
+        # Populates a list of keys (in order) from the classMap data
+        for i in range(len(classMap)):
+            self.classMapKeys.append([key for key in classMap.keys()][i])
+
+        # Creates Window
+        roadMapWindow = Frame(self.master, bg=self._darkGrey, height=800, width=800)
+        roadMapWindow.place(x=0, y=0)
+        # Creates the title you want to have on the window
+        roadMapWindow.configure(background="#323232")
+
+        # UO Logo
+        logoUO = PhotoImage(file="./img/UOicon.gif")
+        labelUO = Label(roadMapWindow, image=logoUO, borderwidth=0)
+        labelUO.image = logoUO
+        labelUO.place(x=670, y=4)
+
+        # Grey Lines that hide the white lines on the logo
+        greyLine = Label(roadMapWindow, text="", background=self._grey)
+        greyLine.place(x=0, y=110, height=8, width=800)
+        greyLineTop = Label(roadMapWindow, text="", background=self._grey)
+        greyLineTop.place(x=0, y=3, height=8, width=800)
+        greyLineLeft = Label(roadMapWindow, text="", background=self._grey)
+        greyLineLeft.place(x=665, y=0, height=120, width=8)
+        greyLineRight = Label(roadMapWindow, text="", background=self._grey)
+        greyLineRight.place(x=785, y=0, height=120, width=8)
+
+        # Lower (dark) half of the window
+        labelNext = Label(roadMapWindow, text="", background="#282929", fg="#e6e6e6")
+        labelNext.place(x=0, y=125, height=475, width=800)
+
+        # Green Stripe
+        labelNext = Label(roadMapWindow, text="", background="#369148", fg="#e6e6e6")
+        labelNext.place(x=0, y=120, height=5, width=800)
+
+        # RoadMap Text
+        roadMapLabel = Label(roadMapWindow, text="ROADMAP", background="#323232", fg="#ffcc00")
+        roadMapLabel.place(x=-150, y=5, height=115, width=600)
+        roadMapLabel.config(font=("Helvetica", 44))
+
+        # Initializes listboxes 1
+        self.listBx1 = Listbox(roadMapWindow, background="#323232", selectbackground="#369148", fg="#e6e6e6")
+        self.listBx1.place(x=60, y=195, height=285, width=155)
+
+        # Initializes listboxes 2
+        self.listBx2 = Listbox(roadMapWindow, background="#323232", selectbackground="#369148", fg="#e6e6e6")
+        self.listBx2.place(x=235, y=195, height=285, width=155)
+
+        # Initializes listboxes 3
+        self.listBx3 = Listbox(roadMapWindow, background="#323232", selectbackground="#369148", fg="#e6e6e6")
+        self.listBx3.place(x=410, y=195, height=285, width=155)
+
+        # Initializes listboxes 4
+        self.listBx4 = Listbox(roadMapWindow, background="#323232", selectbackground="#369148", fg="#e6e6e6")
+        self.listBx4.place(x=585, y=195, height=285, width=155)
+
+        # Populates all the listboxes
+        box1_update()
+        box2_update()
+        box3_update()
+        box4_update()
+
+        # "Next" Button
+        labelNext = Label(roadMapWindow, text="NEXT", background="#282929", fg="#e6e6e6")
+        labelNext.config(font=("Arial", 12))
+        labelNext.place(x=750, y=280, height=20, width=40)
+
+        # "Prev" Button
+        labelPrev = Label(roadMapWindow, text="PREV", background="#282929", fg="#e6e6e6")
+        labelPrev.config(font=("Arial", 12))
+        labelPrev.place(x=10, y=280, height=20, width=40)
+
+        # if the data doesn't have at least 4 quarters of data, grey out "Next" button
+        if (len(self.classMapKeys) <= 4):
+            buttonNext = Label(roadMapWindow, text=">", background="#808080", fg="#e6e6e6")
+            buttonNext.config(font=("Arial Bold", 22))
+            buttonNext.place(x=750, y=300, height=40, width=40)
+            buttonNext.bind("<Button-1>", update_next)
+        else:
+            # Set to green if it doesn't
+            buttonNext = Label(roadMapWindow, text=">", background="#369148", fg="#e6e6e6")
+            buttonNext.config(font=("Arial Bold", 22))
+            buttonNext.place(x=750, y=300, height=40, width=40)
+            buttonNext.bind("<Button-1>", update_next)
+
+        # If the index is 0, grey out the "Prev" button
+        if (self.idx == 0):
+            buttonPrev = Label(roadMapWindow, text="<", background="#808080", fg="#e6e6e6")
+            buttonPrev.config(font=("Arial Bold", 22))
+            buttonPrev.place(x=10, y=300, height=40, width=40)
+            buttonPrev.bind("<Button-1>", update_prev)
+        else:
+            # Set to green if it doesn't
+            buttonPrev = Label(roadMapWindow, text="<", background="#369148", fg="#e6e6e6")
+            buttonPrev.config(font=("Arial Bold", 22))
+            buttonPrev.place(x=10, y=300, height=40, width=40)
+            buttonPrev.bind("<Button-1>", update_prev)
+
+        # Title the titles for each listbox 1
+        label1 = Label(roadMapWindow, text=self.classMapKeys[self.idx], background="#282929", fg="#e6e6e6")
+        label1.config(font=("Arial Bold", 16))
+        label1.place(x=60, y=160, height=30, width=155)
+
+        # Optional text to be implemented for listbox 1
+        label1a = Label(roadMapWindow, text="", background="#282929", fg="Green")
+        label1a.config(font=("Helvetica", 16))
+        label1a.place(x=60, y=480, height=30, width=155)
+
+        # Title the titles for each listbox 2
+        label2 = Label(roadMapWindow, text=self.classMapKeys[self.idx + 1], background="#282929", fg="#e6e6e6")
+        label2.config(font=("Arial Bold", 16))
+        label2.place(x=235, y=160, height=30, width=155)
+
+        # Optional text to be implemented for listbox 1
+        label2a = Label(roadMapWindow, text="", background="#282929", fg="#e6e6e6")
+        label2a.config(font=("Helvetica", 16))
+        label2a.place(x=235, y=480, height=30, width=155)
+
+        # Title for each listbox 3
+        label3 = Label(roadMapWindow, text=self.classMapKeys[self.idx + 2], background="#282929", fg="#e6e6e6")
+        label3.config(font=("Arial Bold", 16))
+        label3.place(x=410, y=160, height=30, width=155)
+
+        # Optional text to be implemented for listbox 1
+        label3a = Label(roadMapWindow, text="", background="#282929", fg="white")
+        label3a.config(font=("Helvetica", 16))
+        label3a.place(x=410, y=480, height=30, width=155)
+
+        # Title the titles for each listbox 4
+        label4 = Label(roadMapWindow, text=self.classMapKeys[self.idx + 3], background="#282929", fg="#e6e6e6")
+        label4.place(x=585, y=160, height=30, width=155)
+        label4.config(font=("Arial Bold", 16))
+
+        # Optional text to be implemented for listbox 1
+        label4a = Label(roadMapWindow, text="", background="#282929", fg="#e6e6e6")
+        label4a.config(font=("Helvetica", 16))
+        label4a.place(x=585, y=480, height=30, width=155)
+
+        # Classes "Button"
+        backToClassesButton = Label(roadMapWindow, text="CLASSES", background="#ffcc00", fg="#282929")
+        backToClassesButton.config(font=("Arial", 22))
+        backToClassesButton.place(x=330, y=510, height=40, width=140)
+        backToClassesButton.bind("<Button-1>", backToClassMenu)
 
     def subjectClick(self, event):
         w = event.widget
@@ -226,7 +479,6 @@ class ClassManagement(tk.Tk):
                 self.takenClasses.insert(END, currentCourse)
 
     def removeClass(self, event):
-        w = event.widget
         if not w.curselection() == ():
             index = int(w.curselection()[0])
             currentCourse = w.get(index)
