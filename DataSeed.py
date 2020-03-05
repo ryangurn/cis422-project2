@@ -7,8 +7,10 @@ DB = 'seed.db'
 if not os.path.exists('seed.db'):
     # setup datastore
     ds = Datastore.DB(DB)
+    # generate them default tables
     ds.generateTables()
 
+# all of the subject codes
 subject_codes = ["AAAP", "AAD", "ACTG", "AEIS", "AFR", "AIM", "ANTH", "ANTM", "ARB", "ARCH", "ARH", "ART", "ARTC",
                  "ARTD", "ARTF", "ARTM", "ARTO", "ARTP", "ARTR", "ARTS", "ASIA", "ASL", "ASTR", "BA", "BI", "BIKC",
                  "BIOE", "BLST", "CARC", "CAS", "CDS", "CFT", "CH", "CHKC", "CHN", "CHNF", "CINE", "CIS", "CIT", "CLAS",
@@ -23,11 +25,13 @@ subject_codes = ["AAAP", "AAD", "ACTG", "AEIS", "AFR", "AIM", "ANTH", "ANTM", "A
                  "SBUS", "SCAN", "SCYP", "SERV", "SLP", "SOC", "SPAN", "SPD", "SPED", "SPM", "SPSY", "SWAH", "SWED",
                  "TA", "TLC", "UGST", "WGS", "WR"]
 
-for k, s in enumerate(subject_codes):
-    for y in range(2015, 2020):
-        for i in range(1, 5):
+# tri loop
+for k, s in enumerate(subject_codes): # for each subject
+    for y in range(2015, 2020): # for each year
+        for i in range(1, 5): # for each term
             print("(S:{}/{}) STARTING PARSE FOR {} {} - [{}]".format(k, k/len(subject_codes), y, i, s))
 
+            # parse the data and store it.
             p = ClassParser.ClassParser(str(y)+"0"+str(i), s, DB)
             p.deleteFormatting()
             p.parseData()
