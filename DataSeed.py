@@ -1,3 +1,20 @@
+"""
+DataSeed.py is the program that will seed the database and complete all of the
+parsing that needs to be handled before hand. It will setup all of the classes
+based on the classes.uoregon.edu dataset.
+
+Authors:
+(RegTools)
+Joseph Goh
+Mason Sayyadi
+Owen McEvoy
+Ryan Gurnick
+Samuel Lundquist
+
+Priority credit to:
+Ryan Gurnick - 3/4/20  Creation
+
+"""
 import os
 import Datastore
 import ClassParser
@@ -29,12 +46,12 @@ subject_codes = ["AAAP", "AAD", "ACTG", "AEIS", "AFR", "AIM", "ANTH", "ANTM", "A
 for k, s in enumerate(subject_codes): # for each subject
     for y in range(2015, 2020): # for each year
         for i in range(1, 5): # for each term
-            print("(S:{}/{}) STARTING PARSE FOR {} {} - [{}]".format(k, k/len(subject_codes), y, i, s))
+            print("(S:{} - {}/{:.2%}) STARTING PARSE FOR {} {} - [{}]".format(k, len(subject_codes), k/len(subject_codes), y, i, s))
 
             # parse the data and store it.
             p = ClassParser.ClassParser(str(y)+"0"+str(i), s, DB)
             p.deleteFormatting()
             p.parseData()
 
-            print("(S:{}/{}) ENDING PARSE FOR {} {} - [{}]".format(k, k/len(subject_codes), y, i, s))
+            print("(S:{} - {}/{:.2%}) ENDING PARSE FOR {} {} - [{}]".format(k, len(subject_codes), k/len(subject_codes), y, i, s))
 
