@@ -5,8 +5,6 @@ from tkinter import font
 import ClassModel
 import StudentClassModel
 import StudentModel
-
-
 # import GUI.classRoadmap
 
 
