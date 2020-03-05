@@ -85,6 +85,34 @@ class ClassModel:
             return cur.fetchall()
         return cur.fetchall()
 
+    def find_by_term(self, subject, year, term):
+        print(term)
+        """
+        Search for records within the class database and return them as lists of lists.
+
+        :param
+        subject :str
+        year :str
+        term :str
+
+        return :list
+
+        Example Usage:
+        cm = ClassModel.ClassModel('testing.db')
+        cm.find_by_term('CIS', 2019, 1)
+        cm.find_by_term('CIS', 2015, 2)
+        """
+        s = str(year) + "0" + str(term)
+        print(s)
+
+        sql = "SELECT * FROM \"main\".\"classes\" WHERE \"subject\" = \"{}\" AND \"term\" = \"{}\";".format(subject, s)
+        cur = self.conn.cursor()
+        try:
+            cur.execute(sql)
+        except ValueError:
+            return cur.fetchall()
+        return cur.fetchall()
+
     def find_course(self, name, subject, number):
         """
         Search for records within the class database and return them as lists of lists.
