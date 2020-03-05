@@ -90,14 +90,12 @@ class ClassParser:
                 # replace some bad formatting
                 ret_arr[0][0][0] = ret_arr[0][0][0].replace("Classes Found   ", "", 1)
 
-        # del ret_arr[-1]  # removing the number of classes found
-        # for k, v in enumerate(ret_arr):
-        #     if len(ret_arr[k]) == 1:
-        #         del ret_arr[k]
-
         self._intermediateData = ret_arr
 
     def parseData(self):
+        if self._intermediateData[0][0][0] == "No classes were found that meet your search criteria":
+            return
+
         for key, val in enumerate(self._intermediateData):
             # init obj
             class_obj = {
