@@ -24,8 +24,8 @@ class classMgmt(tk.Tk):
         studentLabel.config(bg="#262929", fg="#ffcc00")
 
         # Student Name Label (Updates)
-        labl = Label(self.newWindow, text= studentName)
-        labl.place(x=95,y=5, height=30, width=140)
+        labl = Label(self.newWindow, text= studentName, anchor='w')
+        labl.place(x=95,y=5, height=30, width=200)
         labl.config(font=("Arial Bold", 20))
         labl.config(bg="#262929", fg="#ffcc00")
 
