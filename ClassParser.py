@@ -16,7 +16,7 @@ Ryan Gurnick - 2/25/20  Creation
 """
 import json
 import Parser
-import requests
+import urllib.request
 import DetailsParser
 import ClassModel
 
@@ -33,10 +33,13 @@ class ClassParser:
         parser = ClassParser.Parser("201903", "CIS")
         """
         cis_catalog_url = "http://classes.uoregon.edu/pls/prod/hwskdhnt.P_ListCrse?term_in=" + term + "&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&sel_cred=dummy&sel_tuition=dummy&sel_open=dummy&sel_weekend=dummy&sel_title=&sel_to_cred=&sel_from_cred=&sel_subj=" + subject + "&sel_crse=&sel_crn=&sel_camp=%25&sel_levl=%25&sel_attr=%25&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&submit_btn=Show+Classes"
-        catalog = requests.get(cis_catalog_url)
+        # catalog = requests.get(cis_catalog_url)
+
+        with urllib.request.urlopen(cis_catalog_url) as response:
+            html = response.read()
 
         p = Parser.Parser()
-        p.feed(str(catalog.content))
+        p.feed(str(html))
 
         self.db = db
         self.term = term
