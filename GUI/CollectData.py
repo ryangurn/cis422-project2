@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
 import StudentModel
+import ClassParser
+import ClassModel
 
 class collectData(tk.Tk):
     def __init__(self, master, db_file):
@@ -14,7 +16,7 @@ class collectData(tk.Tk):
         self._green = "#369148"
         self._yellow = "#ffcc00"
         self._button = "<Button-1>"
-
+        self.cm = ClassModel.ClassModel(self.db)
         # Creates a frame to add to the master window
         self.master = master
         self.newWindow = Frame(master, bg = self._darkGrey)
@@ -41,8 +43,20 @@ class collectData(tk.Tk):
         subjectLabel.config(bg=self._darkGrey, fg="Grey")
 
         self.subjectVal = StringVar(self.newWindow)
-        #TODO: Just for testing, need to get from DB
-        subjectChoices = sorted({'CIS', 'AAP', 'MATH', 'PHY'})
+        subjectChoices = ["AAAP", "AAD", "ACTG", "AEIS", "AFR", "AIM", "ANTH", "ANTM", "ARB", "ARCH", "ARH", "ART", "ARTC",
+                 "ARTD", "ARTF", "ARTM", "ARTO", "ARTP", "ARTR", "ARTS", "ASIA", "ASL", "ASTR", "BA", "BI", "BIKC",
+                 "BIOE", "BLST", "CARC", "CAS", "CDS", "CFT", "CH", "CHKC", "CHN", "CHNF", "CINE", "CIS", "CIT", "CLAS",
+                 "COLT", "CPSY", "CRDG", "CRES", "CRWR", "CSCH", "DAN", "DANC", "DANE", "DIST", "DSGN", "EALL", "EC",
+                 "ECE", "EDLD", "EDST", "EDUC", "ENG", "ENVS", "ERTH", "ES", "ESC", "EURO", "FHS", "FIN", "FINN", "FLR",
+                 "FR", "GEOG", "GEOL", "GER", "GRK", "GRST", "GSAE", "GSCL", "GSGE", "GSST", "HBRW", "HC", "HIST",
+                 "HPHY", "HUM", "IARC", "ICH", "INTL", "IST", "ITAL", "J", "JDST", "JGS", "JPN", "KC", "KRN", "LA",
+                 "LAS", "LAT", "LAW", "LEAD", "LERC", "LIB", "LING", "LT", "MATH", "MDVL", "MENA", "MGMT", "MIL",
+                 "MKTG", "MUE", "MUJ", "MUP", "MUS", "NAS", "NORW", "OBA", "OIMB", "OLIS", "PD", "PDX", "PE", "PEAQ",
+                 "PEAS", "PEC", "PEF", "PEI", "PEIA", "PEL", "PEMA", "PEMB", "PEO", "PERS", "PERU", "PETS", "PEW",
+                 "PHIL", "PHKC", "PHYS", "PORT", "PPPM", "PREV", "PS", "PSY", "QST", "REES", "REL", "RL", "RUSS",
+                 "SBUS", "SCAN", "SCYP", "SERV", "SLP", "SOC", "SPAN", "SPD", "SPED", "SPM", "SPSY", "SWAH", "SWED",
+                 "TA", "TLC", "UGST", "WGS", "WR"]
+
         self.subjectVal.set('CIS')
         subjectMenu = OptionMenu(self.newWindow, self.subjectVal, *subjectChoices)
         subjectMenu.config(bg=self._darkGrey)
@@ -79,6 +93,29 @@ class collectData(tk.Tk):
         self.newWindow.destroy()
 
     def dataCollectClick(self, event):
-        print(self.termVal.get())
-        print(self.yearVal.get())
-        print(self.subjectVal.get())
+        term = self.termVal.get()
+        year = self.yearVal.get()
+        t = None
+        y = int(year)
+        if term == "Fall":
+            t = 1
+        elif term == "Winter":
+            #y -= 1
+            t = 2
+        elif term == "Spring":
+            #y -= 1
+            t = 3
+        elif term == "Summer":
+            #y -= 1
+            t = 4
+
+        ye = str(y)
+        s = ye + "0" + str(t)
+        currentClasses = self.cm.find_by_term(self.subjectVal.get(), year, t)
+        if len(currentClasses):
+            self.cm.delete_sub_term(self.subjectVal.get(), s)
+
+        p = ClassParser.ClassParser(s, self.subjectVal.get())
+        p.deleteFormatting()
+        p.parseData()
+        

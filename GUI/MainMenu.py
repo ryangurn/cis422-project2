@@ -46,7 +46,7 @@ class MainMenu(tk.Tk):
         # Select Data label
         collectBtn = Label(master, text='Collect Data')
         collectBtn.config(font=("Arial Bold", 13), bg=self._green, fg=self._yellow)
-        collectBtn.place(x=50,y=495, height=27, width=106)
+        collectBtn.place(x=348,y=500, height=27, width=106)
         collectBtn.bind(self._button, self.collectBtnClick)
 
         logo = PhotoImage(file="./img/RegToolsLogo.gif")

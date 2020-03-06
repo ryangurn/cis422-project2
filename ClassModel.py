@@ -111,6 +111,17 @@ class ClassModel:
             return cur.fetchall()
         return cur.fetchall()
 
+    def delete_sub_term(self, subject, term):
+        sql = "DELETE FROM \"main\".\"classes\" WHERE \"subject\" = \"{}\" AND \"term\" = \"{}\";".format(subject, term)
+        cur = self.conn.cursor()
+        try:
+            cur.execute(sql)
+            self.conn.commit()
+        except ValueError:
+            return cur.fetchall()
+        
+        
+
     def find_course(self, name, subject, number, term, year):
         """
         Search for records within the class database and return them as lists of lists.
