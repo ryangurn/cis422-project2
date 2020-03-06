@@ -323,6 +323,8 @@ class RequirementModel:
                 "course": ""
             },
         ]))
+        # year 4 summer
+        self._insert(15, "CIS", BS, json.dumps([]))
 
         # CIS BA
         BA = 'BA'
@@ -597,3 +599,26 @@ class RequirementModel:
         ]))
         # year 4 summer
         self._insert(15, "CIS", BA, json.dumps([]))
+
+    def find_by(self, haystack, needle):
+        """
+        Search for records within the requirements table and return them as lists of lists.
+
+        :param
+        haystack :str
+        needle :str
+
+        return :list
+
+        Example Usage:
+        rm = RequirementModel.RequirementModel('testing.db')
+        rm.find_by('term', 201901)
+        rm.find_by('type', 321321)
+        """
+        sql = "SELECT * FROM \"main\".\"requirements\" WHERE \"{}\" = \"{}\"".format(haystack, needle)
+        cur = self.conn.cursor()
+        try:
+            cur.execute(sql)
+        except ValueError:
+            return cur.fetchall()
+        return cur.fetchall()
