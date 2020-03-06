@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import font
 from tkinter.ttk import Notebook, Entry
-from datetime import date, datetime
+from GUI.classInfo import *
 import StudentModel
 import StudentClassModel
 import ClassModel
@@ -222,6 +222,13 @@ class ClassManagement(tk.Tk):
             for i in reversed(range(len(classMap[self.classMapKeys[self.idx + 3]]))):
                 self.listBx4.insert(0, classMap[self.classMapKeys[self.idx + 3]][i])
 
+        def selectedClass(event):
+            w = event.widget
+            index = int(w.curselection()[0])
+            selectedCourse = w.get(index)
+            classInfo(self.master, self.db, selectedCourse)
+
+
         def update_next(event):
             # Function for the "Next" button
             self.idx
@@ -387,18 +394,21 @@ class ClassManagement(tk.Tk):
         # Initializes listboxes 1
         self.listBx1 = Listbox(roadMapWindow, background="#323232", selectbackground="#369148", fg="#e6e6e6")
         self.listBx1.place(x=60, y=195, height=285, width=155)
+        self.listBx1.bind(self._button, selectedClass)
 
         # Initializes listboxes 2
         self.listBx2 = Listbox(roadMapWindow, background="#323232", selectbackground="#369148", fg="#e6e6e6")
         self.listBx2.place(x=235, y=195, height=285, width=155)
+        self.listBx2.bind(self._button, selectedClass)
 
         # Initializes listboxes 3
         self.listBx3 = Listbox(roadMapWindow, background="#323232", selectbackground="#369148", fg="#e6e6e6")
         self.listBx3.place(x=410, y=195, height=285, width=155)
-
+        self.listBx3.bind(self._button, selectedClass)
         # Initializes listboxes 4
         self.listBx4 = Listbox(roadMapWindow, background="#323232", selectbackground="#369148", fg="#e6e6e6")
         self.listBx4.place(x=585, y=195, height=285, width=155)
+        self.listBx4.bind(self._button, selectedClass)
 
         # Populates all the listboxes
         box1_update()
@@ -517,14 +527,12 @@ class ClassManagement(tk.Tk):
 
         ye = str(y)
         cm = ClassModel.ClassModel(self.db)
-        items = cm.find_by_term(self.currentSubject, ye, t)
-        if self.currentSubject is not None:
-            if len(items) > 0:
-                for key, value in enumerate(items):
-                    insertLine = self._compose([value])
-                    self.offeredCourses.insert(key, "(" + term + " " + year + ") " + insertLine)
-            else:
-                self.offeredCourses.insert(END, "None found for " + self.currentSubject + " " + term + " " + year)
+        items = cm.find_by_term(self.currentSubject, year, t)
+        print(self.currentSubject)
+        if len(items) > 0:
+            for key, value in enumerate(items):
+                insertLine = value[3] + " " + value[4] + " - [" + value[2] + "]"
+                self.offeredCourses.insert(key, insertLine)
         else:
             self.offeredCourses.insert(END, "Please select a subject (on the left)")
             self.offeredCourses.insert(END, "and a term (below)")

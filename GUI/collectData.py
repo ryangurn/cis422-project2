@@ -17,70 +17,68 @@ class collectData(tk.Tk):
 
         # Creates a frame to add to the master window
         self.master = master
-        self.window = Frame(master, bg = self._darkGrey)
-        self.window.place(x = 0, y = 150, height = 600, width = 800)
+        self.newWindow = Frame(master, bg = self._darkGrey)
+        self.newWindow.place(x = 0, y = 150, height = 600, width = 800)
 
         # Year label
-        yearLabel = Label(self.window, text='Select the Year')
+        yearLabel = Label(self.newWindow, text='Select the Year')
         yearLabel.place(x=100,y=150, height=30, width=150)
         yearLabel.config(font=("Arial Bold", 18))
         yearLabel.config(bg=self._darkGrey, fg="Grey")
 
-        self.yearVal = StringVar(self.window)
+        self.yearVal = StringVar(self.newWindow)
         #TODO: Just for testing, need to get from DB
         yearChoices = sorted({'2016', '2017', '2018', '2019', '2020'})
         self.yearVal.set('2019')  # Default value
-        yearMenu = OptionMenu(self.window, self.yearVal, *yearChoices)
+        yearMenu = OptionMenu(self.newWindow, self.yearVal, *yearChoices)
         yearMenu.place(x=100, y=185, width=150, height=30)
         yearMenu.config(bg=self._darkGrey)
-        self.yearVal.trace('u', yearMenu)
 
         # Subject label
-        subjectLabel = Label(self.window, text='Select the Subject')
+        subjectLabel = Label(self.newWindow, text='Select the Subject')
         subjectLabel.place(x=285,y=150, height=30, width=170)
         subjectLabel.config(font=("Arial Bold", 18))
         subjectLabel.config(bg=self._darkGrey, fg="Grey")
 
-        self.subjectVal = StringVar(self.window)
+        self.subjectVal = StringVar(self.newWindow)
         #TODO: Just for testing, need to get from DB
         subjectChoices = sorted({'CIS', 'AAP', 'MATH', 'PHY'})
         self.subjectVal.set('CIS')
-        subjectMenu = OptionMenu(self.window, self.subjectVal, *subjectChoices)
+        subjectMenu = OptionMenu(self.newWindow, self.subjectVal, *subjectChoices)
         subjectMenu.config(bg=self._darkGrey)
         subjectMenu.place(x = 290, y = 185, width = 150, height = 30)
-        self.subjectVal.trace('u', subjectMenu)
 
         # Term label
-        yearLabel = Label(self.window, text='Select the Term')
+        yearLabel = Label(self.newWindow, text='Select the Term')
         yearLabel.place(x=485,y=150, height=30, width=150)
         yearLabel.config(font=("Arial Bold", 18))
         yearLabel.config(bg=self._darkGrey, fg="Grey")
 
-        self.termVal = StringVar(self.window)
+        self.termVal = StringVar(self.newWindow)
         termChoices = sorted({'Spring', 'Summer', 'Fall', 'Winter'})
         self.termVal.set('Spring')
-        termMenu = OptionMenu(self.window, self.termVal, *termChoices)
+        termMenu = OptionMenu(self.newWindow, self.termVal, *termChoices)
         termMenu.config(bg=self._darkGrey)
         termMenu.place (x = 490, y = 185, width = 150, height = 30)
-        self.termVal.trace('u', termMenu)
 
 
 
         # Button to trigger the data collection
-        collectData = Label(self.window, text='Collect Data')
+        collectData = Label(self.newWindow, text='Collect Data')
         collectData.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
         collectData.place(x=225, y= 340, height=30, width=140)
-        collectData.bind(self._button, self.dataCollectClick)
+        collectData.bind("<Double-Button-1>", self.dataCollectClick)
 
         # Button to close the "Select Data" window and go back to main menu
-        exitName = Label(self.window, text='Return Home')
+        exitName = Label(self.newWindow, text='Return Home')
         exitName.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
         exitName.place(x=410, y= 340, height=30, width=140)
-        exitName.bind(self._button, self.exitWindow)
+        exitName.bind("<Double-Button-1>", self.exitWindow)
 
     def exitWindow(self, event):
-        #TODO: Fix this bug " TypeError: 'OptionMenu' object is not callable "
-        self.window.destroy()
+        self.newWindow.destroy()
 
     def dataCollectClick(self, event):
-        print ("Collect data from DB given termVal, subjectVal, yearVal")
+        print(self.termVal.get())
+        print(self.yearVal.get())
+        print(self.subjectVal.get())
