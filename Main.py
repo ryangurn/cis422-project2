@@ -21,6 +21,7 @@ import Datastore
 import ClassModel
 import StudentModel
 import StudentClassModel
+import RequirementModel
 import os
 import GUI.MainMenu
 import tkinter as tk
@@ -33,6 +34,7 @@ if not os.path.exists('testing.db'):
     # setup datastore
     ds = Datastore.DB(DB)
     ds.generateTables()
+
 # # call ClassParser
 # p = ClassParser.ClassParser("201903", "CIS")
 # p.deleteFormatting()
