@@ -26,6 +26,7 @@ class ClassManagement(tk.Tk):
         self._buttonHeight = 30
         self._buttonWidth = 60
         self._buttonText = ("Arial Bold", 16)
+        self._offeredCoursesDefault = "Please select a subject to display courses."
 
         self.studentName = studentName
         self.master = master
@@ -82,7 +83,7 @@ class ClassManagement(tk.Tk):
         courseFont = font.Font(family="Helvetica", size=16)
         self.courseSubjects = Listbox(self.window, selectmode="browse", bg=self._yellow, fg=self._darkGrey,
                                       selectbackground=self._green, width=6, font=subfont)
-        self.courseSubjects.place(x=30, y=80, height=295)
+        self.courseSubjects.place(x=30, y=80, height=295, width=91)
         self.courseSubjects.bind(self._button, self.subjectClick)
 
         cm = ClassModel.ClassModel(self.db)
@@ -103,7 +104,8 @@ class ClassManagement(tk.Tk):
         # Offered Classes listbox
         self.offeredCourses = Listbox(self.window, selectmode="browse", bg=self._lightGrey, fg=self._darkGrey,
                                       selectbackground=self._yellow, width=35, font=courseFont)
-        self.offeredCourses.place(x=130, y=80, height=255)
+        self.offeredCourses.insert(END, self._offeredCoursesDefault)
+        self.offeredCourses.place(x=130, y=80, height=255, width=316)
         self.offeredCourses.bind(self._button, self.courseClick)
 
         # Taken Classes listbox
@@ -170,10 +172,9 @@ class ClassManagement(tk.Tk):
         self.windowTop.destroy()
 
     def saveDataClick(self, event):
-        print("Send data to SQL")
+        pass
 
     def classRoadmap(self, event):
-        print("bet")
         self.idx = 0
 
         def box1_update():
@@ -455,16 +456,20 @@ class ClassManagement(tk.Tk):
 
         cm = ClassModel.ClassModel(self.db)
         items = cm.find_by_term(self.currentSubject, year, t)
-        for key, value in enumerate(items):
-            insertLine = value[3] + " " + value[4] + " - [" + value[2] + "]"
-            self.offeredCourses.insert(key, insertLine)
+        if len(items) > 0:
+            for key, value in enumerate(items):
+                insertLine = value[3] + " " + value[4] + " - [" + value[2] + "]"
+                self.offeredCourses.insert(key, insertLine)
+        else:
+            self.offeredCourses.insert(END, "None found for " + self.currentSubject + " " + term + " " + year)
 
     def courseClick(self, event):
         w = event.widget
         if not w.curselection() == ():
             index = int(w.curselection()[0])
             currentCourse = w.get(index)
-            if not self._contain(currentCourse, self.takenClasses):
+
+            if not self._contain(currentCourse, self.takenClasses) and currentCourse != self._offeredCoursesDefault:
                 # locate class record
                 cm = ClassModel.ClassModel(self.db)
                 clas = cm.find_course(self._decompose(currentCourse)[2], self._decompose(currentCourse)[0],
@@ -479,6 +484,7 @@ class ClassManagement(tk.Tk):
                 self.takenClasses.insert(END, currentCourse)
 
     def removeClass(self, event):
+        w = event.widget
         if not w.curselection() == ():
             index = int(w.curselection()[0])
             currentCourse = w.get(index)
