@@ -33,7 +33,6 @@ if not os.path.exists('testing.db'):
     # setup datastore
     ds = Datastore.DB(DB)
     ds.generateTables()
-
 # # call ClassParser
 # p = ClassParser.ClassParser("201903", "CIS")
 # p.deleteFormatting()

@@ -18,6 +18,7 @@ Ryan Gurnick - 2/27/20  Creation
 
 """
 import sqlite3
+import RequirementModel
 
 class DB:
 
@@ -27,6 +28,7 @@ class DB:
         :param db_file: database file
         :return: Connection object or None
         """
+        self.db = db_file
         conn = None
         try:
             conn = sqlite3.connect(db_file, timeout=1)
@@ -92,3 +94,16 @@ class DB:
                         created_at datetime NOT NULL,
                         updated_at datetime NOT NULL
                         );""")
+
+            self._create_table("""CREATE TABLE requirements (
+                       id integer NOT NULL CONSTRAINT requirements_pk PRIMARY KEY AUTOINCREMENT,
+                       term integer NOT NULL,
+                       major varchar(255) NOT NULL,
+                       type varchar(255) NOT NULL,
+                       data text NOT NULL,
+                       created_at datetime NOT NULL,
+                       updated_at datetime NOT NULL
+                    );""")
+
+            rm = RequirementModel.RequirementModel(self.db)
+            rm.setupTable()
