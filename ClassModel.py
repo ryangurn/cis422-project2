@@ -111,7 +111,7 @@ class ClassModel:
             return cur.fetchall()
         return cur.fetchall()
 
-    def find_course(self, name, subject, number):
+    def find_course(self, name, subject, number, term, year):
         """
         Search for records within the class database and return them as lists of lists.
 
@@ -126,7 +126,22 @@ class ClassModel:
         cm.find_by('term', 201901)
         cm.find_by('crn', 321321)
         """
-        sql = "SELECT * FROM \"main\".\"classes\" WHERE \"name\" LIKE '%{}%' AND \"subject\" LIKE '%{}%' AND \"number\" LIKE '%{}%'".format(name, subject, number)
+        s = str(year) + "0" + str(term)
+        t = None
+        y = int(year)
+        if term == "Fall":
+            t = 1
+        elif term == "Winter":
+            y -= 1
+            t = 2
+        elif term == "Spring":
+            y -= 1
+            t = 3
+        elif term == "Summer":
+            y -= 1
+            t = 4
+
+        sql = "SELECT * FROM \"main\".\"classes\" WHERE \"name\" LIKE '%{}%' AND \"subject\" LIKE '%{}%' AND \"number\" LIKE '%{}%' and \"term\" = '{}' ".format(name, subject, number, str(y) + "0" + str(t))
         cur = self.conn.cursor()
         try:
             cur.execute(sql)
@@ -147,7 +162,7 @@ class ClassModel:
         cm = ClassModel.ClassModel('testing.db')
         cm.distinct('subject')
         """
-        sql = "SELECT DISTINCT {} FROM classes ORDER BY \"subject\" ASC".format(needle)
+        sql = "SELECT DISTINCT {} FROM classes".format(needle)
         cur = self.conn.cursor()
         try:
             cur.execute(sql)
