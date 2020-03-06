@@ -144,8 +144,8 @@ class ClassManagement(tk.Tk):
 
         # Dropdown Menu for years
         self.strObj1 = StringVar(self.window)
-        yearChoices = sorted({'2019', '2018', '2017', '2016', '2015'}, reverse=True)
-        self.strObj1.set('2019')  # Default value
+        yearChoices = sorted({'2020', '2019', '2018', '2017', '2016', '2015'}, reverse=True)
+        self.strObj1.set('2020')  # Default value
         dropMenuYear = OptionMenu(self.window, self.strObj1, *yearChoices)
         dropMenuYear.place(x=297, y=345, width=150, height=30)
         dropMenuYear.config(bg=self._darkGrey)
@@ -154,7 +154,7 @@ class ClassManagement(tk.Tk):
         # Dropdown Menu for quarters
         self.strObj2 = StringVar(self.window)
         quarterChoices = sorted({'Fall', 'Winter', 'Spring', 'Summer'})
-        self.strObj2.set('Spring')  # Default value
+        self.strObj2.set('Winter')  # Default value
         dropMenuQuarter = OptionMenu(self.window, self.strObj2, *quarterChoices)
         dropMenuQuarter.place(x=131, y=345, width=150, height=30)
         dropMenuQuarter.config(bg=self._darkGrey)
@@ -445,17 +445,23 @@ class ClassManagement(tk.Tk):
         term = str(self.strObj2.get())
 
         t = None
+        y = int(year)
         if term == "Fall":
             t = 1
         elif term == "Winter":
+            y -= 1
             t = 2
         elif term == "Spring":
+            y -= 1
             t = 3
         elif term == "Summer":
+            y -= 1
             t = 4
 
+        ye = str(y)
+
         cm = ClassModel.ClassModel(self.db)
-        items = cm.find_by_term(self.currentSubject, year, t)
+        items = cm.find_by_term(self.currentSubject, ye, t)
         if len(items) > 0:
             for key, value in enumerate(items):
                 insertLine = value[3] + " " + value[4] + " - [" + value[2] + "]"
