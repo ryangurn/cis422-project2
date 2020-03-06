@@ -3,9 +3,11 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import font
 from tkinter.ttk import Notebook, Entry
+from datetime import date, datetime
 import StudentModel
 import StudentClassModel
 import ClassModel
+import RequirementModel
 
 
 class ClassManagement(tk.Tk):
@@ -67,7 +69,7 @@ class ClassManagement(tk.Tk):
         taken.place(x=486, y=50, height=self._buttonHeight, width=278)
 
         # Delete Info Label
-        info = Label(self.window, text="Click on a class to delete it", background=self._darkGrey,
+        info = Label(self.window, text="Double Click on a class to delete it", background=self._darkGrey,
                      font=self._buttonText, fg=self._lightGrey)
         info.place(x=486, y=345, height=self._buttonHeight, width=278)
 
@@ -122,7 +124,25 @@ class ClassManagement(tk.Tk):
 
             cm = ClassModel.ClassModel(self.db)
             clas = cm.find_by('id', class_id)
-            self.takenClasses.insert(END, self._compose(clas))
+            year = str(clas[0][1])[:4]
+            term = str(clas[0][1])[4:]
+
+            y = int(year)
+            t = None
+            if term == "01":
+                t = "Fall"
+            elif term == "02":
+                t = "Winter"
+                y += 1
+            elif term == "03":
+                t = "Spring"
+                y += 1
+            elif term == "04":
+                t = "Summer"
+                y += 1
+
+
+            self.takenClasses.insert(END, "(" + t + " " + str(y) + ") " + self._compose(clas))
 
         # Button Home
         goHome = Label(self.window, text='Home')
@@ -180,25 +200,26 @@ class ClassManagement(tk.Tk):
         def box1_update():
             # Updates listbox 1 with class data given the key
             self.listBx1
-            for i in range(len(classMap[self.classMapKeys[self.idx]])):
+            for i in reversed(range(len(classMap[self.classMapKeys[self.idx]]))):
                 self.listBx1.insert(0, classMap[self.classMapKeys[self.idx]][i])
 
         def box2_update():
             # Updates listbox 2 with class data given the key
             self.listBx2
-            for i in range(len(classMap[self.classMapKeys[self.idx + 1]])):
+            for i in reversed(range(len(classMap[self.classMapKeys[self.idx + 1]]))):
                 self.listBx2.insert(0, classMap[self.classMapKeys[self.idx + 1]][i])
 
         def box3_update():
             # Updates listbox 3 with class data given the key
             self.listBx3
-            for i in range(len(classMap[self.classMapKeys[2]])):
+            for i in reversed(range(len(classMap[self.classMapKeys[2]]))):
                 self.listBx3.insert(0, classMap[self.classMapKeys[self.idx + 2]][i])
+                # self.listBx3.itemconfig(0, {'bg': 'red'})
 
         def box4_update():
             # Updates listbox 4 with class data given the key
             self.listBx4
-            for i in range(len(classMap[self.classMapKeys[self.idx + 3]])):
+            for i in reversed(range(len(classMap[self.classMapKeys[self.idx + 3]]))):
                 self.listBx4.insert(0, classMap[self.classMapKeys[self.idx + 3]][i])
 
         def update_next(event):
@@ -277,16 +298,52 @@ class ClassManagement(tk.Tk):
         self.classMapKeys = []
 
         # Dummy class data I made
-        classMap = {
-            "Spring 2019": ["CIS 210", "SOC/SCI (4 Cr)", "ARTS/LETTER (4 Cr)", "MATH 241"],
-            "Summer 2019": ["CIS 211", "MATH 242", "ARTS/LETTER (4 Cr)"],
-            "Fall 2019": ["CIS 212", "ENG 380", "ARTS/LETTER (4 Cr)"],
-            "Winter 2020": ["CIS 315", "CIS 330", "CIS 422", "MATH 341"],
-            "Spring 2020": ["CIS 415", "CIS 407", "HIST 122", "ARTS/LETTER (4 Cr)"],
-            "Summer 2020": ["CIS 425", "MATH 253", "MATH 254", "PHIL 310"],
-            "Fall 2020": ["MATH 433", "SOC/SCI (4 Cr)", "SOC/SCI (4 Cr)", "MATH 488"],
-            "Winter 2021": ["CIS 443", "MATH 343", "SOCIAL SCIENCE (4 Cr)", "SOCIAL SCIENCE (4 Cr)"]
-        }
+        # classMap = {
+        #     "Spring 0000": ["Required Classes", "- MATH 123", "- CIS 123", "A & L", "-asd", "-qwe", "-23"],
+        #     "Summer 2019": ["CIS 211", "MATH 242", "ARTS/LETTER (4 Cr)"],
+        #     "Fall 2019": ["CIS 212", "ENG 380", "ARTS/LETTER (4 Cr)"],
+        #     "Winter 2020": ["CIS 315", "CIS 330", "CIS 422", "MATH 341"],
+        #     "Spring 2020": ["CIS 415", "CIS 407", "HIST 122", "ARTS/LETTER (4 Cr)"],
+        #     "Summer 2020": ["CIS 425", "MATH 253", "MATH 254", "PHIL 310"],
+        #     "Fall 2020": ["MATH 433", "SOC/SCI (4 Cr)", "SOC/SCI (4 Cr)", "MATH 488"],
+        #     "Winter 2021": ["CIS 443", "MATH 343", "SOCIAL SCIENCE (4 Cr)", "SOCIAL SCIENCE (4 Cr)"]
+        # }
+
+        classDict = {}
+
+        scm = StudentClassModel.StudentClassModel(self.db)
+        recents = scm.find('students_id', self.student_id)
+        min_year = 9999
+        print(recents)
+        for recent in recents:
+            class_id = recent[2]
+            cm = ClassModel.ClassModel(self.db)
+            clas = cm.find_by('id', class_id)
+            for c in clas:
+                item = str(c[1])
+                year = int(item[:4])
+                term = int(item[4:])
+                if year < min_year:
+                    if term == 1:
+                        min_year = year
+                    else:
+                        min_year = year+1
+        print(min_year)
+
+        # get the requirements and the total amount of terms needed.
+        rm = RequirementModel.RequirementModel(self.db)
+        find = rm.find_by('type', 'BS')
+        le = len(find)
+        for t in range(le // 4):
+            classDict.update({"Fall " + str(min_year): []})
+            classDict.update({"Winter " + str(min_year): []})
+            classDict.update({"Spring " + str(min_year): []})
+            classDict.update({"Summer " + str(min_year): []})
+            min_year += 1
+        min_year -= le // 4
+        # print(min_year, classDict)
+
+        classMap = classDict
 
         # Populates a list of keys (in order) from the classMap data
         for i in range(len(classMap)):
@@ -459,27 +516,32 @@ class ClassManagement(tk.Tk):
             t = 4
 
         ye = str(y)
-
         cm = ClassModel.ClassModel(self.db)
         items = cm.find_by_term(self.currentSubject, ye, t)
-        if len(items) > 0:
-            for key, value in enumerate(items):
-                insertLine = value[3] + " " + value[4] + " - [" + value[2] + "]"
-                self.offeredCourses.insert(key, insertLine)
+        if self.currentSubject is not None:
+            if len(items) > 0:
+                for key, value in enumerate(items):
+                    insertLine = self._compose([value])
+                    self.offeredCourses.insert(key, "(" + term + " " + year + ") " + insertLine)
+            else:
+                self.offeredCourses.insert(END, "None found for " + self.currentSubject + " " + term + " " + year)
         else:
-            self.offeredCourses.insert(END, "None found for " + self.currentSubject + " " + term + " " + year)
+            self.offeredCourses.insert(END, "Please select a subject (on the left)")
+            self.offeredCourses.insert(END, "and a term (below)")
 
     def courseClick(self, event):
         w = event.widget
         if not w.curselection() == ():
             index = int(w.curselection()[0])
-            currentCourse = w.get(index)
+            cc = w.get(index)
+            half = cc.split(")")[0].replace("(", "")
+            currentCourse = cc.split(")")[1:][0][1:]
 
-            if not self._contain(currentCourse, self.takenClasses) and currentCourse != self._offeredCoursesDefault:
+            if not self._contain(cc, self.takenClasses) and currentCourse != self._offeredCoursesDefault:
                 # locate class record
                 cm = ClassModel.ClassModel(self.db)
                 clas = cm.find_course(self._decompose(currentCourse)[2], self._decompose(currentCourse)[0],
-                                      self._decompose(currentCourse)[1])
+                                      self._decompose(currentCourse)[1], half.split(" ")[0], half.split(" ")[1])
                 class_id = clas[0][0]
 
                 # associate the item
@@ -487,20 +549,22 @@ class ClassManagement(tk.Tk):
                 scm.associate(self.student_id, class_id)
 
                 # insert item into the list
-                self.takenClasses.insert(END, currentCourse)
+                self.takenClasses.insert(END, "(" + half.split(" ")[0] + " " + half.split(" ")[1] + ") " + currentCourse)
 
     def removeClass(self, event):
         w = event.widget
         if not w.curselection() == ():
             index = int(w.curselection()[0])
-            currentCourse = w.get(index)
+            cc = w.get(index)
+            half = cc.split(")")[0].replace("(", "")
+            currentCourse = cc.split(")")[1:][0][1:]
             MsgBox = tk.messagebox.askquestion('Delete Confirmation',
                                                'Are you sure you would like to delete this class',
                                                icon='warning')
             if MsgBox == 'yes':
                 cm = ClassModel.ClassModel(self.db)
                 clas = cm.find_course(self._decompose(currentCourse)[2], self._decompose(currentCourse)[0],
-                                      self._decompose(currentCourse)[1])
+                                      self._decompose(currentCourse)[1], half.split(" ")[0], half.split(" ")[1])
                 class_id = clas[0][0]
 
                 scm = StudentClassModel.StudentClassModel(self.db)
