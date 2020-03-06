@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from GUI.ClassManagement import *
 from GUI.AddStudent import *
+from GUI.collectData import *
 import csv
 import os
 import sys
@@ -41,6 +42,12 @@ class MainMenu(tk.Tk):
         studentBtn.config(font=("Arial Bold", 13), bg=self._green, fg=self._yellow)
         studentBtn.place(x=348, y=465, height=27, width=106)
         studentBtn.bind(self._button, self.addStudentButtonClick)
+
+        # Select Data label
+        collectBtn = Label(master, text='Collect Data')
+        collectBtn.config(font=("Arial Bold", 13), bg=self._green, fg=self._yellow)
+        collectBtn.place(x=50,y=495, height=27, width=106)
+        collectBtn.bind(self._button, self.collectBtnClick)
 
         logo = PhotoImage(file="./img/RegToolsLogo.gif")
         label = Label(image=logo, borderwidth=0)
@@ -118,6 +125,9 @@ class MainMenu(tk.Tk):
         index = int(w.curselection()[0])
         selectedStudent = w.get(index)
         ClassManagement(self.master, selectedStudent, self.db)
+
+    def collectBtnClick(self, event):
+        collectData(self.master, self.db)
 
     def deleteName(self, event):
         w = event.widget
