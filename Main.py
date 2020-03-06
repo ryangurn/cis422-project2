@@ -27,6 +27,8 @@ import tkinter as tk
 
 DB = 'testing.db'
 
+os.environ['TK_SILENCE_DEPRECATION'] = "1"
+
 if not os.path.exists('testing.db'):
     # setup datastore
     ds = Datastore.DB(DB)
