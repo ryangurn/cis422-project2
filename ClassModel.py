@@ -86,7 +86,6 @@ class ClassModel:
         return cur.fetchall()
 
     def find_by_term(self, subject, year, term):
-        print(term)
         """
         Search for records within the class database and return them as lists of lists.
 
@@ -103,7 +102,6 @@ class ClassModel:
         cm.find_by_term('CIS', 2015, 2)
         """
         s = str(year) + "0" + str(term)
-        print(s)
 
         sql = "SELECT * FROM \"main\".\"classes\" WHERE \"subject\" = \"{}\" AND \"term\" = \"{}\";".format(subject, s)
         cur = self.conn.cursor()
@@ -149,7 +147,7 @@ class ClassModel:
         cm = ClassModel.ClassModel('testing.db')
         cm.distinct('subject')
         """
-        sql = "SELECT DISTINCT {} FROM classes".format(needle)
+        sql = "SELECT DISTINCT {} FROM classes ORDER BY \"subject\" ASC".format(needle)
         cur = self.conn.cursor()
         try:
             cur.execute(sql)
