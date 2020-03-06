@@ -81,7 +81,7 @@ class StudentClassModel:
             return cur.fetchall()
         return cur.fetchall()
 
-    def find(self, haystack, needle):
+    def find(self, haystack, needle, sort=None):
         """
         Find a set of records within the class database and return them as lists of lists.
 
@@ -95,7 +95,10 @@ class StudentClassModel:
         scm = StudentClassModel.StudentClassModel('testing.db')
         scm.find("student_id", 1)
         """
-        sql = "SELECT * FROM \"main\".\"students_classes\" WHERE \"{}\" = \"{}\"".format(haystack, needle)
+        if sort == None:
+            sql = "SELECT * FROM \"main\".\"students_classes\" WHERE \"{}\" = \"{}\"".format(haystack, needle)
+        else:
+            sql = "SELECT * FROM \"main\".\"students_classes\" WHERE \"{}\" = \"{}\" {}".format(haystack, needle, sort)
         cur = self.conn.cursor()
         try:
             cur.execute(sql)
