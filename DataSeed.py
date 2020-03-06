@@ -43,15 +43,17 @@ subject_codes = ["AAAP", "AAD", "ACTG", "AEIS", "AFR", "AIM", "ANTH", "ANTM", "A
                  "TA", "TLC", "UGST", "WGS", "WR"]
 
 # tri loop
-for k, s in enumerate(subject_codes): # for each subject
-    for y in range(2015, 2020): # for each year
-        for i in range(1, 5): # for each term
-            print("(S:{} - {}/{:.2%}) STARTING PARSE FOR {} {} - [{}]".format(k, len(subject_codes), k/len(subject_codes), y, i, s))
+for k, s in enumerate(subject_codes):  # for each subject
+    for y in range(2015, 2020):  # for each year
+        for i in range(1, 5):  # for each term
+            print("(S:{} - {}/{:.2%}) STARTING PARSE FOR {} {} - [{}]".format(k, len(subject_codes),
+                                                                              k / len(subject_codes), y, i, s))
 
             # parse the data and store it.
-            p = ClassParser.ClassParser(str(y)+"0"+str(i), s, DB)
+            p = ClassParser.ClassParser(str(y) + "0" + str(i), s, DB)
             p.deleteFormatting()
             p.parseData()
 
-            print("(S:{} - {}/{:.2%}) ENDING PARSE FOR {} {} - [{}]".format(k, len(subject_codes), k/len(subject_codes), y, i, s))
-
+            print(
+                "(S:{} - {}/{:.2%}) ENDING PARSE FOR {} {} - [{}]".format(k, len(subject_codes), k / len(subject_codes),
+                                                                          y, i, s))
