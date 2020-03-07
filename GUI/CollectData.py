@@ -181,6 +181,18 @@ class collectData(tk.Tk):
         self.newWindow.destroy()
 
     def updateLoadLabel(self):
+        """
+        This function recursively updates the frame of the gif in the loading
+        label until it no longer exists. This should be called from the
+        loadingLabel function.
+
+        :param
+        None
+
+        Example Usage:
+        //Runs this function after 0 ms has passed
+        self.newWindow.after(0, self.updateLoadLabel)
+        """
         frame = self.frames[self.frameIndex]
         self.frameIndex += 1
         if self.frameIndex >= len(self.frames):
