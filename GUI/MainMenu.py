@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from GUI.ClassManagement import *
 from GUI.AddStudent import *
-from GUI.collectData import *
+from GUI.CollectData import *
 import csv
 import os
 import sys
