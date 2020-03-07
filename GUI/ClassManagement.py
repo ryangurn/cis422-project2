@@ -529,10 +529,9 @@ class ClassManagement(tk.Tk):
         if not w.curselection() == ():
             index = int(w.curselection()[0])
             cc = w.get(index)
-            half = cc.split(")")[0].replace("(", "")
-            currentCourse = cc.split(")")[1:][0][1:]
-
-            if not self._contain(cc, self.takenClasses) and currentCourse != self._offeredCoursesDefault:
+            if not self._contain(cc, self.takenClasses) and cc != self._offeredCoursesDefault:
+                half = cc.split(")")[0].replace("(", "")
+                currentCourse = cc.split(")")[1:][0][1:]
                 # locate class record
                 cm = ClassModel.ClassModel(self.db)
                 clas = cm.find_course(self._decompose(currentCourse)[2], self._decompose(currentCourse)[0],
