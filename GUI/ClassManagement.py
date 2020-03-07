@@ -1,4 +1,5 @@
 import tkinter as tk
+import json
 from tkinter import *
 from tkinter import messagebox
 from tkinter import font
@@ -212,13 +213,14 @@ class ClassManagement(tk.Tk):
         def box3_update():
             # Updates listbox 3 with class data given the key
             self.listBx3
-            for i in reversed(range(len(classMap[self.classMapKeys[2]]))):
+            for i in reversed(range(len(classMap[self.classMapKeys[self.idx + 2]]))):
                 self.listBx3.insert(0, classMap[self.classMapKeys[self.idx + 2]][i])
                 # self.listBx3.itemconfig(0, {'bg': 'red'})
 
         def box4_update():
             # Updates listbox 4 with class data given the key
             self.listBx4
+            #if len(classMap[self.classMapKeys[self.idx + 3]]):
             for i in reversed(range(len(classMap[self.classMapKeys[self.idx + 3]]))):
                 self.listBx4.insert(0, classMap[self.classMapKeys[self.idx + 3]][i])
 
@@ -300,14 +302,29 @@ class ClassManagement(tk.Tk):
             # Function to go back to the classes menu
             roadMapWindow.destroy()
 
+        def getFirstTerm():
+            currentMonth = datetime.now().month
+            if (currentMonth > 9):
+                term = "Winter"
+            elif (6 < currentMonth < 9):
+                term = "Fall" 
+            elif (4 <= currentMonth <= 6):
+                term = "Summer"
+            else:
+                term = "Spring"
+            return term
+
+
         # Empty list that will store the class keys in same order as dictionary
         self.classMapKeys = []
-
+        terms = ["Winter", "Spring", "Summer", "Fall"]
+        termsNormal = ["Fall", "Winter", "Spring", "Summer"]
         classDict = {}
 
         scm = StudentClassModel.StudentClassModel(self.db)
         recents = scm.find('students_id', self.student_id)
         min_year = datetime.now().year
+        check = 1
         for recent in recents:
             class_id = recent[2]
             cm = ClassModel.ClassModel(self.db)
@@ -316,23 +333,201 @@ class ClassManagement(tk.Tk):
                 item = str(c[1])
                 year = int(item[:4])
                 term = int(item[4:])
-                if year < min_year:
+                if year <= min_year:
+                    curTerm = termsNormal[term-1]
+                    #check = 0
                     if term == 1:
                         min_year = year
                     else:
-                        min_year = year + 1
+                        min_year = year+1
+        if check:
+            curTerm = getFirstTerm()
 
-        # get the requirements and the total amount of terms needed.
         rm = RequirementModel.RequirementModel(self.db)
+        cm = ClassModel.ClassModel(self.db)
         find = rm.find_by('type', 'BS')
         le = len(find)
         for t in range(le // 4):
-            classDict.update({"Fall " + str(min_year): []})
-            classDict.update({"Winter " + str(min_year): []})
-            classDict.update({"Spring " + str(min_year): []})
-            classDict.update({"Summer " + str(min_year): []})
+            # term1 = [desc["description"] for desc in json.loads(find[4*t][4])]
+            # summerTerm = [desc["description"] for desc in json.loads(find[4*t+1][4])]
+            # fallTerm = [desc["description"] for desc in json.loads(find[4*t+2][4])]
+            # winterTerm = [desc["description"] for desc in json.loads(find[4*t+3][4])]
+            springTerm, summerTerm, fallTerm, winterTerm = [], [], [], []
+            springTerm.append("Required")
+            summerTerm.append("Required")
+            fallTerm.append("Required")
+            winterTerm.append("Required")
+            # spring
+            for desc in json.loads(find[4*t][4]):
+                if desc['course'] != "":
+                    if desc['course'][0] != ">":
+                        s1 = desc['course'].split(" ")
+                        course = s1[0]
+                        classes = s1[1]
+                        if "/" in classes:
+                            sqlTerm = str(min_year) + "0" + str(terms.index(curTerm) % 4)
+                            #print(sqlTerm)
+                            classes_split = classes.split("/")
+                            for clss in classes_split:
+                                offeredClass = cm.find_class_id(course, clss, sqlTerm)
+                                if len(offeredClass):
+                                    theClass = "- " + course + " " + clss
+                                    springTerm.append(theClass)
+                                else:
+                                    offeredClass = cm.predict_future_class_id(course, clss)
+                                    if len(offeredClass):
+                                        theClass = "- " + course + " " + clss                                
+                                        springTerm.append(theClass)
+                                    else:
+                                        springTerm.append("- " + desc["description"])
+                                
+                        else:
+                            theClass = "- " + desc["course"]
+                            springTerm.append(theClass)
+                    else:
+                        # query classes for with >
+                        if (desc["course"][1] == "1"):
+                            springTerm.append("Arts & Letters")
+                        
+                        elif (desc["course"][1] == "2"):
+                            springTerm.append("Social Sciences")
+                        elif (desc["course"][1] == "3"):
+                            springTerm.append("Science")
+                        
+                        priorYear = int(datetime.now().year) - 1
+                        sqlTerm = str(priorYear) + "0" + str(terms.index(curTerm) % 4)
+                        carrotClasses = cm.crt_class_search(desc["course"][1], priorYear)
+                        for carrot in carrotClasses:
+                            if int(sqlTerm) in carrot:
+                                theClass = "- " + str(carrot[0]) + " " + str(carrot[2])
+                                springTerm.append(theClass)
+                            else:
+                                pass
+                else:
+                    springTerm.append(desc["description"])
+            
+            # summer
+            for desc in json.loads(find[4*t+1][4]):
+                if desc['course'] != "":
+                    if desc['course'][0] != ">":
+                        s2 = desc['course'].split(" ")
+                        course = s2[0]
+                        classes = s2[1]
+                        if "/" in classes:
+                            classes_split = classes.split("/")
+                            sqlTerm = str(min_year) + "0" + str((terms.index(curTerm) + 1) % 4)
+                            classes_split = classes.split("/")
+                            for clss in classes_split:
+                                offeredClass = cm.find_class_id(course, clss, sqlTerm)
+                                if len(offeredClass):
+                                    theClass = "- " + course + " " + clss
+                                    summerTerm.append(theClass)
+                                else:
+                                    offeredClass = cm.predict_future_class_id(course, clss)
+                                    if len(offeredClass):
+                                        theClass = "- " + course + " " + clss
+                                        summerTerm.append(theClass)
+                                    else:
+                                        theClass = "- " + desc["course"]
+                                        summerTerm.append(theClass)
+                                
+                        else:
+                            summerTerm.append(desc["course"])
+                    else:
+                        # query classes for >
+                        pass
+
+                else:
+                    summerTerm.append(desc["description"])
+
+            # fall
+            for desc in json.loads(find[4*t+2][4]):
+                if desc['course'] != "":
+                    if desc['course'][0] != ">":
+                        s3 = desc['course'].split(" ")
+                        course = s3[0]
+                        classes = s3[1]
+                        if "/" in classes:
+                            classes_split = classes.split("/")
+                            sqlTerm = str(min_year) + "0" + str((terms.index(curTerm) + 2) % 4)
+                            classes_split = classes.split("/")
+                            for clss in classes_split:
+                                offeredClass = cm.find_class_id(course, clss, sqlTerm)
+                                if len(offeredClass):
+                                    theClass = "- " + course + " " + clss
+                                    fallTerm.append(theClass)
+                                else:
+                                    offeredClass = cm.predict_future_class_id(course, clss)
+                                    if len(offeredClass):
+                                        theClass = "- " + course + " " + clss
+                                        fallTerm.append(theClass)
+                                    else:
+                                        theClass = "- " + desc["course"]
+                                        fallTerm.append(theClass)
+                        else:
+                            fallTerm.append(desc["course"])
+                    else:
+                        # query classes for >
+                        pass
+
+                else:
+                    fallTerm.append(desc["description"])
+
+            #winter
+            for desc in json.loads(find[4*t+3][4]):
+                if desc['course'] != "":    
+                    if desc['course'][0] != ">":
+                        s4 = desc['course'].split(" ")
+                        course = s4[0]
+                        classes = s4[1]
+                        if "/" in classes:
+                            classes_split = classes.split("/")
+                            # query for course + each class in classes split
+                            sqlTerm = str(min_year) + "0" + str((terms.index(curTerm) + 3) % 4)
+                            #print(sqlTerm)
+                            classes_split = classes.split("/")
+                            for clss in classes_split:
+                                offeredClass = cm.find_class_id(course, clss, sqlTerm)
+                                if len(offeredClass):
+                                    theClass = "- " + course + " " + clss
+                                    winterTerm.append(theClass)
+                                else:
+                                    offeredClass = cm.predict_future_class_id(course, clss)
+                                    if len(offeredClass):
+                                        theClass = "- " + course + " " + clss
+                                        winterTerm.append(theClass)
+                                    else:
+                                        theClass = "- " + desc["course"]
+                                        winterTerm.append(theClass)
+                                    
+                        else:
+                            winterTerm.append(desc["course"])
+                    else:
+                        # query classes for >
+                        pass
+
+                else:
+                    winterTerm.append(desc["description"])
+
+        
+
+            classDict.update({termsNormal[termsNormal.index(curTerm) % 4] + " " + str(min_year): springTerm})
+            classDict.update({termsNormal[(termsNormal.index(curTerm) + 1) % 4] + " " + str(min_year): winterTerm})
+            classDict.update({termsNormal[(termsNormal.index(curTerm) + 2) % 4] + " " + str(min_year): fallTerm})
+            classDict.update({termsNormal[(termsNormal.index(curTerm) + 3) % 4] + " " + str(min_year): summerTerm})
             min_year += 1
         min_year -= le // 4
+
+        # get the requirements and the total amount of terms needed.
+        # for fuck, f in enumerate(find):
+        #     item = json.loads(f[4])
+        #     le = len(item)
+        #     if le != 0:
+        #         for i in item:
+        #             print(terms[(terms.index(curTerm) + fuck) % 4] , i["description"])
+        #     else:
+        #         print(fuck, i["description"])
+                
         # print(min_year, classDict)
 
         classMap = classDict
