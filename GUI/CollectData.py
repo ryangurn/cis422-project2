@@ -1,3 +1,20 @@
+"""
+
+CollectData.py is the graphics modules dedicated to the setup and display of
+the data collection window. It also handles user interaction with the window.
+
+Authors:
+(RegTools)
+Joseph Goh
+Mason Sayyadi
+Owen McEvoy
+Ryan Gurnick
+Samuel Lundquist
+
+Created:
+
+"""
+
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
@@ -8,6 +25,20 @@ import ClassModel
 
 class collectData(tk.Tk):
     def __init__(self, master, db_file):
+        """
+        Initializer for the CollectData window. This function requires the name
+        of the database to connect and interact with, the master window from
+        tkinter to interface with, and also the Listbox that contains the names
+        of the students in the database.
+
+        :param
+        master: tkinter.Tk
+        db_file: str
+
+        Example Usage:
+        //Called from MainMenu.py
+        collectData(self.master, self.db)
+        """
         self.db = db_file
         self.master = master
 
@@ -91,18 +122,43 @@ class collectData(tk.Tk):
         collectData = Label(self.newWindow, text='Collect Data')
         collectData.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
         collectData.place(x=225, y=340, height=30, width=140)
-        collectData.bind("<Double-Button-1>", self.dataCollectClick)
+        collectData.bind(self._button, self.dataCollectClick)
 
         # Button to close the "Select Data" window and go back to main menu
         exitName = Label(self.newWindow, text='Return Home')
         exitName.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
         exitName.place(x=410, y=340, height=30, width=140)
-        exitName.bind("<Double-Button-1>", self.exitWindow)
+        exitName.bind(self._button, self.exitWindow)
 
     def exitWindow(self, event):
+        """
+        Function used to exit the CollectData window and return to MainMenu
+        when an event occurs. This function should be bound to an onclick event
+        on the exitName button.
+
+        :param
+        event: the event type of an item bound to this function
+
+        Example Usage:
+        //Binds left mouse click on 'exitName' button to this function
+        exitName.bind("<Button-1>", self.exitWindow)
+        """
         self.newWindow.destroy()
 
     def dataCollectClick(self, event):
+        """
+        This function is used to update course data for a specific subject and
+        term. It parses data from classes.uoregon.edu and updates the database
+        with the latest course information. This function will be called when
+        a bound event occurs.
+
+        :param
+        event: the event type of an item bound to this function
+
+        Example Usage:
+        //Binds left mouse click on collectData button to this function
+        collectData.bind("<Button-1>", self.dataCollectClick)
+        """
         term = self.termVal.get()
         year = self.yearVal.get()
         t = None
