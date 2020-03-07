@@ -310,8 +310,6 @@ class ClassManagement(tk.Tk):
         scm = StudentClassModel.StudentClassModel(self.db)
         recents = scm.find('students_id', self.student_id)
         min_year = datetime.now().year
-        print(min_year)
-        print(recents)
         for recent in recents:
             class_id = recent[2]
             cm = ClassModel.ClassModel(self.db)
@@ -325,7 +323,6 @@ class ClassManagement(tk.Tk):
                         min_year = year
                     else:
                         min_year = year+1
-        print(min_year)
 
         # get the requirements and the total amount of terms needed.
         rm = RequirementModel.RequirementModel(self.db)
