@@ -32,8 +32,8 @@ class collectData(tk.Tk):
         of the students in the database.
 
         :param
-        master: tkinter.Tk
-        db_file: str
+        master :tkinter.Tk
+        db_file :str
 
         Example Usage:
         //Called from MainMenu.py
@@ -137,7 +137,7 @@ class collectData(tk.Tk):
         on the exitName button.
 
         :param
-        event: the event type of an item bound to this function
+        event :the event type of an item bound to this function
 
         Example Usage:
         //Binds left mouse click on 'exitName' button to this function
@@ -153,7 +153,7 @@ class collectData(tk.Tk):
         a bound event occurs.
 
         :param
-        event: the event type of an item bound to this function
+        event :the event type of an item bound to this function
 
         Example Usage:
         //Binds left mouse click on collectData button to this function

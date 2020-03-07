@@ -31,9 +31,9 @@ class AddStudent(tk.Tk):
         of the students in the database.
 
         :param
-        master: tkinter.Tk
-        db_file: str
-        lb: Listbox
+        master :tkinter.Tk
+        db_file :str
+        lb :Listbox
 
         Example Usage:
         //Called from MainMenu.py
@@ -84,7 +84,7 @@ class AddStudent(tk.Tk):
         on the exitName button.
 
         :param
-        event: the event type of an item bound to this function
+        event :the event type of an item bound to this function
 
         Example Usage:
         //Binds left mouse click on 'exitName' button to this function
@@ -98,7 +98,7 @@ class AddStudent(tk.Tk):
         This function should be bound to an onclick event on the addName button.
 
         :param
-        event: the event type of an item bound to this function
+        event :the event type of an item bound to this function
 
         Example Usage:
         //Binds left mouse click on 'addName' button to this function

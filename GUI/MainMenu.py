@@ -36,8 +36,8 @@ class MainMenu(tk.Tk):
         master window from tkinter to interface with.
 
         :param
-        master: tkinter.Tk
-        db_file: str
+        master :tkinter.Tk
+        db_file :str
 
         Example Usage:
         root = tk.Tk()
@@ -139,7 +139,7 @@ class MainMenu(tk.Tk):
         Loads in student names that are already added to the database.
 
         :param
-        n/a
+        None
 
         Example Usage:
         //initialize Listbox first, then you can call loadLB()
@@ -163,7 +163,7 @@ class MainMenu(tk.Tk):
         search box.
 
         :param
-        event: None
+        event :None
 
         Example Usage:
         //When the StringVar changes, call self.update_listbox
@@ -186,7 +186,7 @@ class MainMenu(tk.Tk):
         and load the ClassManagement window for that student.
 
         :param
-        event: the event type of an item binded to this function
+        event :the event type of an item binded to this function
 
         Example Usage:
         //Binds a double-click event on Listbox to this function
@@ -203,7 +203,7 @@ class MainMenu(tk.Tk):
         This function should be bound to an onclick event on the collectBtn.
 
         :param
-        event: the event type of an item bound to this function
+        event :the event type of an item bound to this function
 
         Example Usage:
         //Binds a left click action on the collectBtn to this function
@@ -218,7 +218,7 @@ class MainMenu(tk.Tk):
         Also prompts the user to confirm the action prior to deletion.
 
         :param
-        event: the event type of an item bound to this function
+        event :the event type of an item bound to this function
 
         Example Usage:
         //Binds the 'd' key to this function for deleting students
@@ -246,7 +246,7 @@ class MainMenu(tk.Tk):
         This function should be bound to an onclick event on the studentBtn.
 
         :param
-        event: the event type of an item bound to this function
+        event :the event type of an item bound to this function
 
         Example Usage:
         //Binds the left mouse click action on studentBtn to call this function
