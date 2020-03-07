@@ -11,8 +11,8 @@ Owen McEvoy
 Ryan Gurnick
 Samuel Lundquist
 
-Priority credit to:
-Ryan Gurnick - 03/02/20  Creation
+Created:
+March 2nd, 2020
 
 """
 import Datastore
@@ -27,6 +27,7 @@ class StudentClassModel:
         Then it will provide a connection to that database and allow for some ORM opterations, such
         as insert and select.
 
+        :param
         db_file :str
 
         Example Usage:
