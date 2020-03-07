@@ -63,11 +63,9 @@ class DetailsParser:
                         })
 
             elif key == 1:
-                #TODO: add functionality to parse academic deadlines
                 pass
 
             elif key == 2:
-                #TODO: add functionality to parse long course description
                 pass
 
     def getPrereqs(self):
