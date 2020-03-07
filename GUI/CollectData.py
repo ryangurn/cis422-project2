@@ -22,6 +22,8 @@ import StudentModel
 import ClassParser
 import ClassModel
 import threading
+import random
+
 
 class collectData(tk.Tk):
     def __init__(self, master, db_file):
@@ -51,15 +53,16 @@ class collectData(tk.Tk):
         self.cm = ClassModel.ClassModel(self.db)
         self.s = ""
 
-        #init variables for loading gif
+        # init variables for loading gif
         self.loadLabel = None
         self.loading = False
         self.frames = []
         self.frameIndex = 0
         index = 0
+        filename = "./img/spinner-" + random.randint(0, 2) + ".gif"
         while index >= 0:
             try:
-                frame = PhotoImage(file = "./img/loading.gif", format = 'gif -index %i' %(index))
+                frame = PhotoImage(file=filename, format='gif -index %i' % (index))
                 print("Got image {}".format(str(index)))
                 self.frames.append(frame)
                 index += 1
@@ -193,10 +196,10 @@ class collectData(tk.Tk):
             print("done updating load label")
 
     def loadingLabel(self):
-        #Get coordinates of buttons and remove them
+        # Get coordinates of buttons and remove them
         exit_info = self.exitName.place_info()
         collect_info = self.collectData.place_info()
-        xval = (int(exit_info["x"]) + int(collect_info["x"]))/2
+        xval = (int(exit_info["x"]) + int(collect_info["x"])) / 2
         yval = int(exit_info["y"])
         height = int(exit_info["height"])
         width = int(exit_info["width"])
@@ -205,17 +208,17 @@ class collectData(tk.Tk):
 
         # get the gif and animate that shit in
         self.loading = True
-        self.loadLabel = Label(self.newWindow, width = 100)
-        self.loadLabel.place(x = xval, y = yval)
+        self.loadLabel = Label(self.newWindow, width=100)
+        self.loadLabel.place(x=xval, y=yval)
         print("Calling update load label")
         self.newWindow.after(0, self.updateLoadLabel)
 
     def parseThread(self):
-        print ("{} Starting...".format(threading.currentThread().getName()))
+        print("{} Starting...".format(threading.currentThread().getName()))
         p = ClassParser.ClassParser(self.s, self.subjectVal.get())
         p.deleteFormatting()
         p.parseData()
-        print ("{} Exiting...".format(threading.currentThread().getName()))
+        print("{} Exiting...".format(threading.currentThread().getName()))
         threading.currentThread().exit()
 
     def dataCollectClick(self, event):
@@ -256,7 +259,7 @@ class collectData(tk.Tk):
         if len(currentClasses):
             self.cm.delete_sub_term(self.subjectVal.get(), self.s)
 
-        parse_thread = threading.Thread(name = "ParsingThread", target = self.parseThread)
+        parse_thread = threading.Thread(name="ParsingThread", target=self.parseThread)
         parse_thread.start()
         while parse_thread.isAlive():
             self.newWindow.update_idletasks()
@@ -264,6 +267,6 @@ class collectData(tk.Tk):
         parse_thread.join()
         print("Thread joined")
 
-        #Remove loading wheel
+        # Remove loading wheel
         self.loadLabel.destroy()
         self.initButtons()
