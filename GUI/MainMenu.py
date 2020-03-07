@@ -31,7 +31,7 @@ import sqlite3
 class MainMenu(tk.Tk):
     def __init__(self, master, db_file):
         """
-        Initializer fo the MainMenu window. This function requires information
+        Initializer for the MainMenu window. This function requires information
         about the database to connect and interact with. It also requires the
         master window from tkinter to interface with.
 
