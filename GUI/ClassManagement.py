@@ -4,6 +4,7 @@ from tkinter import messagebox
 from tkinter import font
 from tkinter.ttk import Notebook, Entry
 from GUI.ClassInfo import *
+from datetime import date, datetime
 import StudentModel
 import StudentClassModel
 import ClassModel
@@ -308,7 +309,8 @@ class ClassManagement(tk.Tk):
 
         scm = StudentClassModel.StudentClassModel(self.db)
         recents = scm.find('students_id', self.student_id)
-        min_year = 9999
+        min_year = datetime.now().year
+        print(min_year)
         print(recents)
         for recent in recents:
             class_id = recent[2]
