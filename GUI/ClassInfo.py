@@ -27,8 +27,8 @@ import ClassModel
 class classInfo(tk.Tk):
     def __init__(self, master, db_file, className):
         """
-        Initializer for the MainMenu window. This function requires information
-        about the database to connect and interact with. It also requires the
+        Initializer for the MainMenu window. This function requires the name
+        of the database to connect and interact with. It also requires the
         master window from tkinter to interface with. It also needs the class
         name so that it can get info on that class from the database.
 

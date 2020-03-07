@@ -1,3 +1,20 @@
+"""
+
+AddStudent.py is the graphics modules dedicated to the setup and display of
+the add student window. It also handles user interaction with the window.
+
+Authors:
+(RegTools)
+Joseph Goh
+Mason Sayyadi
+Owen McEvoy
+Ryan Gurnick
+Samuel Lundquist
+
+Created:
+
+"""
+
 import tkinter as tk
 import csv
 from tkinter import *
@@ -7,6 +24,21 @@ import StudentModel
 
 class AddStudent(tk.Tk):
     def __init__(self, master, db_file, lb):
+        """
+        Initializer for the AddStudent window. This function requires the name
+        of the database to connect and interact with, the master window from
+        tkinter to interface with, and also the Listbox that contains the names
+        of the students in the database.
+
+        :param
+        master: tkinter.Tk
+        db_file: str
+        lb: Listbox
+
+        Example Usage:
+        //Called from MainMenu.py
+        AddStudent(self.master, self.db, self.lb)
+        """
         self.db = db_file
         self.master = master
         self.lb = lb
@@ -46,9 +78,32 @@ class AddStudent(tk.Tk):
         addName.bind(self._button, self.addStudentClick)
 
     def exitWindow(self, event):
+        """
+        Function used to exit the AddStudent window and return to MainMenu
+        when an event occurs. This function should be bound to an onclick event
+        on the exitName button.
+
+        :param
+        event: the event type of an item bound to this function
+
+        Example Usage:
+        //Binds left mouse click on 'exitName' button to this function
+        exitName.bind("<Button-1>", self.exitWindow)
+        """
         self.window.destroy()
 
     def addStudentClick(self, event):
+        """
+        Function used to add a student to the database when an event occurs.
+        This function should be bound to an onclick event on the addName button.
+
+        :param
+        event: the event type of an item bound to this function
+
+        Example Usage:
+        //Binds left mouse click on 'addName' button to this function
+        addName.bind(self._button, self.addStudentClick)
+        """
         name = self.nameVar.get()
         if name == '':
             messagebox.showwarning("Invalid Name", 'Please enter a valid name.')
