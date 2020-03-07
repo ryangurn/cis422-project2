@@ -112,7 +112,7 @@ class RequirementModel:
             {
                 "description": "WR 122 College Composition II/WR 123 College Composition III",
                 "milestones": "",
-                "course": "WR 122"
+                "course": "WR 122/123"
             },
             {
                 "description": "General-education course in social science",
@@ -133,7 +133,7 @@ class RequirementModel:
                 "description": "MATH 251 Calculus I/MATH 246 Calculus for the Biological Sciences I/MATH 261 Calculus "
                                "with Theory I",
                 "milestones": "",
-                "course": "MATH 251"
+                "course": "MATH 251/246/261"
             },
             {
                 "description": "General-education course in arts and letters",
@@ -162,7 +162,7 @@ class RequirementModel:
                 "description": "MATH 252 Calculus II/MATH 246 Calculus for the Biological Sciences II/MATH 261 "
                                "Calculus with Theory II",
                 "milestones": "",
-                "course": "MATH 252"
+                "course": "MATH 252/246/262"
             },
             {
                 "description": "General-education course in arts and letters that also satisfies multicultural "
@@ -187,7 +187,7 @@ class RequirementModel:
                 "description": "MATH 253 Calculus III/MATH 283 Calculus with Theory III/MATH 341 Elementary Linear "
                                "Algebra/MATH 343 Statistical Models and Methods/MATH 425 Statistical Methods I",
                 "milestones": "",
-                "course": "MATH 253"
+                "course": "MATH 253/283/341"
             },
             {
                 "description": "General-education course in social science that also satisfies a multicultural "
