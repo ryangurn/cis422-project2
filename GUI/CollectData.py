@@ -21,6 +21,9 @@ from tkinter import messagebox
 import StudentModel
 import ClassParser
 import ClassModel
+import threading
+import random
+import socket
 
 
 class collectData(tk.Tk):
@@ -32,8 +35,8 @@ class collectData(tk.Tk):
         of the students in the database.
 
         :param
-        master: tkinter.Tk
-        db_file: str
+        master :tkinter.Tk
+        db_file :str
 
         Example Usage:
         //Called from MainMenu.py
@@ -49,6 +52,23 @@ class collectData(tk.Tk):
         self._yellow = "#ffcc00"
         self._button = "<Button-1>"
         self.cm = ClassModel.ClassModel(self.db)
+        self.s = ""
+
+        # init variables for loading gif
+        self.loadLabel = None
+        self.loading = False
+        self.frames = []
+        self.frameIndex = 0
+        index = 0
+        filename = "./img/spinner-" + str(random.randint(0, 2)) + ".gif"
+        while index >= 0:
+            try:
+                frame = PhotoImage(file=filename, format='gif -index %i' % (index))
+                self.frames.append(frame)
+                index += 1
+            except:
+                index = -1
+
         # Creates a frame to add to the master window
         self.master = master
         self.newWindow = Frame(master, bg=self._darkGrey)
@@ -119,16 +139,29 @@ class collectData(tk.Tk):
         termMenu.place(x=490, y=185, width=150, height=30)
 
         # Button to trigger the data collection
-        collectData = Label(self.newWindow, text='Collect Data')
-        collectData.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
-        collectData.place(x=225, y=340, height=30, width=140)
-        collectData.bind(self._button, self.dataCollectClick)
+        self.collectData = Label(self.newWindow, text='Collect Data')
+        self.collectData.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
+        self.collectData.place(x=225, y=340, height=30, width=140)
+        self.collectData.bind(self._button, self.dataCollectClick)
 
         # Button to close the "Select Data" window and go back to main menu
-        exitName = Label(self.newWindow, text='Return Home')
-        exitName.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
-        exitName.place(x=410, y=340, height=30, width=140)
-        exitName.bind(self._button, self.exitWindow)
+        self.exitName = Label(self.newWindow, text='Return Home')
+        self.exitName.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
+        self.exitName.place(x=410, y=340, height=30, width=140)
+        self.exitName.bind(self._button, self.exitWindow)
+
+    def initButtons(self):
+        # Button to trigger the data collection
+        self.collectData = Label(self.newWindow, text='Collect Data')
+        self.collectData.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
+        self.collectData.place(x=225, y=340, height=30, width=140)
+        self.collectData.bind(self._button, self.dataCollectClick)
+
+        # Button to close the "Select Data" window and go back to main menu
+        self.exitName = Label(self.newWindow, text='Return Home')
+        self.exitName.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
+        self.exitName.place(x=410, y=340, height=30, width=140)
+        self.exitName.bind(self._button, self.exitWindow)
 
     def exitWindow(self, event):
         """
@@ -137,13 +170,64 @@ class collectData(tk.Tk):
         on the exitName button.
 
         :param
-        event: the event type of an item bound to this function
+        event :the event type of an item bound to this function
 
         Example Usage:
         //Binds left mouse click on 'exitName' button to this function
         exitName.bind("<Button-1>", self.exitWindow)
         """
         self.newWindow.destroy()
+
+    def updateLoadLabel(self):
+        frame = self.frames[self.frameIndex]
+        self.frameIndex += 1
+        if self.frameIndex >= len(self.frames):
+            self.frameIndex = 0
+        try:
+            self.loadLabel.configure(image=frame)
+            self.newWindow.after(50, self.updateLoadLabel)
+        except:
+            self.frameIndex = 0
+
+    def loadingLabel(self):
+        # Get coordinates of buttons and remove them
+        exit_info = self.exitName.place_info()
+        collect_info = self.collectData.place_info()
+        xval = (int(exit_info["x"]) + int(collect_info["x"]))/2
+        yval = int(int(exit_info["y"])-100)
+        self.exitName.destroy()
+        self.collectData.destroy()
+
+        # Load in the label for loading gif
+        self.loading = True
+        self.loadLabel = Label(self.newWindow)
+        self.loadLabel.config(bg='systemTransparent')
+        self.loadLabel.place(x = xval, y = yval)
+        self.newWindow.after(0, self.updateLoadLabel)
+
+    def is_online(self):
+        try:
+            # see if we can resolve the host name -- tells us if there is
+            # a DNS listening
+            host = socket.gethostbyname("classes.uoregon.edu")
+            # connect to the host -- tells us if the host is actually
+            # reachable
+            s = socket.create_connection((host, 80), 2)
+            s.close()
+            return True
+        except:
+            pass
+        return False
+
+    def parseThread(self):
+        # print("{} Starting...".format(threading.currentThread().getName()))
+        if self.is_online():
+            p = ClassParser.ClassParser(self.s, self.subjectVal.get())
+            p.deleteFormatting()
+            p.parseData()
+        else:
+            print("[ERROR] Couldn't connect to the internet.")
+        # print ("{} Exiting...".format(threading.currentThread().getName()))
 
     def dataCollectClick(self, event):
         """
@@ -153,12 +237,14 @@ class collectData(tk.Tk):
         a bound event occurs.
 
         :param
-        event: the event type of an item bound to this function
+        event :the event type of an item bound to this function
 
         Example Usage:
         //Binds left mouse click on collectData button to this function
         collectData.bind("<Button-1>", self.dataCollectClick)
         """
+        self.loadingLabel()
+
         term = self.termVal.get()
         year = self.yearVal.get()
         t = None
@@ -176,11 +262,18 @@ class collectData(tk.Tk):
             t = 4
 
         ye = str(y)
-        s = ye + "0" + str(t)
+        self.s = ye + "0" + str(t)
         currentClasses = self.cm.find_by_term(self.subjectVal.get(), y, t)
         if len(currentClasses):
-            self.cm.delete_sub_term(self.subjectVal.get(), s)
+            self.cm.delete_sub_term(self.subjectVal.get(), self.s)
 
-        p = ClassParser.ClassParser(s, self.subjectVal.get())
-        p.deleteFormatting()
-        p.parseData()
+        parse_thread = threading.Thread(name="ParsingThread", target=self.parseThread)
+        parse_thread.start()
+        while parse_thread.isAlive():
+            self.newWindow.update_idletasks()
+            self.newWindow.update()
+        parse_thread.join()
+
+        # Remove loading wheel
+        self.loadLabel.destroy()
+        self.initButtons()

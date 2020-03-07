@@ -33,9 +33,9 @@ class classInfo(tk.Tk):
         name so that it can get info on that class from the database.
 
         :param
-        master: tkinter.Tk
-        db_file: str
-        className: str
+        master :tkinter.Tk
+        db_file :str
+        className :str
 
         Example Usage:
 

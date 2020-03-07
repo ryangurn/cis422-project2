@@ -126,6 +126,7 @@ class ClassParser:
             for k, v in enumerate(data):
                 item = data[k]
                 if len(item) == 9:
+                    # setup the section object
                     section_obj = {'type': item[0], 'crn': item[1], 'avail': int(item[2]), 'max': int(item[3]),
                                    'taken': int(int(item[3]) - int(item[2])), 'time': item[4], 'day': item[5],
                                    'location': item[6], 'instructor': item[7], 'prereqs': '', 'description': '',
@@ -133,6 +134,7 @@ class ClassParser:
                                    'url': "http://classes.uoregon.edu/pls/prod/hwskdhnt.p_viewdetl?term=" + self.term + "&crn=" + \
                                           item[1]}
 
+                    # get the details for each CRN
                     if "Lecture" in section_obj['type'] or section_obj['type'] == "":
                         p = DetailsParser.DetailsParser(self.term, section_obj['crn'])
                         p.deleteFormatting()
@@ -143,11 +145,12 @@ class ClassParser:
                     class_obj['sections'].append(section_obj)
 
             if class_obj != {'subject': '', 'number': '', 'name': '', 'credits': '', 'grading': '', 'sections': [], }:
-                self._saveData(class_obj)
+                self._saveData(class_obj)  # insert to sqlite db
                 self._dict.update({
                     str(class_obj['subject'] + " " + class_obj['number'] + " - [" + class_obj['name'] + "]"): class_obj
-                })
+                })  # append to the object
 
     def _saveData(self, obj):
+        """Small helper function to open the model and insert the data to the class model"""
         cm = ClassModel.ClassModel(db_file=self.db)
         cm.insert(self.term, obj['name'], obj['subject'], obj['number'], obj['credits'], json.dumps(obj['sections']))

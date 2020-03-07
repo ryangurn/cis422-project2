@@ -11,8 +11,8 @@ Owen McEvoy
 Ryan Gurnick
 Samuel Lundquist
 
-Priority credit to:
-Ryan Gurnick - 03/02/20  Creation
+Created:
+March 2nd, 2020
 
 """
 import Datastore
@@ -28,6 +28,7 @@ class StudentModel:
         Then it will provide a connection to that database and allow for some ORM opterations, such
         as insert and select.
 
+        :param
         db_file :str
 
         Example Usage:
@@ -81,8 +82,12 @@ class StudentModel:
         try:
             cur.execute(sql)
         except ValueError:
-            return cur.fetchall()
-        return cur.fetchall()
+            data = cur.fetchall()
+            cur.close()
+            return data
+        data = cur.fetchall()
+        cur.close()
+        return data
 
     def search(self, name):
         """
@@ -95,7 +100,7 @@ class StudentModel:
 
         Example Usage:
         sm = StudentModel.StudentModel('testing.db')
-        sm.find_by("Ryan Gurnick")
+        sm.search("Ryan Gurnick")
         """
         sql = "SELECT * FROM \"main\".\"students\" WHERE \"name\" LIKE '%{}%' ORDER BY \"id\" ASC LIMIT 0, 49999;".format(name)
         cur = self.conn.cursor()
@@ -127,8 +132,12 @@ class StudentModel:
         try:
             cur.execute(sql)
         except ValueError:
-            return cur.fetchall()
-        return cur.fetchall()
+            data = cur.fetchall()
+            cur.close()
+            return data
+        data = cur.fetchall()
+        cur.close()
+        return data
 
     def delete(self, id):
         """
@@ -149,6 +158,9 @@ class StudentModel:
             cur.execute(sql)
             self.conn.commit()
         except ValueError:
-
-            return cur.fetchall()
-        return cur.fetchall()
+            data = cur.fetchall()
+            cur.close()
+            return data
+        data = cur.fetchall()
+        cur.close()
+        return data

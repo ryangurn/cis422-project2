@@ -31,9 +31,9 @@ class AddStudent(tk.Tk):
         of the students in the database.
 
         :param
-        master: tkinter.Tk
-        db_file: str
-        lb: Listbox
+        master :tkinter.Tk
+        db_file :str
+        lb :Listbox
 
         Example Usage:
         //Called from MainMenu.py
@@ -84,7 +84,7 @@ class AddStudent(tk.Tk):
         on the exitName button.
 
         :param
-        event: the event type of an item bound to this function
+        event :the event type of an item bound to this function
 
         Example Usage:
         //Binds left mouse click on 'exitName' button to this function
@@ -98,7 +98,7 @@ class AddStudent(tk.Tk):
         This function should be bound to an onclick event on the addName button.
 
         :param
-        event: the event type of an item bound to this function
+        event :the event type of an item bound to this function
 
         Example Usage:
         //Binds left mouse click on 'addName' button to this function
@@ -109,8 +109,12 @@ class AddStudent(tk.Tk):
             messagebox.showwarning("Invalid Name", 'Please enter a valid name.')
             return
 
-        # Writes student name to the csv file and overrides existing one
         sm = StudentModel.StudentModel(self.db)
+        if len(sm.find(name)) > 0:
+            messagebox.showwarning("Name already used", 'Please enter a new name.')
+            return
+
+        # Writes student name to the csv file and overrides existing one
         sm.insert(name)
         self.lb.insert(END, name)
         self.window.destroy()
