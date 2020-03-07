@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import font
 from tkinter.ttk import Notebook, Entry
-from GUI.classInfo import *
+from GUI.ClassInfo import *
 import StudentModel
 import StudentClassModel
 import ClassModel
@@ -304,18 +304,6 @@ class ClassManagement(tk.Tk):
         # Empty list that will store the class keys in same order as dictionary
         self.classMapKeys = []
 
-        # Dummy class data I made
-        # classMap = {
-        #     "Spring 0000": ["Required Classes", "- MATH 123", "- CIS 123", "A & L", "-asd", "-qwe", "-23"],
-        #     "Summer 2019": ["CIS 211", "MATH 242", "ARTS/LETTER (4 Cr)"],
-        #     "Fall 2019": ["CIS 212", "ENG 380", "ARTS/LETTER (4 Cr)"],
-        #     "Winter 2020": ["CIS 315", "CIS 330", "CIS 422", "MATH 341"],
-        #     "Spring 2020": ["CIS 415", "CIS 407", "HIST 122", "ARTS/LETTER (4 Cr)"],
-        #     "Summer 2020": ["CIS 425", "MATH 253", "MATH 254", "PHIL 310"],
-        #     "Fall 2020": ["MATH 433", "SOC/SCI (4 Cr)", "SOC/SCI (4 Cr)", "MATH 488"],
-        #     "Winter 2021": ["CIS 443", "MATH 343", "SOCIAL SCIENCE (4 Cr)", "SOCIAL SCIENCE (4 Cr)"]
-        # }
-
         classDict = {}
 
         scm = StudentClassModel.StudentClassModel(self.db)
@@ -527,15 +515,14 @@ class ClassManagement(tk.Tk):
 
         ye = str(y)
         cm = ClassModel.ClassModel(self.db)
-        items = cm.find_by_term(self.currentSubject, year, t)
-        print(self.currentSubject)
-        if len(items) > 0:
-            for key, value in enumerate(items):
-                insertLine = value[3] + " " + value[4] + " - [" + value[2] + "]"
-                self.offeredCourses.insert(key, insertLine)
-        else:
-            self.offeredCourses.insert(END, "Please select a subject (on the left)")
-            self.offeredCourses.insert(END, "and a term (below)")
+        items = cm.find_by_term(self.currentSubject, ye, t)
+        if self.currentSubject is not None:
+            if len(items) > 0:
+                for key, value in enumerate(items):
+                    insertLine = self._compose([value])
+                    self.offeredCourses.insert(key, "(" + term + " " + year + ") " + insertLine)
+            else:
+                self.offeredCourses.insert(END, "None found for " + self.currentSubject + " " + term + " " + year)
 
     def courseClick(self, event):
         w = event.widget
