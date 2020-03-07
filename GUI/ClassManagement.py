@@ -324,7 +324,7 @@ class ClassManagement(tk.Tk):
         scm = StudentClassModel.StudentClassModel(self.db)
         recents = scm.find('students_id', self.student_id)
         min_year = datetime.now().year
-        #check = 1
+        check = 1
         for recent in recents:
             class_id = recent[2]
             cm = ClassModel.ClassModel(self.db)
@@ -339,13 +339,9 @@ class ClassManagement(tk.Tk):
                     if term == 1:
                         min_year = year
                     else:
-<<<<<<< HEAD
                         min_year = year+1
-        #if check:
-            #curTerm = getFirstTerm()
-=======
-                        min_year = year + 1
->>>>>>> e1d1787135abcc85cc5946b9c0217bdeb4d6dba3
+        if check:
+            curTerm = getFirstTerm()
 
         rm = RequirementModel.RequirementModel(self.db)
         cm = ClassModel.ClassModel(self.db)
