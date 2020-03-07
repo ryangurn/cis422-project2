@@ -109,8 +109,12 @@ class AddStudent(tk.Tk):
             messagebox.showwarning("Invalid Name", 'Please enter a valid name.')
             return
 
-        # Writes student name to the csv file and overrides existing one
         sm = StudentModel.StudentModel(self.db)
+        if len(sm.find(name)) > 0:
+            messagebox.showwarning("Name already used", 'Please enter a new name.')
+            return
+
+        # Writes student name to the csv file and overrides existing one
         sm.insert(name)
         self.lb.insert(END, name)
         self.window.destroy()

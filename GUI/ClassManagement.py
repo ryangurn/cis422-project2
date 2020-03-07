@@ -142,7 +142,6 @@ class ClassManagement(tk.Tk):
                 t = "Summer"
                 y += 1
 
-
             self.takenClasses.insert(END, "(" + t + " " + str(y) + ") " + self._compose(clas))
 
         # Button Home
@@ -228,7 +227,6 @@ class ClassManagement(tk.Tk):
             index = int(w.curselection()[0])
             selectedCourse = w.get(index)
             classInfo(self.master, self.db, selectedCourse)
-
 
         def update_next(event):
             # Function for the "Next" button
@@ -322,7 +320,7 @@ class ClassManagement(tk.Tk):
                     if term == 1:
                         min_year = year
                     else:
-                        min_year = year+1
+                        min_year = year + 1
 
         # get the requirements and the total amount of terms needed.
         rm = RequirementModel.RequirementModel(self.db)
@@ -522,6 +520,10 @@ class ClassManagement(tk.Tk):
                     self.offeredCourses.insert(key, "(" + term + " " + year + ") " + insertLine)
             else:
                 self.offeredCourses.insert(END, "None found for " + self.currentSubject + " " + term + " " + year)
+        else:
+            self.offeredCourses.insert(END, "None found for " + self.currentSubject + " " + term + " " + year)
+            self.offeredCourses.insert(END, "Please select a subject (on the left)")
+            self.offeredCourses.insert(END, "and a term (below)")
 
     def courseClick(self, event):
         w = event.widget
@@ -542,7 +544,8 @@ class ClassManagement(tk.Tk):
                 scm.associate(self.student_id, class_id)
 
                 # insert item into the list
-                self.takenClasses.insert(END, "(" + half.split(" ")[0] + " " + half.split(" ")[1] + ") " + currentCourse)
+                self.takenClasses.insert(END,
+                                         "(" + half.split(" ")[0] + " " + half.split(" ")[1] + ") " + currentCourse)
 
     def removeClass(self, event):
         w = event.widget
