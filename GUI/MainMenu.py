@@ -1,3 +1,21 @@
+"""
+
+MainMenu.py is the main graphics module dedicated to the setup and display
+of the initial viewport for the program. It also handles user interaction
+with the window.
+
+Authors:
+(RegTools)
+Joseph Goh
+Mason Sayyadi
+Owen McEvoy
+Ryan Gurnick
+Samuel Lundquist
+
+Created:
+
+"""
+
 from tkinter import *
 from tkinter import messagebox
 from GUI.ClassManagement import *
@@ -12,6 +30,20 @@ import sqlite3
 
 class MainMenu(tk.Tk):
     def __init__(self, master, db_file):
+        """
+        Initializer fo the MainMenu window. This function requires information
+        about the database to connect and interact with. It also requires the
+        master window from tkinter to interface with.
+
+        :param
+        master: tkinter.Tk
+        db_file: str
+
+        Example Usage:
+        root = tk.Tk()
+        root.resizable(False, False)
+        myGUI = MainMenu(root, 'test.db')
+        """
         self.db = db_file
         self._lightGrey = "#b8b8b8"
         self._backgroundColor = "#323232"
@@ -103,6 +135,17 @@ class MainMenu(tk.Tk):
         dKey.config(bg="Grey", fg=self._backgroundColor)
 
     def loadLB(self):
+        """
+        Loads in student names that are already added to the database.
+
+        :param
+        n/a
+
+        Example Usage:
+        //initialize Listbox first, then you can call loadLB()
+        self.lb = Listbox(fr, selectmode="browse", bg=self._backgroundColor, selectbackground=self._green)
+        self.loadLB()
+        """
         self.numberOfNames = 0
         self.nameList = []
 
@@ -112,7 +155,21 @@ class MainMenu(tk.Tk):
             self.nameList.append(item[1])
             self.numberOfNames += 1
 
-    def update_listbox(self, *args):
+    def update_listbox(self, event=None):
+        """
+        Function to update the listbox based on what the user has entered in
+        the search box on the MainMenu window. Listbox will only display
+        student names that are in the database and contain the string in the
+        search box.
+
+        :param
+        event: None
+
+        Example Usage:
+        //When the StringVar changes, call self.update_listbox
+        self.search_var = StringVar()
+        self.search_var.trace('w', self.update_listbox)
+        """
         self.loadLB()
         search_term = self.search_var.get()
         self.lb.delete(0, END)
@@ -121,15 +178,52 @@ class MainMenu(tk.Tk):
                 self.lb.insert(END, item)
 
     def onClick(self, event):
+        """
+        A function used to perform a specific set of actions when a particular
+        item is activated with an event. The item must be bound to this function
+        for the action to occur. Once activated through an event, the system
+        will find the currently selected item(student) from the MainMenu window
+        and load the ClassManagement window for that student.
+
+        :param
+        event: the event type of an item binded to this function
+
+        Example Usage:
+        //Binds a double-click event on Listbox to this function
+        self.lb.bind('<Double-Button-1>', self.onClick)
+        """
         w = event.widget
         index = int(w.curselection()[0])
         selectedStudent = w.get(index)
         ClassManagement(self.master, selectedStudent, self.db)
 
     def collectBtnClick(self, event):
+        """
+        A function used to launch the collectData window when an event occurs.
+        This function should be bound to an onclick event on the collectBtn.
+
+        :param
+        event: the event type of an item bound to this function
+
+        Example Usage:
+        //Binds a left click action on the collectBtn to this function
+        collectBtn.bind("<Button-1>", self.collectBtnClick)
+        """
         collectData(self.master, self.db)
 
     def deleteName(self, event):
+        """
+        Function used to delete students from the database when their info
+        is no longer needed/they no longer need to registration assistance.
+        Also prompts the user to confirm the action prior to deletion.
+
+        :param
+        event: the event type of an item bound to this function
+
+        Example Usage:
+        //Binds the 'd' key to this function for deleting students
+        self.lb.bind("d", self.deleteName)
+        """
         w = event.widget
         index = int(w.curselection()[0])
         selectedStudent = w.get(index)
@@ -147,4 +241,15 @@ class MainMenu(tk.Tk):
             sm.delete(stu_id)
 
     def addStudentButtonClick(self, event):
+        """
+        A function used to launch the AddStudent window when an event occurs.
+        This function should be bound to an onclick event on the studentBtn.
+
+        :param
+        event: the event type of an item bound to this function
+
+        Example Usage:
+        //Binds the left mouse click action on studentBtn to call this function
+        studentBtn.bind("<Button-1>", self.addStudentButtonClick)
+        """
         AddStudent(self.master, self.db, self.lb)
