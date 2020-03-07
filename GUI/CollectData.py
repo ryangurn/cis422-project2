@@ -21,7 +21,7 @@ from tkinter import messagebox
 import StudentModel
 import ClassParser
 import ClassModel
-
+import threading
 
 class collectData(tk.Tk):
     def __init__(self, master, db_file):
@@ -49,6 +49,24 @@ class collectData(tk.Tk):
         self._yellow = "#ffcc00"
         self._button = "<Button-1>"
         self.cm = ClassModel.ClassModel(self.db)
+        self.s = ""
+
+        #init variables for loading gif
+        self.loadLabel = None
+        self.loading = False
+        self.frames = []
+        self.frameIndex = 0
+        index = 0
+        while index >= 0:
+            try:
+                frame = PhotoImage(file = "./img/loading.gif", format = 'gif -index %i' %(index))
+                print("Got image {}".format(str(index)))
+                self.frames.append(frame)
+                index += 1
+            except:
+                print("Couldn't get {}".format(str(index)))
+                index = -1
+
         # Creates a frame to add to the master window
         self.master = master
         self.newWindow = Frame(master, bg=self._darkGrey)
@@ -119,16 +137,30 @@ class collectData(tk.Tk):
         termMenu.place(x=490, y=185, width=150, height=30)
 
         # Button to trigger the data collection
-        collectData = Label(self.newWindow, text='Collect Data')
-        collectData.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
-        collectData.place(x=225, y=340, height=30, width=140)
-        collectData.bind(self._button, self.dataCollectClick)
+        self.collectData = Label(self.newWindow, text='Collect Data')
+        self.collectData.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
+        self.collectData.place(x=225, y=340, height=30, width=140)
+        self.collectData.bind(self._button, self.dataCollectClick)
 
         # Button to close the "Select Data" window and go back to main menu
-        exitName = Label(self.newWindow, text='Return Home')
-        exitName.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
-        exitName.place(x=410, y=340, height=30, width=140)
-        exitName.bind(self._button, self.exitWindow)
+        self.exitName = Label(self.newWindow, text='Return Home')
+        self.exitName.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
+        self.exitName.place(x=410, y=340, height=30, width=140)
+        self.exitName.bind(self._button, self.exitWindow)
+
+    def initButtons(self):
+        print("Initializing buttons")
+        # Button to trigger the data collection
+        self.collectData = Label(self.newWindow, text='Collect Data')
+        self.collectData.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
+        self.collectData.place(x=225, y=340, height=30, width=140)
+        self.collectData.bind(self._button, self.dataCollectClick)
+
+        # Button to close the "Select Data" window and go back to main menu
+        self.exitName = Label(self.newWindow, text='Return Home')
+        self.exitName.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
+        self.exitName.place(x=410, y=340, height=30, width=140)
+        self.exitName.bind(self._button, self.exitWindow)
 
     def exitWindow(self, event):
         """
@@ -145,6 +177,47 @@ class collectData(tk.Tk):
         """
         self.newWindow.destroy()
 
+    def updateLoadLabel(self):
+        print(self.loading)
+        if self.loading == True:
+            frame = self.frames[self.frameIndex]
+            self.frameIndex += 1
+            if self.frameIndex >= len(self.frames):
+                self.frameIndex = 0
+            try:
+                self.loadLabel.configure(image=frame)
+                self.newWindow.after(50, self.updateLoadLabel)
+            except:
+                self.frameIndex = 0
+        else:
+            print("done updating load label")
+
+    def loadingLabel(self):
+        #Get coordinates of buttons and remove them
+        exit_info = self.exitName.place_info()
+        collect_info = self.collectData.place_info()
+        xval = (int(exit_info["x"]) + int(collect_info["x"]))/2
+        yval = int(exit_info["y"])
+        height = int(exit_info["height"])
+        width = int(exit_info["width"])
+        self.exitName.destroy()
+        self.collectData.destroy()
+
+        # get the gif and animate that shit in
+        self.loading = True
+        self.loadLabel = Label(self.newWindow, width = 100)
+        self.loadLabel.place(x = xval, y = yval)
+        print("Calling update load label")
+        self.newWindow.after(0, self.updateLoadLabel)
+
+    def parseThread(self):
+        print ("{} Starting...".format(threading.currentThread().getName()))
+        p = ClassParser.ClassParser(self.s, self.subjectVal.get())
+        p.deleteFormatting()
+        p.parseData()
+        print ("{} Exiting...".format(threading.currentThread().getName()))
+        threading.currentThread().exit()
+
     def dataCollectClick(self, event):
         """
         This function is used to update course data for a specific subject and
@@ -159,6 +232,8 @@ class collectData(tk.Tk):
         //Binds left mouse click on collectData button to this function
         collectData.bind("<Button-1>", self.dataCollectClick)
         """
+        self.loadingLabel()
+
         term = self.termVal.get()
         year = self.yearVal.get()
         t = None
@@ -176,11 +251,19 @@ class collectData(tk.Tk):
             t = 4
 
         ye = str(y)
-        s = ye + "0" + str(t)
+        self.s = ye + "0" + str(t)
         currentClasses = self.cm.find_by_term(self.subjectVal.get(), y, t)
         if len(currentClasses):
-            self.cm.delete_sub_term(self.subjectVal.get(), s)
+            self.cm.delete_sub_term(self.subjectVal.get(), self.s)
 
-        p = ClassParser.ClassParser(s, self.subjectVal.get())
-        p.deleteFormatting()
-        p.parseData()
+        parse_thread = threading.Thread(name = "ParsingThread", target = self.parseThread)
+        parse_thread.start()
+        while parse_thread.isAlive():
+            self.newWindow.update_idletasks()
+            self.newWindow.update()
+        parse_thread.join()
+        print("Thread joined")
+
+        #Remove loading wheel
+        self.loadLabel.destroy()
+        self.initButtons()
