@@ -138,21 +138,19 @@ class collectData(tk.Tk):
         termMenu.config(bg=self._darkGrey)
         termMenu.place(x=490, y=185, width=150, height=30)
 
-        #Complete idle tasks then instantiate buttons
-        self.newWindow.update_idletasks()
-        self.newWindow.update()
-        self.initButtons()
+        # Button to trigger the data collection
+        self.collectData = Label(self.newWindow, text='Collect Data')
+        self.collectData.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
+        self.collectData.place(x=225, y=340, height=30, width=140)
+        self.collectData.bind(self._button, self.dataCollectClick)
+
+        # Button to close the "Select Data" window and go back to main menu
+        self.exitName = Label(self.newWindow, text='Return Home')
+        self.exitName.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
+        self.exitName.place(x=410, y=340, height=30, width=140)
+        self.exitName.bind(self._button, self.exitWindow)
 
     def initButtons(self):
-        """
-        This function is used to instantiate the buttons for the window.
-
-        :param
-        None
-
-        Example Usage:
-        self.initButtons()
-        """
         # Button to trigger the data collection
         self.collectData = Label(self.newWindow, text='Collect Data')
         self.collectData.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
@@ -192,20 +190,6 @@ class collectData(tk.Tk):
             self.frameIndex = 0
 
     def loadingLabel(self):
-        """
-        This function is used to initialize the label that will be used to
-        display the loading gif animation. It uses the location of the existing
-        buttons to update the location of the loading label and then destroys
-        the buttons. Once the label is created, this function will call the
-        updateLoadLabel function to continuously update the frame for the gif.
-
-        :param
-        None
-
-        Example Usage:
-        //This should be called within the dataCollectClick function
-        self.loadingLabel()
-        """
         # Get coordinates of buttons and remove them
         exit_info = self.exitName.place_info()
         collect_info = self.collectData.place_info()
@@ -222,20 +206,6 @@ class collectData(tk.Tk):
         self.newWindow.after(0, self.updateLoadLabel)
 
     def is_online(self):
-        """
-        Function used to determine if the program can resolve a connection
-        to the host. If it can, returns true. We use this to make sure that
-        the system has an internet connection before parsing data in the
-        parse thread.
-
-        :param
-        None
-
-        returns: boolean
-
-        Example Usage:
-        online = self.is_online()
-        """
         try:
             # see if we can resolve the host name -- tells us if there is
             # a DNS listening
@@ -250,20 +220,6 @@ class collectData(tk.Tk):
         return False
 
     def parseThread(self):
-        """
-        This is the function we use as a target for the parsing thread. By
-        running this function in a thread, we still have access to the GUI
-        so that we can update its appearance while the ClassParser executes
-        in the background. The function will report an error is an internet
-        connection is not found.
-
-        :param
-        None
-
-        Example Usage:
-        //Defines a thread named ParsingThread with this function as its target
-        parse_thread = threading.Thread(name="ParsingThread", target=self.parseThread)
-        """
         # print("{} Starting...".format(threading.currentThread().getName()))
         if self.is_online():
             p = ClassParser.ClassParser(self.s, self.subjectVal.get())
