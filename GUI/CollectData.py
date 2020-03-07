@@ -23,6 +23,7 @@ import ClassParser
 import ClassModel
 import threading
 import random
+import socket
 
 
 class collectData(tk.Tk):
@@ -60,15 +61,12 @@ class collectData(tk.Tk):
         self.frameIndex = 0
         index = 0
         filename = "./img/spinner-" + str(random.randint(0, 2)) + ".gif"
-        print(filename)
         while index >= 0:
             try:
                 frame = PhotoImage(file=filename, format='gif -index %i' % (index))
-                print("Got image {}".format(str(index)))
                 self.frames.append(frame)
                 index += 1
             except:
-                print("Couldn't get {}".format(str(index)))
                 index = -1
 
         # Creates a frame to add to the master window
@@ -153,7 +151,6 @@ class collectData(tk.Tk):
         self.exitName.bind(self._button, self.exitWindow)
 
     def initButtons(self):
-        print("Initializing buttons")
         # Button to trigger the data collection
         self.collectData = Label(self.newWindow, text='Collect Data')
         self.collectData.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
@@ -182,19 +179,15 @@ class collectData(tk.Tk):
         self.newWindow.destroy()
 
     def updateLoadLabel(self):
-        print(self.loading)
-        if self.loading == True:
-            frame = self.frames[self.frameIndex]
-            self.frameIndex += 1
-            if self.frameIndex >= len(self.frames):
-                self.frameIndex = 0
-            try:
-                self.loadLabel.configure(image=frame)
-                self.newWindow.after(50, self.updateLoadLabel)
-            except:
-                self.frameIndex = 0
-        else:
-            print("done updating load label")
+        frame = self.frames[self.frameIndex]
+        self.frameIndex += 1
+        if self.frameIndex >= len(self.frames):
+            self.frameIndex = 0
+        try:
+            self.loadLabel.configure(image=frame)
+            self.newWindow.after(50, self.updateLoadLabel)
+        except:
+            self.frameIndex = 0
 
     def loadingLabel(self):
         # Get coordinates of buttons and remove them
@@ -202,27 +195,39 @@ class collectData(tk.Tk):
         collect_info = self.collectData.place_info()
         xval = (int(exit_info["x"]) + int(collect_info["x"]))/2
         yval = int(int(exit_info["y"])-100)
-
-        height = int(exit_info["height"])
-        width = int(exit_info["width"])
         self.exitName.destroy()
         self.collectData.destroy()
 
-        # get the gif and animate that shit in
+        # Load in the label for loading gif
         self.loading = True
-        self.loadLabel = Label(self.newWindow, width = 100)
+        self.loadLabel = Label(self.newWindow)
         self.loadLabel.config(bg='systemTransparent')
         self.loadLabel.place(x = xval, y = yval)
-
-        print("Calling update load label")
         self.newWindow.after(0, self.updateLoadLabel)
 
+    def is_online(self):
+        try:
+            # see if we can resolve the host name -- tells us if there is
+            # a DNS listening
+            host = socket.gethostbyname("classes.uoregon.edu")
+            # connect to the host -- tells us if the host is actually
+            # reachable
+            s = socket.create_connection((host, 80), 2)
+            s.close()
+            return True
+        except:
+            pass
+        return False
+
     def parseThread(self):
-        print("{} Starting...".format(threading.currentThread().getName()))
-        p = ClassParser.ClassParser(self.s, self.subjectVal.get())
-        p.deleteFormatting()
-        p.parseData()
-        print ("{} Exiting...".format(threading.currentThread().getName()))
+        # print("{} Starting...".format(threading.currentThread().getName()))
+        if self.is_online():
+            p = ClassParser.ClassParser(self.s, self.subjectVal.get())
+            p.deleteFormatting()
+            p.parseData()
+        else:
+            print("[ERROR] Couldn't connect to the internet.")
+        # print ("{} Exiting...".format(threading.currentThread().getName()))
 
     def dataCollectClick(self, event):
         """
@@ -268,7 +273,6 @@ class collectData(tk.Tk):
             self.newWindow.update_idletasks()
             self.newWindow.update()
         parse_thread.join()
-        print("Thread joined")
 
         # Remove loading wheel
         self.loadLabel.destroy()
