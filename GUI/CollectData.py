@@ -59,7 +59,8 @@ class collectData(tk.Tk):
         self.frames = []
         self.frameIndex = 0
         index = 0
-        filename = "./img/spinner-" + random.randint(0, 2) + ".gif"
+        filename = "./img/spinner-" + str(random.randint(0, 2)) + ".gif"
+        print(filename)
         while index >= 0:
             try:
                 frame = PhotoImage(file=filename, format='gif -index %i' % (index))
@@ -199,8 +200,9 @@ class collectData(tk.Tk):
         # Get coordinates of buttons and remove them
         exit_info = self.exitName.place_info()
         collect_info = self.collectData.place_info()
-        xval = (int(exit_info["x"]) + int(collect_info["x"])) / 2
-        yval = int(exit_info["y"])
+        xval = (int(exit_info["x"]) + int(collect_info["x"]))/2
+        yval = int(int(exit_info["y"])-100)
+
         height = int(exit_info["height"])
         width = int(exit_info["width"])
         self.exitName.destroy()
@@ -208,8 +210,10 @@ class collectData(tk.Tk):
 
         # get the gif and animate that shit in
         self.loading = True
-        self.loadLabel = Label(self.newWindow, width=100)
-        self.loadLabel.place(x=xval, y=yval)
+        self.loadLabel = Label(self.newWindow, width = 100)
+        self.loadLabel.config(bg='systemTransparent')
+        self.loadLabel.place(x = xval, y = yval)
+
         print("Calling update load label")
         self.newWindow.after(0, self.updateLoadLabel)
 
@@ -218,8 +222,7 @@ class collectData(tk.Tk):
         p = ClassParser.ClassParser(self.s, self.subjectVal.get())
         p.deleteFormatting()
         p.parseData()
-        print("{} Exiting...".format(threading.currentThread().getName()))
-        threading.currentThread().exit()
+        print ("{} Exiting...".format(threading.currentThread().getName()))
 
     def dataCollectClick(self, event):
         """
