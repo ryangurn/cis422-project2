@@ -190,17 +190,41 @@ class ClassManagement(tk.Tk):
     def classRoadmap(self, event):
         self.idx = 0
 
+        self.comparisonArray = []
+        scm = StudentClassModel.StudentClassModel(self.db)
+        iters = scm.find('students_id', self.student_id)
+        for i in iters:
+            cm = ClassModel.ClassModel(self.db)
+            asdf = cm.find_by('id', i[2])[0]
+            self.comparisonArray.append(asdf[3] + " " + asdf[4])
+
         def box1_update():
             # Updates listbox 1 with class data given the key
             self.listBx1
             for i in reversed(range(len(classMap[self.classMapKeys[self.idx]]))):
                 self.listBx1.insert(0, classMap[self.classMapKeys[self.idx]][i])
 
+            # add coloring to the listboxes
+            for i, v in enumerate(self.listBx1.get(0, END)):
+                for c in self.comparisonArray:
+                    if c in v:
+                        self.listBx1.itemconfig(i, bg=self._green)
+                        print(0, i, v)
+                # pass
+
+
         def box2_update():
             # Updates listbox 2 with class data given the key
             self.listBx2
             for i in reversed(range(len(classMap[self.classMapKeys[self.idx + 1]]))):
                 self.listBx2.insert(0, classMap[self.classMapKeys[self.idx + 1]][i])
+
+            # add coloring to the listboxes
+            for i, v in enumerate(self.listBx2.get(0, END)):
+                for c in self.comparisonArray:
+                    if c in v:
+                        self.listBx2.itemconfig(i, bg=self._green)
+                pass
 
         def box3_update():
             # Updates listbox 3 with class data given the key
@@ -209,12 +233,26 @@ class ClassManagement(tk.Tk):
                 self.listBx3.insert(0, classMap[self.classMapKeys[self.idx + 2]][i])
                 # self.listBx3.itemconfig(0, {'bg': 'red'})
 
+            # add coloring to the listboxes
+            for i, v in enumerate(self.listBx3.get(0, END)):
+                for c in self.comparisonArray:
+                    if c in v:
+                        self.listBx3.itemconfig(i, bg=self._green)
+                pass
+
         def box4_update():
             # Updates listbox 4 with class data given the key
             self.listBx4
             #if len(classMap[self.classMapKeys[self.idx + 3]]):
             for i in reversed(range(len(classMap[self.classMapKeys[self.idx + 3]]))):
                 self.listBx4.insert(0, classMap[self.classMapKeys[self.idx + 3]][i])
+
+            # add coloring to the listboxes
+            for i, v in enumerate(self.listBx4.get(0, END)):
+                for c in self.comparisonArray:
+                    if c in v:
+                        self.listBx4.itemconfig(i, bg=self._green)
+                pass
 
         def selectedClass(event):
             w = event.widget
@@ -391,12 +429,12 @@ class ClassManagement(tk.Tk):
                     else:
                         # query classes for with >
                         if (desc["course"][1] == "1"):
-                            term1.append("Arts & Letters")
+                            term1.append(desc["description"])
                         
                         elif (desc["course"][1] == "2"):
-                            term1.append("Social Sciences")
+                            term1.append(desc["description"])
                         elif (desc["course"][1] == "3"):
-                            term1.append("Science")
+                            term1.append(desc["description"])
                         
                         priorYear = int(datetime.now().year) - 1
                         sqlTerm = str(priorYear) + "0" + str((termsNormal.index(curTerm) % 4) + 1)
@@ -444,12 +482,12 @@ class ClassManagement(tk.Tk):
                     else:
                         # query classes for with >
                         if (desc["course"][1] == "1"):
-                            term2.append("Arts & Letters")
+                            term2.append(desc["description"])
                         
                         elif (desc["course"][1] == "2"):
-                            term2.append("Social Sciences")
+                            term2.append(desc["description"])
                         elif (desc["course"][1] == "3"):
-                            term2.append("Science")
+                            term2.append(desc["description"])
                         
                         priorYear = int(datetime.now().year) - 1
                         sqlTerm = str(priorYear) + "0" + str(((termsNormal.index(curTerm) + 1) % 4) + 1)
@@ -496,12 +534,12 @@ class ClassManagement(tk.Tk):
                     else:
                         # query classes for with >
                         if (desc["course"][1] == "1"):
-                            term3.append("Arts & Letters")
+                            term3.append(desc["description"])
                         
                         elif (desc["course"][1] == "2"):
-                            term3.append("Social Sciences")
+                            term3.append(desc["description"])
                         elif (desc["course"][1] == "3"):
-                            term3.append("Science")
+                            term3.append(desc["description"])
                         
                         priorYear = int(datetime.now().year) - 1
                         sqlTerm = str(priorYear) + "0" + str(((termsNormal.index(curTerm) + 2) %4) + 1)
@@ -550,12 +588,12 @@ class ClassManagement(tk.Tk):
                     else:
                         # query classes for with >
                         if (desc["course"][1] == "1"):
-                            term4.append("Arts & Letters")
+                            term4.append(desc["description"])
                         
                         elif (desc["course"][1] == "2"):
-                            term4.append("Social Sciences")
+                            term4.append(desc["description"])
                         elif (desc["course"][1] == "3"):
-                            term4.append("Science")
+                            term4.append(desc["description"])
                         
                         priorYear = int(datetime.now().year) - 1
                         sqlTerm = str(priorYear) + "0" + str(((termsNormal.index(curTerm) + 3) %4) + 1)
