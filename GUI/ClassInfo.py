@@ -25,7 +25,7 @@ import StudentClassModel
 import ClassModel
 
 class classInfo(tk.Tk):
-    def __init__(self, master, db_file, className):
+    def __init__(self, master, db_file, className, class_id):
         """
         Initializer for the MainMenu window. This function requires the name
         of the database to connect and interact with. It also requires the
@@ -36,6 +36,7 @@ class classInfo(tk.Tk):
         master :tkinter.Tk
         db_file :str
         className :str
+        class_id :str
 
         Example Usage:
 
@@ -45,6 +46,7 @@ class classInfo(tk.Tk):
 
         self._lightGrey = "#b8b8b8"
         self._backgroundColor = "#323232"
+        self._grey = "#323232"
         self._darkGrey = "#282929"
         self._green = "#369148"
         self._yellow = "#ffcc00"
@@ -69,6 +71,16 @@ class classInfo(tk.Tk):
         labelUO = Label(self.windowTop, image=logoUO, borderwidth = 0)
         labelUO.image = logoUO
         labelUO.place(x=670, y=4)
+
+        # Grey Lines that hide the white lines on the logo
+        greyLine = Label(self.windowTop, text="", background=self._grey)
+        greyLine.place(x=0, y=110, height=8, width=800)
+        greyLineTop = Label(self.windowTop, text="", background=self._grey)
+        greyLineTop.place(x=0, y=3, height=8, width=800)
+        greyLineLeft = Label(self.windowTop, text="", background=self._grey)
+        greyLineLeft.place(x=665, y=0, height=120, width=8)
+        greyLineRight = Label(self.windowTop, text="", background=self._grey)
+        greyLineRight.place(x=785, y=0, height=120, width=8)
 
         greenLine = Label(self.windowTop, text="", background=self._green)
         greenLine.place(x=0, y=120, height=8, width=800)
