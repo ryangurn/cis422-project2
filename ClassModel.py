@@ -36,7 +36,7 @@ class ClassModel:
         # init db connection using the datastore
         self.conn = Datastore.DB(db_file).ret().conn
 
-    def insert(self, term, name, subject, number, credits, sections):
+    def insert(self, term, name, subject, number, credits, total_count, lecture_count, lab_count, discussion_count, other_count, sections):
         """
         Insert method for the class model that allows the caller to provide the specified
         information and create a record within the database, this will return the id of
@@ -51,12 +51,14 @@ class ClassModel:
 
         Example Usage:
         cm = ClassModel.ClassModel('testing.db')
-        cm.insert(321321, 201901, '123', '{}', '{}')
+        cm.insert(321321, 201901, '123', '{}', 1, 2, 0, 0, '{}')
         """
-        sql = '''INSERT INTO "main"."classes"("term","name","subject","number","credits","sections","created_at","updated_at") VALUES (?,?,?,?,?,?,?,?);'''
+        # "lecture_count", "lab_count", "discussion_count", "other_count"
+
+        sql = '''INSERT INTO "main"."classes"("term","name","subject","number","credits","total_count", "lecture_count", "lab_count", "discussion_count", "other_count","sections","created_at","updated_at") VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);'''
         cur = self.conn.cursor()
         try:
-            cur.execute(sql, (term, name, subject, number, credits, sections, date.today(), date.today()))
+            cur.execute(sql, (term, name, subject, number, credits, total_count, lecture_count, lab_count, discussion_count, other_count, sections, date.today(), date.today()))
             self.conn.commit()
             return cur.lastrowid
         except sqlite3.IntegrityError:
@@ -110,7 +112,7 @@ class ClassModel:
         except ValueError:
             return cur.fetchall()
         return cur.fetchall()
-    
+
     def find_class_id(self, subject, courseNumber, term):
         sql = "SELECT \"number\", \"id\"  FROM \"main\".\"classes\" WHERE \"subject\" = \"{}\" and \"number\" = \"{}\" and \"term\" = \"{}\";".format(subject, courseNumber, term)
         cur = self.conn.cursor()
@@ -119,7 +121,7 @@ class ClassModel:
         except ValueError:
             return cur.fetchall()
         return cur.fetchall()
-        
+
     def predict_future_class_id(self, subject, courseNumber):
         #TODO: FINISH THIS FUNCTION
         sql = "SELECT \"number\", \"id\" FROM \"main\".\"classes\" WHERE \"subject\" = \"{}\" AND \"number\" = {} ORDER BY \"term\" desc LIMIT 1;".format(subject, courseNumber)
@@ -129,14 +131,14 @@ class ClassModel:
         except:
             return cur.fetchall()
         return cur.fetchall()
- 
+
     def crt_class_search(self, typeNum, priorYear):
         sql = """SELECT \"subject\", \"term\", \"number\", \"name\", \"aprnce\"
 		        FROM (SELECT \"subject\", \"term\", \"number\", \"name\",count(*) as \"aprnce\"
                     FROM \"main\".\"classes\" WHERE \"term\" like \"{}%\"
                     GROUP BY \"subject\", \"number\") miniQuery
                 WHERE \"aprnce\" = 1
-                AND name like \"%>{}\" 
+                AND name like \"%>{}\"
                 ORDER BY \"number\" asc;""".format(priorYear, typeNum)
 
         cur = self.conn.cursor()
@@ -145,7 +147,7 @@ class ClassModel:
         except ValueError:
             return cur.fetchall()
         return cur.fetchall()
-    
+
     def delete_sub_term(self, subject, term):
         sql = "DELETE FROM \"main\".\"classes\" WHERE \"subject\" = \"{}\" AND \"term\" = \"{}\";".format(subject, term)
         cur = self.conn.cursor()
@@ -154,8 +156,8 @@ class ClassModel:
             self.conn.commit()
         except ValueError:
             return cur.fetchall()
-        
-    
+
+
 
     def find_course(self, name, subject, number, term, year):
         """
