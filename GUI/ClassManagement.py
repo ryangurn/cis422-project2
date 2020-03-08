@@ -227,8 +227,15 @@ class ClassManagement(tk.Tk):
         def selectedClass(event):
             w = event.widget
             index = int(w.curselection()[0])
-            selectedCourse = w.get(index)
-            classInfo(self.master, self.db, selectedCourse)
+            selectedCourse = w.get(index).split(" ")
+            if "-" in selectedCourse:
+                del selectedCourse[0]
+            cm = ClassModel.ClassModel(self.db)
+            try:
+                idx = cm.predict_future_class_id(selectedCourse[0], selectedCourse[1])
+                classInfo(self.master, self.db, selectedCourse, idx[0][1])
+            except IndexError:
+                pass
 
         def update_next(event):
             # Function for the "Next" button
