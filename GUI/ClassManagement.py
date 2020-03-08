@@ -28,7 +28,7 @@ class ClassManagement(tk.Tk):
         self._green = "#369148"
         self._button = "<Double-Button-1>"
         self._buttonHeight = 30
-        self._buttonWidth = 60
+        self._buttonWidth = 150
         self._buttonText = ("Arial Bold", 16)
         self._offeredCoursesDefault = "Please select a subject to display courses."
 
@@ -47,9 +47,9 @@ class ClassManagement(tk.Tk):
         labelUO.place(x=670, y=4)
 
         # Title of the window (Not top menu)
-        title = Label(self.windowTop, text='CLASS SELECTION', borderwidth=0)
+        title = Label(self.windowTop, text='CLASS SELECTION', borderwidth=0, anchor='w')
         title.config(font=("Arial", 44), bg=self._grey, fg=self._yellow)
-        title.place(x=10, y=22, width=500, height=80)
+        title.place(x=40, y=22, width=500, height=80)
 
         # Green line
         labelNext = Label(self.windowTop, text="", background=self._green)
@@ -68,26 +68,26 @@ class ClassManagement(tk.Tk):
         # Taken classes label
         taken = Label(self.window, text="Taken Classes", background=self._green, font=self._buttonText,
                       fg=self._darkGrey)
-        taken.place(x=486, y=50, height=self._buttonHeight, width=278)
+        taken.place(x=468, y=50, height=self._buttonHeight, width=310)
 
         # Delete Info Label
         info = Label(self.window, text="Double Click on a class to delete it", background=self._darkGrey,
                      font=self._buttonText, fg=self._lightGrey)
-        info.place(x=486, y=345, height=self._buttonHeight, width=278)
+        info.place(x=468, y=345, height=self._buttonHeight, width=310)
 
         # Category classes label
         category = Label(self.window, text="Subject", background=self._green, font=self._buttonText, fg=self._darkGrey)
-        category.place(x=31, y=50, height=self._buttonHeight, width=90)
+        category.place(x=22, y=50, height=self._buttonHeight, width=100)
 
         # Course classes label
         course = Label(self.window, text="Course", background=self._green, font=self._buttonText, fg=self._darkGrey)
-        course.place(x=131, y=50, height=self._buttonHeight, width=315)
+        course.place(x=130, y=50, height=self._buttonHeight, width=316)
 
         subfont = font.Font(family="Helvetica", size=26)
         courseFont = font.Font(family="Helvetica", size=16)
         self.courseSubjects = Listbox(self.window, selectmode="browse", bg=self._yellow, fg=self._darkGrey,
                                       selectbackground=self._green, width=6, font=subfont)
-        self.courseSubjects.place(x=30, y=80, height=295, width=91)
+        self.courseSubjects.place(x=22, y=80, height=295, width=100)
         self.courseSubjects.bind(self._button, self.subjectClick)
 
         cm = ClassModel.ClassModel(self.db)
@@ -96,14 +96,15 @@ class ClassManagement(tk.Tk):
             self.courseSubjects.insert(k, v[0])
 
         # "Student" Label
-        student = Label(self.window, text='Student:')
-        student.place(x=35, y=10, height=40, width=80)
+        studentName = "Student: " + studentName
+        student = Label(self.window, text=studentName, anchor='w')
+        student.place(x=22, y=10, height=40, width=500)
         student.config(font=("Arial", 20), bg=self._darkGrey, fg=self._yellow)
 
-        # Student Name Label (Updates)
-        labl = Label(self.window, text=studentName)
-        labl.place(x=120, y=15, height=30, width=200)
-        labl.config(font=("Arial", 20), bg=self._darkGrey, fg=self._yellow)
+        # # Student Name Label (Updates)
+        # labl = Label(self.window, text=studentName, anchor='w')
+        # labl.place(x=120, y=15, height=30, width=200)
+        # labl.config(font=("Arial", 20), bg=self._darkGrey, fg=self._yellow)
 
         # Offered Classes listbox
         self.offeredCourses = Listbox(self.window, selectmode="browse", bg=self._lightGrey, fg=self._darkGrey,
@@ -115,7 +116,7 @@ class ClassManagement(tk.Tk):
         # Taken Classes listbox
         self.takenClasses = Listbox(self.window, selectmode="browse", bg=self._lightGrey, fg=self._darkGrey,
                                     selectbackground=self._yellow)
-        self.takenClasses.place(x=485, y=80, height=205, width=280)
+        self.takenClasses.place(x=468, y=80, height=215, width=310)
         self.takenClasses.bind(self._button, self.removeClass)
 
         # add in previously taken classes
@@ -149,26 +150,20 @@ class ClassManagement(tk.Tk):
         goHome = Label(self.window, text='Home')
         goHome.config(font=self._buttonText, bg=self._green, fg=self._darkGrey)
         goHome.bind("<Button-1>", self.goHomeClick)
-        goHome.place(x=485, y=292, height=self._buttonHeight, width=self._buttonWidth)
-
-        # Button Save
-        saveData = Label(self.window, text='Save')
-        saveData.config(font=self._buttonText, bg=self._green, fg=self._darkGrey)
-        saveData.bind("<Button-1>", self.saveDataClick)
-        saveData.place(x=555, y=292, height=self._buttonHeight, width=self._buttonWidth)
+        goHome.place(x=468, y=305, height=self._buttonHeight, width=self._buttonWidth)
 
         # Button Roadmap
         roadmap = Label(self.window, text='Class Roadmap')
         roadmap.config(font=self._buttonText, bg=self._green, fg=self._darkGrey)
         roadmap.bind("<Button-1>", self.classRoadmap)
-        roadmap.place(x=625, y=292, height=self._buttonHeight, width=138)
+        roadmap.place(x=628, y=305, height=self._buttonHeight, width=self._buttonWidth)
 
         # Dropdown Menu for years
         self.strObj1 = StringVar(self.window)
         yearChoices = sorted({'2020', '2019', '2018', '2017', '2016', '2015'}, reverse=True)
         self.strObj1.set('2020')  # Default value
         dropMenuYear = OptionMenu(self.window, self.strObj1, *yearChoices)
-        dropMenuYear.place(x=297, y=345, width=150, height=30)
+        dropMenuYear.place(x=290, y=345, width=155, height=30)
         dropMenuYear.config(bg=self._darkGrey)
         self.strObj1.trace('w', self.year_dropdown)
 
@@ -177,7 +172,7 @@ class ClassManagement(tk.Tk):
         quarterChoices = sorted({'Fall', 'Winter', 'Spring', 'Summer'})
         self.strObj2.set('Winter')  # Default value
         dropMenuQuarter = OptionMenu(self.window, self.strObj2, *quarterChoices)
-        dropMenuQuarter.place(x=131, y=345, width=150, height=30)
+        dropMenuQuarter.place(x=130, y=345, width=155, height=30)
         dropMenuQuarter.config(bg=self._darkGrey)
         self.strObj2.trace('w', self.quarter_dropdown)
 
@@ -191,9 +186,6 @@ class ClassManagement(tk.Tk):
         # mainMenu(self.master)
         self.window.destroy()
         self.windowTop.destroy()
-
-    def saveDataClick(self, event):
-        pass
 
     def classRoadmap(self, event):
         self.idx = 0
@@ -315,7 +307,7 @@ class ClassManagement(tk.Tk):
             if (currentMonth > 9):
                 term = "Winter"
             elif (6 < currentMonth < 9):
-                term = "Fall" 
+                term = "Fall"
             elif (4 <= currentMonth <= 6):
                 term = "Summer"
             else:
@@ -384,11 +376,11 @@ class ClassManagement(tk.Tk):
                                 else:
                                     offeredClass = cm.predict_future_class_id(course, clss)
                                     if len(offeredClass):
-                                        theClass = "- " + course + " " + clss                                
+                                        theClass = "- " + course + " " + clss
                                         springTerm.append(theClass)
                                     else:
                                         springTerm.append("- " + desc["description"])
-                                
+
                         else:
                             theClass = "- " + desc["course"]
                             springTerm.append(theClass)
@@ -396,12 +388,12 @@ class ClassManagement(tk.Tk):
                         # query classes for with >
                         if (desc["course"][1] == "1"):
                             springTerm.append("Arts & Letters")
-                        
+
                         elif (desc["course"][1] == "2"):
                             springTerm.append("Social Sciences")
                         elif (desc["course"][1] == "3"):
                             springTerm.append("Science")
-                        
+
                         priorYear = int(datetime.now().year) - 1
                         sqlTerm = str(priorYear) + "0" + str(terms.index(curTerm) % 4)
                         carrotClasses = cm.crt_class_search(desc["course"][1], priorYear)
@@ -413,7 +405,7 @@ class ClassManagement(tk.Tk):
                                 pass
                 else:
                     springTerm.append(desc["description"])
-            
+
             # summer
             for desc in json.loads(find[4*t+1][4]):
                 if desc['course'] != "":
@@ -438,7 +430,7 @@ class ClassManagement(tk.Tk):
                                     else:
                                         theClass = "- " + desc["course"]
                                         summerTerm.append(theClass)
-                                
+
                         else:
                             summerTerm.append(desc["course"])
                     else:
@@ -483,7 +475,7 @@ class ClassManagement(tk.Tk):
 
             #winter
             for desc in json.loads(find[4*t+3][4]):
-                if desc['course'] != "":    
+                if desc['course'] != "":
                     if desc['course'][0] != ">":
                         s4 = desc['course'].split(" ")
                         course = s4[0]
@@ -507,7 +499,7 @@ class ClassManagement(tk.Tk):
                                     else:
                                         theClass = "- " + desc["course"]
                                         winterTerm.append(theClass)
-                                    
+
                         else:
                             winterTerm.append(desc["course"])
                     else:
@@ -517,7 +509,7 @@ class ClassManagement(tk.Tk):
                 else:
                     winterTerm.append(desc["description"])
 
-        
+
 
             classDict.update({termsNormal[termsNormal.index(curTerm) % 4] + " " + str(min_year): springTerm})
             classDict.update({termsNormal[(termsNormal.index(curTerm) + 1) % 4] + " " + str(min_year): winterTerm})
@@ -535,7 +527,7 @@ class ClassManagement(tk.Tk):
         #             print(terms[(terms.index(curTerm) + fuck) % 4] , i["description"])
         #     else:
         #         print(fuck, i["description"])
-                
+
         # print(min_year, classDict)
 
         classMap = classDict
@@ -575,9 +567,9 @@ class ClassManagement(tk.Tk):
         labelNext.place(x=0, y=120, height=5, width=800)
 
         # RoadMap Text
-        roadMapLabel = Label(roadMapWindow, text="ROADMAP", background="#323232", fg="#ffcc00")
-        roadMapLabel.place(x=-150, y=5, height=115, width=600)
-        roadMapLabel.config(font=("Helvetica", 44))
+        roadMapLabel = Label(roadMapWindow, text="ROADMAP", anchor='w')
+        roadMapLabel.config(font=("Arial", 44), bg=self._grey, fg=self._yellow)
+        roadMapLabel.place(x=40, y=5, height=115, width=600)
 
         # Initializes listboxes 1
         self.listBx1 = Listbox(roadMapWindow, background="#323232", selectbackground="#369148", fg="#e6e6e6")
