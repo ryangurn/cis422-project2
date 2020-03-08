@@ -62,7 +62,7 @@ class collectData(tk.Tk):
         self.frames = []
         self.frameIndex = 0
         index = 0
-        filename = "./img/spinner-" + str(random.randint(0, 2)) + ".gif"
+        filename = "./img/spinner-" + str(random.randint(1, 2)) + ".gif"
         while index >= 0:
             try:
                 frame = PhotoImage(file=filename, format='gif -index %i' % (index))
@@ -78,7 +78,7 @@ class collectData(tk.Tk):
 
         # Year label
         yearLabel = Label(self.newWindow, text='Select the Year')
-        yearLabel.place(x=100, y=150, height=30, width=150)
+        yearLabel.place(x=115, y=150, height=30, width=170)
         yearLabel.config(font=("Arial Bold", 18))
         yearLabel.config(bg=self._darkGrey, fg="Grey")
 
@@ -86,12 +86,12 @@ class collectData(tk.Tk):
         yearChoices = sorted({'2015', '2016', '2017', '2018', '2019', '2020'})
         self.yearVal.set('2020')  # Default value
         yearMenu = OptionMenu(self.newWindow, self.yearVal, *yearChoices)
-        yearMenu.place(x=100, y=185, width=150, height=30)
+        yearMenu.place(x=125, y=185, width=150, height=30)
         yearMenu.config(bg=self._darkGrey)
 
         # Subject label
         subjectLabel = Label(self.newWindow, text='Select the Subject')
-        subjectLabel.place(x=285, y=150, height=30, width=170)
+        subjectLabel.place(x=315, y=150, height=30, width=170)
         subjectLabel.config(font=("Arial Bold", 18))
         subjectLabel.config(bg=self._darkGrey, fg="Grey")
 
@@ -125,11 +125,11 @@ class collectData(tk.Tk):
         self.subjectVal.set('CIS')
         subjectMenu = OptionMenu(self.newWindow, self.subjectVal, *subjectChoices)
         subjectMenu.config(bg=self._darkGrey)
-        subjectMenu.place(x=290, y=185, width=150, height=30)
+        subjectMenu.place(x=325, y=185, width=150, height=30)
 
         # Term label
         yearLabel = Label(self.newWindow, text='Select the Term')
-        yearLabel.place(x=485, y=150, height=30, width=150)
+        yearLabel.place(x=515, y=150, height=30, width=170)
         yearLabel.config(font=("Arial Bold", 18))
         yearLabel.config(bg=self._darkGrey, fg="Grey")
 
@@ -138,12 +138,13 @@ class collectData(tk.Tk):
         self.termVal.set('Spring')
         termMenu = OptionMenu(self.newWindow, self.termVal, *termChoices)
         termMenu.config(bg=self._darkGrey)
-        termMenu.place(x=490, y=185, width=150, height=30)
+        termMenu.place(x=525, y=185, width=150, height=30)
 
         #Complete idle tasks then instantiate buttons
         self.newWindow.update_idletasks()
         self.newWindow.update()
         self.initButtons()
+
 
     def initButtons(self):
         """
@@ -230,8 +231,8 @@ class collectData(tk.Tk):
 
         # Load in the label for loading gif
         self.loadLabel = Label(self.newWindow)
-        self.loadLabel.config(bg='systemTransparent')
-        self.loadLabel.place(x = xval, y = yval)
+        self.loadLabel.config(bg=self._darkGrey)
+        self.loadLabel.place(x = 300, y = yval)
         self.newWindow.after(0, self.updateLoadLabel)
 
     def is_online(self):
@@ -285,10 +286,11 @@ class collectData(tk.Tk):
         self.offlineLabelInit()
         """
         if self.offlineWarning == None:
-            error = "Couldn't connect to the internet, please check your internet connection and try again."
-            self.offlineWarning = Label(self.newWindow, text=error)
+            error = "Couldn't connect to the internet, please check your internet connection and try again.\n"
+            note = "NOTE: This will not affect the functionality of the rest of the program."
+            self.offlineWarning = Label(self.newWindow, text=error+note)
             self.offlineWarning.config(font=("Arial", 14), bg=self._darkGrey, fg="#FFFFFF")
-            self.offlineWarning.place(x=75, y=400, height=30, width=600)
+            self.offlineWarning.place(x=50, y=390, height=50, width=700)
 
     def parseThread(self):
         """
