@@ -15,8 +15,10 @@ Created:
 March 7nd, 2020
 
 """
-
-
+import json
+import Datastore
+import sqlite3
+from datetime import date, datetime
 class TogglesModel:
     def __init__(self, db_file):
         """
@@ -79,7 +81,7 @@ class TogglesModel:
         tm = TogglesModel.TogglesModel('testing.db')
         tm.delete(1, 1, "Required")
         """
-        sql = "DELETE FROM \"main\".\"roadmaps_toggles\" WHERE \"requirements_id\" = \"{}\" AND \"students_id\" = \"{}\" AND \"highlight\" = \"{}\";".format(requirements_id, students_id, text)
+        sql = "DELETE FROM \"main\".\"roadmap_toggles\" WHERE \"requirements_id\" = \"{}\" AND \"students_id\" = \"{}\" AND \"highlight\" = \"{}\";".format(requirements_id, students_id, text)
         cur = self.conn.cursor()
         try:
             cur.execute(sql)
@@ -87,7 +89,7 @@ class TogglesModel:
         except ValueError:
             return cur.fetchall()
 
-    def find(self, requirements_id, students_id, text):
+    def find_using(self, requirements_id, students_id, text):
         """
         Find method for the class model that allows the caller to find a record within the database.
 
@@ -100,8 +102,27 @@ class TogglesModel:
         tm = TogglesModel.TogglesModel('testing.db')
         tm.find(1, 1, "Required")
         """
-        sql = "SELECT * FROM \"main\".\"roadmap_toggles\" WHERE \"requirements_id\" LIKE '%{}%' AND \"students_id\" " \
-              "LIKE '%{}%' AND \"highlight\" LIKE '%{}%';".format(requirements_id, students_id, text)
+        sql = "SELECT * FROM \"main\".\"roadmap_toggles\" WHERE \"requirements_id\" = '{}' AND \"students_id\" " \
+              "='{}' AND \"highlight\" = '{}';".format(requirements_id, students_id, text)
+        cur = self.conn.cursor()
+        try:
+            cur.execute(sql)
+        except ValueError:
+            return cur.fetchall()
+        return cur.fetchall()
+
+    def find(self, students_id):
+        """
+        Find method for the class model that allows the caller to find a record within the database.
+
+        :param
+        students_id :int
+
+        Example Usage:
+        tm = TogglesModel.TogglesModel('testing.db')
+        tm.find(1, 1, "Required")
+        """
+        sql = "SELECT * FROM \"main\".\"roadmap_toggles\" WHERE  \"students_id\" = '{}' ".format(students_id)
         cur = self.conn.cursor()
         try:
             cur.execute(sql)

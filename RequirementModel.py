@@ -52,7 +52,7 @@ class RequirementModel:
         # CIS BS
         BS = 'BS'
         # year 1 fall
-        self._insert(0, "CIS", BS, json.dumps([
+        self._insert(0, "Computer & Information Science", BS, json.dumps([
             {
                 "description": "CIS 122 Introduction to Programming and Problem Solving",
                 "milestones": "",
@@ -75,7 +75,7 @@ class RequirementModel:
             }
         ]))
         # year 1 winter
-        self._insert(1, "CIS", BS, json.dumps([
+        self._insert(1, "Computer & Information Science", BS, json.dumps([
             {
                 "description": "CIS 210 Computer Science I",
                 "milestones": "Need grade of B- or better for majors",
@@ -98,7 +98,7 @@ class RequirementModel:
             }
         ]))
         # year 1 spring
-        self._insert(2, "CIS", BS, json.dumps([
+        self._insert(2, "Computer & Information Science", BS, json.dumps([
             {
                 "description": "CIS 211 Computer Science II",
                 "milestones": "Need grade of B- or better for majors",
@@ -121,9 +121,9 @@ class RequirementModel:
             },
         ]))
         # year 1 summer (no classes)
-        self._insert(3, "CIS", BS, json.dumps([]))
+        self._insert(3, "Computer & Information Science", BS, json.dumps([]))
         # year 2 fall
-        self._insert(4, "CIS", BS, json.dumps([
+        self._insert(4, "Computer & Information Science", BS, json.dumps([
             {
                 "description": "CIS 212 Computer Science III",
                 "milestones": "Need grade of B- or better for majors",
@@ -147,7 +147,7 @@ class RequirementModel:
             },
         ]))
         # year 2 winter
-        self._insert(5, "CIS", BS, json.dumps([
+        self._insert(5, "Computer & Information Science", BS, json.dumps([
             {
                 "description": "CIS 313 Intermediate Data Structures",
                 "milestones": "",
@@ -172,7 +172,7 @@ class RequirementModel:
             },
         ]))
         # year 2 spring
-        self._insert(6, "CIS", BS, json.dumps([
+        self._insert(6, "Computer & Information Science", BS, json.dumps([
             {
                 "description": "CIS 315 Intermediate Algorithms",
                 "milestones": "",
@@ -197,9 +197,9 @@ class RequirementModel:
             },
         ]))
         # year 2 summer
-        self._insert(7, "CIS", BS, json.dumps([]))
+        self._insert(7, "Computer & Information Science", BS, json.dumps([]))
         # year 3 fall
-        self._insert(8, "CIS", BS, json.dumps([
+        self._insert(8, "Computer & Information Science", BS, json.dumps([
             {
                 "description": "CIS 415 Operating Systems",
                 "milestones": "",
@@ -216,13 +216,13 @@ class RequirementModel:
                 "course": ""
             },
             {
-                "description": "Elective course",
+                "description": "Elective course 1",
                 "milestones": "",
                 "course": ""
             },
         ]))
         # year 3 winter
-        self._insert(9, "CIS", BS, json.dumps([
+        self._insert(9, "Computer & Information Science", BS, json.dumps([
             {
                 "description": "CIS 422 Software Methodology I",
                 "milestones": "",
@@ -239,13 +239,13 @@ class RequirementModel:
                 "course": ""
             },
             {
-                "description": "Elective course",
+                "description": "Elective course 1",
                 "milestones": "",
                 "course": ""
             },
         ]))
         # year 3 spring
-        self._insert(10, "CIS", BS, json.dumps([
+        self._insert(10, "Computer & Information Science", BS, json.dumps([
             {
                 "description": "CIS 425 Principles of Programming Languages",
                 "milestones": "",
@@ -262,15 +262,15 @@ class RequirementModel:
                 "course": ""
             },
             {
-                "description": "Elective course",
+                "description": "Elective course 1",
                 "milestones": "",
                 "course": ""
             },
         ]))
         # year 3 summer
-        self._insert(11, "CIS", BS, json.dumps([]))
+        self._insert(11, "Computer & Information Science", BS, json.dumps([]))
         # year 4 fall
-        self._insert(12, "CIS", BS, json.dumps([
+        self._insert(12, "Computer & Information Science", BS, json.dumps([
             {
                 "description": "Upper-division elective course with CIS subject code",
                 "milestones": "",
@@ -282,13 +282,13 @@ class RequirementModel:
                 "course": ""
             },
             {
-                "description": "Elective course",
+                "description": "Elective course 1",
                 "milestones": "",
                 "course": ""
             },
         ]))
         # year 4 winter
-        self._insert(13, "CIS", BS, json.dumps([
+        self._insert(13, "Computer & Information Science", BS, json.dumps([
             {
                 "description": "Upper-division elective course with CIS subject code",
                 "milestones": "",
@@ -300,36 +300,36 @@ class RequirementModel:
                 "course": ""
             },
             {
-                "description": "Elective course",
+                "description": "Elective course 1",
                 "milestones": "",
                 "course": ""
             },
         ]))
         # year 4 spring
-        self._insert(14, "CIS", BS, json.dumps([
+        self._insert(14, "Computer & Information Science", BS, json.dumps([
             {
                 "description": "WR 320/321",
                 "milestones": "",
                 "course": "WR 320/321"
             },
             {
-                "description": "Elective course",
+                "description": "Elective course 1",
                 "milestones": "",
                 "course": ""
             },
             {
-                "description": "Elective course",
+                "description": "Elective course 2",
                 "milestones": "",
                 "course": ""
             },
         ]))
         # year 4 summer
-        self._insert(15, "CIS", BS, json.dumps([]))
+        self._insert(15, "Computer & Information Science", BS, json.dumps([]))
 
         # CIS BA
         BA = 'BA'
         # year 1 fall
-        self._insert(0, "CIS", BA, json.dumps([
+        self._insert(0, "Computer & Information Science", BA, json.dumps([
             {
                 "description": "CIS 122 Introduction to Programming and Problem Solving",
                 "milestones": "",
@@ -349,11 +349,11 @@ class RequirementModel:
             {
                 "description": "General-education course in social science",
                 "milestones": "",
-                "course": ""
+                "course": ">2"
             }
         ]))
         # year 1 winter
-        self._insert(1, "CIS", BA, json.dumps([
+        self._insert(1, "Computer & Information Science", BA, json.dumps([
             {
                 "description": "CIS 210 Computer Science I",
                 "milestones": "Need grade of B- or better for majors",
@@ -376,7 +376,7 @@ class RequirementModel:
             }
         ]))
         # year 1 spring
-        self._insert(2, "CIS", BA, json.dumps([
+        self._insert(2, "Computer & Information Science", BA, json.dumps([
             {
                 "description": "CIS 211 Computer Science II",
                 "milestones": "Need grade of B- or better for majors",
@@ -399,9 +399,9 @@ class RequirementModel:
             }
         ]))
         # year 1 summer
-        self._insert(3, "CIS", BA, json.dumps([]))
+        self._insert(3, "Computer & Information Science", BA, json.dumps([]))
         # year 2 fall
-        self._insert(4, "CIS", BA, json.dumps([
+        self._insert(4, "Computer & Information Science", BA, json.dumps([
             {
                 "description": "CIS 212 Computer Science III",
                 "milestones": "Need grade of B- or better for majors",
@@ -415,16 +415,16 @@ class RequirementModel:
             {
                 "description": "General-education course in arts and letters",
                 "milestones": "",
-                "course": ""
+                "course": ">1"
             },
             {
                 "description": "General-education course in social science",
                 "milestones": "",
-                "course": ""
+                "course": ">2"
             }
         ]))
         # year 2 winter
-        self._insert(5, "CIS", BA, json.dumps([
+        self._insert(5, "Computer & Information Science", BA, json.dumps([
             {
                 "description": "CIS 313 Intermediate Data Structures",
                 "milestones": "",
@@ -443,11 +443,11 @@ class RequirementModel:
             {
                 "description": "General-education course in arts and letters that also satisfies multicultural requirement",
                 "milestones": "",
-                "course": ""
+                "course": ">1 AC IP IC"
             }
         ]))
         # year 2 spring
-        self._insert(6, "CIS", BA, json.dumps([
+        self._insert(6, "Computer & Information Science", BA, json.dumps([
             {
                 "description": "CIS 315 Intermediate Algorithms",
                 "milestones": "",
@@ -467,13 +467,13 @@ class RequirementModel:
                 "description": "General-education course in social science that also satisfies a multicultural "
                                "requirement",
                 "milestones": "",
-                "course": ""
+                "course": ">2 AC IP IC"
             }
         ]))
         # year 2 summer
-        self._insert(7, "CIS", BA, json.dumps([]))
+        self._insert(7, "Computer & Information Science", BA, json.dumps([]))
         # year 3 fall
-        self._insert(8, "CIS", BA, json.dumps([
+        self._insert(8, "Computer & Information Science", BA, json.dumps([
             {
                 "description": "CIS 415 Operating Systems",
                 "milestones": "",
@@ -492,11 +492,11 @@ class RequirementModel:
             {
                 "description": "General-education course in arts and letters",
                 "milestones": "",
-                "course": ""
+                "course": ">1"
             },
         ]))
         # year 3 winter
-        self._insert(9, "CIS", BA, json.dumps([
+        self._insert(9, "Computer & Information Science", BA, json.dumps([
             {
                 "description": "CIS 422 Software Methodology I",
                 "milestones": "",
@@ -515,11 +515,11 @@ class RequirementModel:
             {
                 "description": "General-education course in social science that also meets multicultural requirements",
                 "milestones": "",
-                "course": ""
+                "course": ">2"
             }
         ]))
         # year 3 spring
-        self._insert(10, "CIS", BA, json.dumps([
+        self._insert(10, "Computer & Information Science", BA, json.dumps([
             {
                 "description": "CIS 425 Principles of Programming Languages",
                 "milestones": "",
@@ -538,13 +538,13 @@ class RequirementModel:
             {
                 "description": "General-education course in arts and letters that also meets multicultural requirements",
                 "milestones": "",
-                "course": ""
+                "course": ">1"
             }
         ]))
         # year 3 summer
-        self._insert(11, "CIS", BA, json.dumps([]))
+        self._insert(11, "Computer & Information Science", BA, json.dumps([]))
         # year 4 fall
-        self._insert(12, "CIS", BA, json.dumps([
+        self._insert(12, "Computer & Information Science", BA, json.dumps([
             {
                 "description": "MATH 253/263/341/343/425",
                 "milestones": "",
@@ -556,13 +556,13 @@ class RequirementModel:
                 "course": ""
             },
             {
-                "description": "Elective course",
+                "description": "Elective course 1",
                 "milestones": "",
                 "course": ""
             }
         ]))
         # year 4 winter
-        self._insert(13, "CIS", BA, json.dumps([
+        self._insert(13, "Computer & Information Science", BA, json.dumps([
             {
                 "description": "Upper-division elective course with CIS subject code",
                 "milestones": "",
@@ -574,31 +574,31 @@ class RequirementModel:
                 "course": ""
             },
             {
-                "description": "Elective course",
+                "description": "Elective course 1",
                 "milestones": "",
                 "course": ""
             }
         ]))
         # year 4 spring
-        self._insert(14, "CIS", BA, json.dumps([
+        self._insert(14, "Computer & Information Science", BA, json.dumps([
             {
                 "description": "WR 320/321",
                 "milestones": "",
                 "course": "WR 320/321"
             },
             {
-                "description": "Elective course",
+                "description": "Elective course 1",
                 "milestones": "",
                 "course": ""
             },
             {
-                "description": "Elective course",
+                "description": "Elective course 2",
                 "milestones": "",
                 "course": ""
             }
         ]))
         # year 4 summer
-        self._insert(15, "CIS", BA, json.dumps([]))
+        self._insert(15, "Computer & Information Science", BA, json.dumps([]))
 
     def find_by(self, haystack, needle):
         """
@@ -616,6 +616,50 @@ class RequirementModel:
         rm.find_by('type', 321321)
         """
         sql = "SELECT * FROM \"main\".\"requirements\" WHERE \"{}\" = \"{}\"".format(haystack, needle)
+        cur = self.conn.cursor()
+        try:
+            cur.execute(sql)
+        except ValueError:
+            return cur.fetchall()
+        return cur.fetchall()
+
+    def find(self, major, type):
+        """
+        Find for records within the requirements table and return them as lists of lists.
+
+        :param
+        major :str
+        type :str
+
+        return :list
+
+        Example Usage:
+        rm = RequirementModel.RequirementModel('testing.db')
+        rm.find('CIS', "BA")
+        """
+        sql = "SELECT * FROM \"main\".\"requirements\" WHERE \"major\" = \"{}\" AND \"type\" = \"{}\"".format(major, type)
+        cur = self.conn.cursor()
+        try:
+            cur.execute(sql)
+        except ValueError:
+            return cur.fetchall()
+        return cur.fetchall()
+
+    def find_by_term(self, major, type, term):
+        """
+        Find for records within the requirements table and return them as lists of lists.
+
+        :param
+        major :str
+        type :str
+
+        return :list
+
+        Example Usage:
+        rm = RequirementModel.RequirementModel('testing.db')
+        rm.find('CIS', "BA")
+        """
+        sql = "SELECT * FROM \"main\".\"requirements\" WHERE \"major\" = \"{}\" AND \"type\" = \"{}\" AND \"term\" = \"{}\" ".format(major, type, term)
         cur = self.conn.cursor()
         try:
             cur.execute(sql)

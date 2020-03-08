@@ -10,6 +10,7 @@ import StudentModel
 import StudentClassModel
 import ClassModel
 import RequirementModel
+import TogglesModel
 
 
 class ClassManagement(tk.Tk):
@@ -207,6 +208,15 @@ class ClassManagement(tk.Tk):
             asdf = cm.find_by('id', i[2])[0]
             self.comparisonArray.append(asdf[3] + " " + asdf[4])
 
+        self.toggleArray = {}
+        tm = TogglesModel.TogglesModel(self.db)
+        tIters = tm.find(self.student_id)
+        for t in tIters:
+            rm = RequirementModel.RequirementModel(self.db)
+            req = rm.find_by('id', t[1])
+            term = req[0][1]
+            self.toggleArray.update({term: t[3]})
+        print(self.toggleArray)
         def box1_update():
             # Updates listbox 1 with class data given the key
             self.listBx1
@@ -215,10 +225,14 @@ class ClassManagement(tk.Tk):
 
             # add coloring to the listboxes
             for i, v in enumerate(self.listBx1.get(0, END)):
+                if '\n' in v:
+                    box = len(v.split('\n')[1:])-1
+                    if self.toggleArray.get(box) != None and self.toggleArray.get(box) in v:
+                        self.listBx1.itemconfig(i, bg=self._green)
                 for c in self.comparisonArray:
                     if c in v:
                         self.listBx1.itemconfig(i, bg=self._green)
-                        #print(0, i, v)
+                        # print(0, i, v)
                 # pass
 
 
@@ -230,6 +244,10 @@ class ClassManagement(tk.Tk):
 
             # add coloring to the listboxes
             for i, v in enumerate(self.listBx2.get(0, END)):
+                if '\n' in v:
+                    box = len(v.split('\n')[1:])-1
+                    if self.toggleArray.get(box) != None and self.toggleArray.get(box) in v:
+                        self.listBx2.itemconfig(i, bg=self._green)
                 for c in self.comparisonArray:
                     if c in v:
                         self.listBx2.itemconfig(i, bg=self._green)
@@ -244,6 +262,10 @@ class ClassManagement(tk.Tk):
 
             # add coloring to the listboxes
             for i, v in enumerate(self.listBx3.get(0, END)):
+                if '\n' in v:
+                    box = len(v.split('\n')[1:])-1
+                    if self.toggleArray.get(box) != None and self.toggleArray.get(box) in v:
+                        self.listBx3.itemconfig(i, bg=self._green)
                 for c in self.comparisonArray:
                     if c in v:
                         self.listBx3.itemconfig(i, bg=self._green)
@@ -258,6 +280,10 @@ class ClassManagement(tk.Tk):
 
             # add coloring to the listboxes
             for i, v in enumerate(self.listBx4.get(0, END)):
+                if '\n' in v:
+                    box = len(v.split('\n')[1:])-1
+                    if self.toggleArray.get(box) != None and self.toggleArray.get(box) in v:
+                        self.listBx4.itemconfig(i, bg=self._green)
                 for c in self.comparisonArray:
                     if c in v:
                         self.listBx4.itemconfig(i, bg=self._green)
@@ -268,7 +294,21 @@ class ClassManagement(tk.Tk):
             if not w.curselection() == ():
                 index = int(w.curselection()[0])
                 selectedCourse = w.get(index).split(" ")
-                print(selectedCourse)
+                boxindex = len(w.get(index).split('\n')[1:])-1
+                if boxindex >= 0:
+                    tm = TogglesModel.TogglesModel(self.db)
+                    rm = RequirementModel.RequirementModel(self.db)
+                    # get the dropdown information
+                    splitMajor = self.majorChoice.get().split("-")
+                    print(splitMajor[1], splitMajor[0])
+                    req = rm.find_by_term(splitMajor[1], splitMajor[0], boxindex)
+                    requirements_id = req[0][0]
+                    exists = len(tm.find_using(requirements_id, self.student_id, " ".join(w.get(index).split('\n')[:1])))
+                    if exists > 0:
+                        tm.delete(requirements_id, self.student_id, " ".join(w.get(index).split('\n')[:1]))
+
+                    else:
+                        tm.insert(requirements_id, self.student_id, " ".join(w.get(index).split('\n')[:1]))
                 if "-" in selectedCourse:
                     del selectedCourse[0]
                 cm = ClassModel.ClassModel(self.db)
