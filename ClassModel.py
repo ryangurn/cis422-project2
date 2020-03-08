@@ -47,6 +47,11 @@ class ClassModel:
         subject :str
         number :str
         credits :str
+        total_count :int
+        lecture_count :int
+        lab_count :int
+        discussion_count :int
+        other_count :int
         sections :str
 
         Example Usage:
