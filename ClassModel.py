@@ -143,8 +143,8 @@ class ClassModel:
                     FROM \"main\".\"classes\" WHERE \"term\" like \"{}%\"
                     GROUP BY \"subject\", \"number\") miniQuery
                 WHERE \"aprnce\" = 1
-                AND name like \"%>{}\"
-                ORDER BY \"number\" asc;""".format(priorYear, typeNum)
+                AND name like \"%>{}\" 
+                ORDER BY \"subject\", \"number\" asc;""".format(priorYear, typeNum)
 
         cur = self.conn.cursor()
         try:
