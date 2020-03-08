@@ -54,9 +54,11 @@ class collectData(tk.Tk):
         self.cm = ClassModel.ClassModel(self.db)
         self.s = ""
 
-        # init variables for loading gif
+        #Defining class labels
+        self.offlineWarning = None
         self.loadLabel = None
-        self.loading = False
+
+        # init variables for loading gif
         self.frames = []
         self.frameIndex = 0
         index = 0
@@ -227,7 +229,6 @@ class collectData(tk.Tk):
         self.collectData.destroy()
 
         # Load in the label for loading gif
-        self.loading = True
         self.loadLabel = Label(self.newWindow)
         self.loadLabel.config(bg='systemTransparent')
         self.loadLabel.place(x = xval, y = yval)
@@ -252,14 +253,42 @@ class collectData(tk.Tk):
             # see if we can resolve the host name -- tells us if there is
             # a DNS listening
             host = socket.gethostbyname("classes.uoregon.edu")
+
             # connect to the host -- tells us if the host is actually
             # reachable
             s = socket.create_connection((host, 80), 2)
             s.close()
+
+            # If offline warnign label exists, remove it
+            try:
+                self.offlineWarning.destroy()
+                self.offlineWarning = None
+            except:
+                pass
             return True
+
         except:
-            pass
+            self.offlineLabelInit()
+
         return False
+
+    def offlineLabelInit(self):
+        """
+        This function initializes the offline warning label if it does not
+        already exist.
+
+        :param
+        None
+
+        Example Usage:
+        //Should only need to be called from is_online
+        self.offlineLabelInit()
+        """
+        if self.offlineWarning == None:
+            error = "Couldn't connect to the internet, please check your internet connection and try again."
+            self.offlineWarning = Label(self.newWindow, text=error)
+            self.offlineWarning.config(font=("Arial", 14), bg=self._darkGrey, fg="#FFFFFF")
+            self.offlineWarning.place(x=75, y=400, height=30, width=600)
 
     def parseThread(self):
         """
@@ -277,12 +306,9 @@ class collectData(tk.Tk):
         parse_thread = threading.Thread(name="ParsingThread", target=self.parseThread)
         """
         # print("{} Starting...".format(threading.currentThread().getName()))
-        if self.is_online():
-            p = ClassParser.ClassParser(self.s, self.subjectVal.get())
-            p.deleteFormatting()
-            p.parseData()
-        else:
-            print("[ERROR] Couldn't connect to the internet.")
+        p = ClassParser.ClassParser(self.s, self.subjectVal.get())
+        p.deleteFormatting()
+        p.parseData()
         # print ("{} Exiting...".format(threading.currentThread().getName()))
 
     def dataCollectClick(self, event):
@@ -299,8 +325,6 @@ class collectData(tk.Tk):
         //Binds left mouse click on collectData button to this function
         collectData.bind("<Button-1>", self.dataCollectClick)
         """
-        self.loadingLabel()
-
         term = self.termVal.get()
         year = self.yearVal.get()
         t = None
@@ -323,13 +347,20 @@ class collectData(tk.Tk):
         if len(currentClasses):
             self.cm.delete_sub_term(self.subjectVal.get(), self.s)
 
-        parse_thread = threading.Thread(name="ParsingThread", target=self.parseThread)
-        parse_thread.start()
-        while parse_thread.isAlive():
-            self.newWindow.update_idletasks()
-            self.newWindow.update()
-        parse_thread.join()
+        if self.is_online():
+            #init loading gif
+            self.loadingLabel()
 
-        # Remove loading wheel
-        self.loadLabel.destroy()
-        self.initButtons()
+            #init thread
+            parse_thread = threading.Thread(name="ParsingThread", target=self.parseThread)
+            parse_thread.start()
+
+            #update loading gif while parsing thread runs
+            while parse_thread.isAlive():
+                self.newWindow.update_idletasks()
+                self.newWindow.update()
+            parse_thread.join()
+
+            # Remove loading wheel
+            self.loadLabel.destroy()
+            self.initButtons()
