@@ -716,7 +716,6 @@ class ClassManagement(tk.Tk):
             else:
                 self.offeredCourses.insert(END, "None found for " + self.currentSubject + " " + term + " " + year)
         else:
-            self.offeredCourses.insert(END, "None found for " + self.currentSubject + " " + term + " " + year)
             self.offeredCourses.insert(END, "Please select a subject (on the left)")
             self.offeredCourses.insert(END, "and a term (below)")
 
