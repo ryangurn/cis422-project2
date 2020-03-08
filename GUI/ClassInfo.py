@@ -66,9 +66,7 @@ class classInfo(tk.Tk):
 
         cm = ClassModel.ClassModel(self.db)
         self.classRecord = cm.find_by('id', class_id)[0]
-        # print(self.classRecord)
         self.sections = json.loads(self.classRecord[11])
-        # print(self.sections)
 
         roadMapLabel = Label(self.windowTop, text=className, background="#323232",
                              fg="#ffcc00")
@@ -123,9 +121,10 @@ class classInfo(tk.Tk):
                 locations.append(item['location'])
 
         # insert the description, prereqs, and locations
-        # detailsBox.insert("1.0", "Description: " + "\n".join(description))
-        detailsBox.insert("1.0", "Description: " + "\n".join(description))
-        print(description, prereqs, locations)
+        detailsBox.insert("1.0", "Description: \n" + "\n".join(description) + "\n")
+        detailsBox.insert("20.0", "Prerequisites: \n" + "\n".join(prereqs) + "\n")
+        detailsBox.insert("30.0", "Locations: \n" + "\n".join(locations) + "\n")
+        detailsBox.insert("40.0", "Previous Section Distribution: \n")
 
 
         returnButton = Label(self.window, text='Return')
