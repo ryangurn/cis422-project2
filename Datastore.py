@@ -110,5 +110,14 @@ class DB:
                         updated_at datetime NOT NULL
                      );""")
 
+            self._create_table("""CREATE TABLE "roadmap_toggles" (
+                        "id"	INTEGER PRIMARY KEY AUTOINCREMENT,
+                        "requirements_id"	INTEGER,
+                        "students_id"	INTEGER,
+                        "highlight"	TEXT,
+                        "created_at"	datetime,
+                        "updated_at"	datetime
+                    );""")
+
             rm = RequirementModel.RequirementModel(self.db)
             rm.setupTable()
