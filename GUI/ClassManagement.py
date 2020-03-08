@@ -221,6 +221,7 @@ class ClassManagement(tk.Tk):
             if not w.curselection() == ():
                 index = int(w.curselection()[0])
                 selectedCourse = w.get(index).split(" ")
+                print(selectedCourse)
                 if "-" in selectedCourse:
                     del selectedCourse[0]
                 cm = ClassModel.ClassModel(self.db)
@@ -407,7 +408,9 @@ class ClassManagement(tk.Tk):
                             else:
                                 pass
                 else:
-                    term1.append(desc["description"])
+                    #"".join(["\n" for i in range(0,(here)+1)])
+                    secretKey = desc["description"] +"".join(["\n" for i in range(0,((4 * t) + termTracker)+1)])
+                    term1.append(secretKey)
             termTracker = (termTracker + 1) % 4
 
             # summer
@@ -458,7 +461,8 @@ class ClassManagement(tk.Tk):
                             else:
                                 pass
                 else:
-                    term2.append(desc["description"])
+                    secretKey = desc["description"] +"".join(["\n" for i in range(0,((4 * t) + termTracker)+1)])
+                    term2.append(secretKey)
             termTracker = (termTracker + 1) % 4
 
             # fall
@@ -509,7 +513,8 @@ class ClassManagement(tk.Tk):
                             else:
                                 pass
                 else:
-                    term3.append(desc["description"])
+                    secretKey = desc["description"] +"".join(["\n" for i in range(0,((4 * t) + termTracker)+1)])
+                    term3.append(secretKey)
             termTracker = (termTracker + 1) % 4
 
             #winter
@@ -562,7 +567,8 @@ class ClassManagement(tk.Tk):
                             else:
                                 pass
                 else:
-                    term4.append(desc["description"])
+                    secretKey = desc["description"] +"".join(["\n" for i in range(0,((4 * t) + termTracker)+1)])
+                    term4.append(secretKey)
 
             termTracker = (termTracker + 1) % 4
             classDict.update({termsNormal[termsNormal.index(curTerm) % 4] + " " + str(min_year): term1})
