@@ -95,18 +95,7 @@ class classInfo(tk.Tk):
         # details box is where all of the statistics information will go
         detailsBox = Text(self.window, wrap=WORD, background=self._grey, selectbackground=self._green, fg="#e6e6e6")
         detailsBox.place(x=20, y=195, height=285, width=760)
-        detailsBox.config(font=("Arial", 14))
-
-        # setup the scrolling mechanic for the details box
-        # scrollbar = Scrollbar(detailsBox)
-        # scrollbar.pack(side=BOTTOM, fill=X)
-
-        # use the scrollbar
-        # detailsBox.config(xscrollcommand=scrollbar.set)
-        # scrollbar.config(command=detailsBox.xview)
-
-        # detailsBox.insert(END, "hi")
-        # detailsBox.insert(END, "\t\thi")
+        detailsBox.config(font=("Arial", 12))
 
         # get the description
         description = []
@@ -126,6 +115,65 @@ class classInfo(tk.Tk):
         detailsBox.insert("30.0", "Locations: \n" + "\n".join(locations) + "\n")
         detailsBox.insert("40.0", "Previous Section Distribution: \n")
 
+        # get section distribution
+        cm1 = ClassModel.ClassModel(self.db)
+        counts = cm1.count(self.classRecord[3], self.classRecord[4])
+        totalDict = {}
+        lecDict = {}
+        labDict = {}
+        disDict = {}
+        othDict = {}
+        for c in counts:
+            item = c[0]
+            year = str(item)[:4]
+            t = int(str(item)[5:])
+            term = None
+            if t == 1:
+                term = "Fall"
+            elif t == 2:
+                term = "Winter"
+                year = str(int(year) + 1)
+            elif t == 3:
+                term = "Spring"
+                year = str(int(year) + 1)
+            elif t == 4:
+                term = "Summer"
+                year = str(int(year) + 1)
+            total = c[3]
+            lecture = c[4]
+            lab = c[5]
+            disc = c[6]
+            other = c[7]
+            if totalDict.get(t):
+                totalDict.update({year + " " + term: totalDict[term]+total})
+            else:
+                totalDict.update({year + " " + term: total})
+
+            if lecDict.get(t):
+                lecDict.update({year + " " + term: lecDict[term]+lecture})
+            else:
+                lecDict.update({year + " " + term: lecture})
+
+            if labDict.get(t):
+                labDict.update({year + " " + term: labDict[term]+lab})
+            else:
+                labDict.update({year + " " + term: lab})
+
+            if disDict.get(t):
+                disDict.update({year + " " + term: disDict[term]+disc})
+            else:
+                disDict.update({year + " " + term: disc})
+
+            if othDict.get(t):
+                othDict.update({year + " " + term: othDict[term]+other})
+            else:
+                othDict.update({year + " " + term: other})
+
+            it = 50.0
+            for v in totalDict:
+                concat = "(Total: {}, Lecture: {}, Lab: {}, Discussions: {}, Other: {})".format(totalDict[v], lecDict[v], labDict[v], disDict[v], othDict[v])
+                detailsBox.insert(it, v + ": " + concat + "\n")
+                it += 10.0
 
         returnButton = Label(self.window, text='Return')
         returnButton.config(font=("Arial Bold", 18), bg=self._green, fg=self._yellow)

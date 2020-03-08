@@ -216,7 +216,6 @@ class ClassManagement(tk.Tk):
             req = rm.find_by('id', t[1])
             term = req[0][1]
             self.toggleArray.update({term: t[3]})
-        print(self.toggleArray)
         def box1_update():
             # Updates listbox 1 with class data given the key
             self.listBx1
@@ -300,7 +299,6 @@ class ClassManagement(tk.Tk):
                     rm = RequirementModel.RequirementModel(self.db)
                     # get the dropdown information
                     splitMajor = self.majorChoice.get().split("-")
-                    print(splitMajor[1], splitMajor[0])
                     req = rm.find_by_term(splitMajor[1], splitMajor[0], boxindex)
                     requirements_id = req[0][0]
                     exists = len(tm.find_using(requirements_id, self.student_id, " ".join(w.get(index).split('\n')[:1])))

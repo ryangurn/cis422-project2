@@ -162,6 +162,15 @@ class ClassModel:
         except ValueError:
             return cur.fetchall()
 
+    def count(self, subject, number):
+        sql = "SELECT \"term\", \"subject\", \"number\", \"total_count\", \"lecture_count\", \"lab_count\", \"discussion_count\", \"other_count\" FROM \"main\".\"classes\" WHERE \"subject\"=\"{}\" AND \"number\"=\"{}\";".format(subject, number)
+        cur = self.conn.cursor()
+        try:
+            cur.execute(sql)
+        except ValueError:
+            return cur.fetchall()
+        return cur.fetchall()
+
 
 
     def find_course(self, name, subject, number, term, year):
