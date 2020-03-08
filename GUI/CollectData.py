@@ -361,6 +361,6 @@ class collectData(tk.Tk):
                 self.newWindow.update()
             parse_thread.join()
 
-            # Remove loading wheel
+            # Remove loading wheel and initialize buttons
             self.loadLabel.destroy()
             self.initButtons()
