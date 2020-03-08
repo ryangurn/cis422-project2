@@ -15,10 +15,25 @@ import TogglesModel
 
 class ClassManagement(tk.Tk):
     def __init__(self, master, studentName, db_file):
+        """
+        Initializer for the ClassManagement window. This function requires  the master window from
+        tkinter to interface with, the name of the database to connect and interact with, 
+        and also the name of the selected student. 
+
+        :param
+        master :tkinter.Tk
+        studentName :str
+        db_file :str
+        
+        Example Usage:
+        //Called from MainMenu.py
+        ClassManagement(self.master, self.db, "Steve Smith")
+        """
         self.db = db_file
         self.master = master
         self.currentSubject = None
 
+        # Interact with database and find students ID
         sm = StudentModel.StudentModel(self.db)
         self.student_id = sm.find(studentName)[0][0]
 
@@ -33,15 +48,17 @@ class ClassManagement(tk.Tk):
         self._buttonText = ("Arial Bold", 16)
         self._offeredCoursesDefault = "Please select a subject to display courses."
 
+        # Create the main frame
         self.studentName = studentName
         self.master = master
         self.window = Frame(master, bg=self._darkGrey, height=800, width=800)
         self.window.place(x=0, y=125)
 
+        # Create the top frame for Title & UO logo
         self.windowTop = Frame(master, bg=self._grey, height=125, width=800)
         self.windowTop.place(x=0, y=0)
 
-        # UO Logo
+        # UO Logo 
         logoUO = PhotoImage(file="./img/UOicon.gif")
         labelUO = Label(self.windowTop, image=logoUO, borderwidth=0)
         labelUO.image = logoUO
@@ -86,11 +103,14 @@ class ClassManagement(tk.Tk):
 
         subfont = font.Font(family="Helvetica", size=26)
         courseFont = font.Font(family="Helvetica", size=16)
+
+        # Listbox for the subjects offered at the UO
         self.courseSubjects = Listbox(self.window, selectmode="browse", bg=self._yellow, fg=self._darkGrey,
                                       selectbackground=self._green, width=6, font=subfont)
         self.courseSubjects.place(x=22, y=80, height=295, width=100)
         self.courseSubjects.bind(self._button, self.subjectClick)
 
+        # Interact with the database, then insert every subject into courseSubjects 
         cm = ClassModel.ClassModel(self.db)
         subject = cm.distinct('subject')
         for k, v in enumerate(subject):
@@ -101,11 +121,6 @@ class ClassManagement(tk.Tk):
         student = Label(self.window, text=studentName, anchor='w')
         student.place(x=22, y=10, height=40, width=500)
         student.config(font=("Arial", 20), bg=self._darkGrey, fg=self._yellow)
-
-        # # Student Name Label (Updates)
-        # labl = Label(self.window, text=studentName, anchor='w')
-        # labl.place(x=120, y=15, height=30, width=200)
-        # labl.config(font=("Arial", 20), bg=self._darkGrey, fg=self._yellow)
 
         # Offered Classes listbox
         self.offeredCourses = Listbox(self.window, selectmode="browse", bg=self._lightGrey, fg=self._darkGrey,
@@ -120,17 +135,19 @@ class ClassManagement(tk.Tk):
         self.takenClasses.place(x=468, y=80, height=215, width=310)
         self.takenClasses.bind(self._button, self.removeClass)
 
-        # add in previously taken classes
+        # Interact with database then fill takenClasses box in with previously taken classes
         scm = StudentClassModel.StudentClassModel(self.db)
         prev = scm.find('students_id', self.student_id)
         for i in prev:
             class_id = i[2]
 
             cm = ClassModel.ClassModel(self.db)
+            # Find class based off of class id
             clas = cm.find_by('id', class_id)
             year = str(clas[0][1])[:4]
             term = str(clas[0][1])[4:]
 
+            # Determine term and year class was taken
             y = int(year)
             t = None
             if term == "01":
@@ -187,25 +204,34 @@ class ClassManagement(tk.Tk):
 
 
     def year_dropdown(self, *args):
+        # Update the OfferedClasses list each time a new year is selected
         self.updateList()
 
     def quarter_dropdown(self, *args):
+        # Update the OfferedClasses list each time a new term is selected
         self.updateList()
 
     def goHomeClick(self, event):
-        # mainMenu(self.master)
+        # Return to the main menu
         self.window.destroy()
         self.windowTop.destroy()
 
     def classRoadmap(self, event):
+        """
+        Initializer for the classRoadMap window. The purpose of this window is to display
+        a student's progress of their major's requirements.
+        """
         self.idx = 0
-
+        # An array which will store the student's completed classes
         self.comparisonArray = []
+
+        # Determine the student's id
         scm = StudentClassModel.StudentClassModel(self.db)
         iters = scm.find('students_id', self.student_id)
         for i in iters:
             cm = ClassModel.ClassModel(self.db)
             asdf = cm.find_by('id', i[2])[0]
+            # Add each class the student has taken to the comparison array
             self.comparisonArray.append(asdf[3] + " " + asdf[4])
 
         self.toggleArray = {}
@@ -297,7 +323,7 @@ class ClassManagement(tk.Tk):
                 if boxindex >= 0:
                     tm = TogglesModel.TogglesModel(self.db)
                     rm = RequirementModel.RequirementModel(self.db)
-                    # get the dropdown information
+                    # Determine the requirements for the student's selected major
                     splitMajor = self.majorChoice.get().split("-")
                     req = rm.find_by_term(splitMajor[1], splitMajor[0], boxindex)
                     requirements_id = req[0][0]
@@ -312,6 +338,7 @@ class ClassManagement(tk.Tk):
                 cm = ClassModel.ClassModel(self.db)
                 try:
                     idx = cm.predict_future_class_id(selectedCourse[0], selectedCourse[1])
+                    # Display class info of the selected class
                     classInfo(self.master, self.db, selectedCourse, idx[0][1])
                 except IndexError:
                     pass
@@ -389,6 +416,7 @@ class ClassManagement(tk.Tk):
             roadMapWindow.destroy()
 
         def getFirstTerm():
+            # Determines which term to start on when the student has not taken any classes
             currentMonth = datetime.now().month
             if (currentMonth > 9):
                 term = "Winter"
@@ -410,6 +438,7 @@ class ClassManagement(tk.Tk):
         recents = scm.find('students_id', self.student_id)
         min_year = datetime.now().year
         check = 1
+        # Look through the classes the student has taken and determine which one was the earliest
         for recent in recents:
             class_id = recent[2]
             cm = ClassModel.ClassModel(self.db)
@@ -419,6 +448,7 @@ class ClassManagement(tk.Tk):
                 year = int(item[:4])
                 term = int(item[4:])
                 if year <= min_year:
+                    # Update the term and year
                     curTerm = termsNormal[term - 1]
                     check = 0
                     if term == 1:
@@ -426,10 +456,12 @@ class ClassManagement(tk.Tk):
                     else:
                         min_year = year + 1
         if check:
+            # If the student hasn't taken any classes, get the current term
             curTerm = getFirstTerm()
 
         rm = RequirementModel.RequirementModel(self.db)
         cm = ClassModel.ClassModel(self.db)
+        # A variable used to iterate through the termsNormal list
         termTracker = termsNormal.index(curTerm)
         # get the dropdown information
         splitMajor = self.majorChoice.get().split("-")[0]
@@ -438,6 +470,7 @@ class ClassManagement(tk.Tk):
         accumulatorDict = {}
         for t in range(le // 4):
             term1, term2, term3, term4 = [], [], [], []
+            # Don't add "Required" to the summer term
             if termsNormal[termTracker] != "Summer":
                 term1.append("Required")
             if termsNormal[(termTracker + 1) % 4] != "Summer":
@@ -447,9 +480,10 @@ class ClassManagement(tk.Tk):
             if termsNormal[(termTracker + 3) % 4] != "Summer":
                 term4.append("Required")  
 
-            # spring
+            # Reads through the requirements for term 1
             for desc in json.loads(find[(4 * t) + termTracker][4]):
                 if ((4 * t) + termTracker) % 4 == 3:
+                    #If this is a summer term, break
                     break
                 if desc['course'] != "":
                     if desc['course'][0] != ">":
@@ -457,14 +491,17 @@ class ClassManagement(tk.Tk):
                         course = s1[0]
                         classes = s1[1]
                         if "/" in classes:
+                            # Case where there are multiple options e.g: Math 251/261
                             sqlTerm = str(min_year) + "0" + str(termsNormal.index(curTerm) % 4)
                             classes_split = classes.split("/")
                             for clss in classes_split:
+                                # Ensure that the class exists for the given term
                                 offeredClass = cm.find_class_id(course, clss, sqlTerm)
                                 if len(offeredClass):
                                     theClass = "- " + course + " " + clss
                                     term1.append(theClass)
                                 else:
+                                    # If the class data is not there, find the most recent occurrence of the class
                                     offeredClass = cm.predict_future_class_id(course, clss)
                                     if len(offeredClass):
                                         theClass = "- " + course + " " + clss                                
@@ -473,6 +510,7 @@ class ClassManagement(tk.Tk):
                                         term1.append("- " + desc["description"])
                                 
                         else:
+                            # If there's just one required class, add it 
                             theClass = "- " + desc["course"]
                             term1.append(theClass)
                     else:
@@ -486,23 +524,29 @@ class ClassManagement(tk.Tk):
                             term1.append(desc["description"])
                         
                         priorYear = int(datetime.now().year) - 1
+                        # Variable that matches with the term column in the SQL table
                         sqlTerm = str(priorYear) + "0" + str((termsNormal.index(curTerm) % 4) + 1)
+                        # Gets every class that has a ">X" in it, where X is 1, 2, or 3
                         carrotClasses = cm.crt_class_search(desc["course"][1], priorYear)
                         for carrot in carrotClasses:
+                            # Only add the class if it is offered in the appropriate term
                             if int(sqlTerm) in carrot:
                                 theClass = "- " + str(carrot[0]) + " " + str(carrot[2])
                                 term1.append(theClass)
                             else:
                                 pass
                 else:
-                    #"".join(["\n" for i in range(0,(here)+1)])
+                    # If there is no course, just add the description of what must be taken
+                    # '\n' is appended so that we may determine which term it is in
                     secretKey = desc["description"] +"".join(["\n" for i in range(0,((4 * t) + termTracker)+1)])
                     term1.append(secretKey)
+
             termTracker = (termTracker + 1) % 4
 
-            # summer
+            # Reads through the requirements for term 2
             for desc in json.loads(find[((4 * t) + termTracker)][4]):
                 if (((4 * t) + termTracker) % 4 == 3):
+                    #If this is a summer term, break
                     break
                 if desc['course'] != "":
                     if desc['course'][0] != ">":
@@ -510,14 +554,17 @@ class ClassManagement(tk.Tk):
                         course = s2[0]
                         classes = s2[1]
                         if "/" in classes:
+                            # Case where there are multiple options e.g: Math 251/261
                             sqlTerm = str(min_year) + "0" + str((termsNormal.index(curTerm) + 1) % 4)
                             classes_split = classes.split("/")
                             for clss in classes_split:
                                 offeredClass = cm.find_class_id(course, clss, sqlTerm)
+                                # Ensure that the class exists for the given term
                                 if len(offeredClass):
                                     theClass = "- " + course + " " + clss
                                     term2.append(theClass)
                                 else:
+                                    # If the class data is not there, find the most recent occurrence of the class
                                     offeredClass = cm.predict_future_class_id(course, clss)
                                     if len(offeredClass):
                                         theClass = "- " + course + " " + clss
@@ -526,6 +573,7 @@ class ClassManagement(tk.Tk):
                                         theClass = "- " + desc["description"]
                                 
                         else:
+                            # If there's just one required class, add it 
                             theClass = "- " + desc["course"]
                             term2.append(theClass)
                     else:
@@ -539,22 +587,29 @@ class ClassManagement(tk.Tk):
                             term2.append(desc["description"])
                         
                         priorYear = int(datetime.now().year) - 1
+                        # Variable that matches with the term column in the SQL table
                         sqlTerm = str(priorYear) + "0" + str(((termsNormal.index(curTerm) + 1) % 4) + 1)
+                        # Gets every class that has a ">X" in it, where X is 1, 2, or 3
                         carrotClasses = cm.crt_class_search(desc["course"][1], priorYear)
                         for carrot in carrotClasses:
+                            # Only add the class if it is offered in the appropriate term
                             if int(sqlTerm) in carrot:
                                 theClass = "- " + str(carrot[0]) + " " + str(carrot[2])
                                 term2.append(theClass)
                             else:
                                 pass
                 else:
+                    # If there is no course, just add the description of what must be taken
+                    # '\n' is appended so that we may determine which term it is in
                     secretKey = desc["description"] +"".join(["\n" for i in range(0,((4 * t) + termTracker)+1)])
                     term2.append(secretKey)
+
             termTracker = (termTracker + 1) % 4
 
-            # fall
+            # Reads through the requirements for term 3
             for desc in json.loads(find[(4 * t) + termTracker][4]):
                 if ((4 * t) + termTracker) % 4 == 3:
+                    #If this is a summer term, break
                     break
                 if desc['course'] != "":
                     if desc['course'][0] != ">":
@@ -562,14 +617,17 @@ class ClassManagement(tk.Tk):
                         course = s3[0]
                         classes = s3[1]
                         if "/" in classes:
+                            # Case where there are multiple options e.g: Math 251/261
                             sqlTerm = str(min_year) + "0" + str((termsNormal.index(curTerm) + 2) % 4)
                             classes_split = classes.split("/")
                             for clss in classes_split:
                                 offeredClass = cm.find_class_id(course, clss, sqlTerm)
+                                # Ensure that the class exists for the given term
                                 if len(offeredClass):
                                     theClass = "- " + course + " " + clss
                                     term3.append(theClass)
                                 else:
+                                    # If the class data is not there, find the most recent occurrence of the class
                                     offeredClass = cm.predict_future_class_id(course, clss)
                                     if len(offeredClass):
                                         theClass = "- " + course + " " + clss
@@ -578,6 +636,7 @@ class ClassManagement(tk.Tk):
                                         theClass = "- " + desc["description"]
                         
                         else:
+                            # If there's just one required class, add it 
                             theClass = "- " + desc["course"]
                             term3.append(theClass)
                     else:
@@ -591,22 +650,29 @@ class ClassManagement(tk.Tk):
                             term3.append(desc["description"])
                         
                         priorYear = int(datetime.now().year) - 1
+                        # Variable that matches with the term column in the SQL table
                         sqlTerm = str(priorYear) + "0" + str(((termsNormal.index(curTerm) + 2) %4) + 1)
+                        # Gets every class that has a ">X" in it, where X is 1, 2, or 3
                         carrotClasses = cm.crt_class_search(desc["course"][1], priorYear)
                         for carrot in carrotClasses:
+                            # Only add the class if it is offered in the appropriate term
                             if int(sqlTerm) in carrot:
                                 theClass = "- " + str(carrot[0]) + " " + str(carrot[2])
                                 term3.append(theClass)
                             else:
                                 pass
                 else:
+                    # If there is no course, just add the description of what must be taken
+                    # '\n' is appended so that we may determine which term it is in
                     secretKey = desc["description"] +"".join(["\n" for i in range(0,((4 * t) + termTracker)+1)])
                     term3.append(secretKey)
+
             termTracker = (termTracker + 1) % 4
 
-            #winter
+            # Reads through the requirements for term 4
             for desc in json.loads(find[(4 * t) + termTracker][4]):
                 if ((4 * t) + termTracker) % 4 == 3:
+                    #If this is a summer term, break
                     break
                 if desc['course'] != "":    
                     if desc['course'][0] != ">":
@@ -614,16 +680,17 @@ class ClassManagement(tk.Tk):
                         course = s4[0]
                         classes = s4[1]
                         if "/" in classes:
-                            # query for course + each class in classes split
+                            # Case where there are multiple options e.g: Math 251/261
                             sqlTerm = str(min_year) + "0" + str((termsNormal.index(curTerm) + 3) % 4)
-                            #print(sqlTerm)
                             classes_split = classes.split("/")
                             for clss in classes_split:
                                 offeredClass = cm.find_class_id(course, clss, sqlTerm)
+                                # Ensure that the class exists for the given term
                                 if len(offeredClass):
                                     theClass = "- " + course + " " + clss
                                     term4.append(theClass)
                                 else:
+                                    # If the class data is not there, find the most recent occurrence of the class
                                     offeredClass = cm.predict_future_class_id(course, clss)
                                     if len(offeredClass):
                                         theClass = "- " + course + " " + clss
@@ -632,6 +699,7 @@ class ClassManagement(tk.Tk):
                                         theClass = "- " + desc["description"]
                                     
                         else:
+                            # If there's just one required class, add it 
                             theClass = "- " + desc["course"]
                             term4.append(theClass)
                     else:
@@ -645,19 +713,26 @@ class ClassManagement(tk.Tk):
                             term4.append(desc["description"])
                         
                         priorYear = int(datetime.now().year) - 1
+                        # Variable that matches with the term column in the SQL table
                         sqlTerm = str(priorYear) + "0" + str(((termsNormal.index(curTerm) + 3) %4) + 1)
+                        # Gets every class that has a ">X" in it, where X is 1, 2, or 3
                         carrotClasses = cm.crt_class_search(desc["course"][1], priorYear)
                         for carrot in carrotClasses:
+                            # Only add the class if it is offered in the appropriate term
                             if int(sqlTerm) in carrot:
                                 theClass = "- " + str(carrot[0]) + " " + str(carrot[2])
                                 term4.append(theClass)
                             else:
                                 pass
                 else:
+                    # If there is no course, just add the description of what must be taken
+                    # '\n' is appended so that we may determine which term it is in
                     secretKey = desc["description"] +"".join(["\n" for i in range(0,((4 * t) + termTracker)+1)])
                     term4.append(secretKey)
 
             termTracker = (termTracker + 1) % 4
+            
+            #Update the classDicts with the relevant term data
             classDict.update({termsNormal[termsNormal.index(curTerm) % 4] + " " + str(min_year): term1})
             classDict.update({termsNormal[(termsNormal.index(curTerm) + 1) % 4] + " " + str(min_year): term2})
             classDict.update({termsNormal[(termsNormal.index(curTerm) + 2) % 4] + " " + str(min_year): term3})
@@ -667,6 +742,7 @@ class ClassManagement(tk.Tk):
 
         classMap = classDict
 
+        """ Below is the widgets relevant to the classRoadmap Window"""    
         # Populates a list of keys (in order) from the classMap data
         for i in range(len(classMap)):
             self.classMapKeys.append([key for key in classMap.keys()][i])
@@ -816,6 +892,7 @@ class ClassManagement(tk.Tk):
 
         
     def subjectClick(self, event):
+        # Updates the OfferedCourses list to match the selected subject
         w = event.widget
         if not w.curselection() == ():
             index = int(w.curselection()[0])
@@ -824,10 +901,11 @@ class ClassManagement(tk.Tk):
             self.updateList()
 
     def updateList(self):
-        self.offeredCourses.delete(0, END)  # delete all items
+        # This function updates the OfferedCourses list
+        self.offeredCourses.delete(0, END)  
         year = str(self.strObj1.get())
         term = str(self.strObj2.get())
-
+        # Determine the year and term of the classes to be added
         t = None
         y = int(year)
         if term == "Fall":
@@ -844,6 +922,7 @@ class ClassManagement(tk.Tk):
 
         ye = str(y)
         cm = ClassModel.ClassModel(self.db)
+        # Finds all the classes for the selected subject, given the year and term
         items = cm.find_by_term(self.currentSubject, ye, t)
         if self.currentSubject is not None:
             if len(items) > 0:
@@ -851,17 +930,21 @@ class ClassManagement(tk.Tk):
                     insertLine = self._compose([value])
                     self.offeredCourses.insert(key, "(" + term + " " + year + ") " + insertLine)
             else:
+                # If there are no classes for the given term/year
                 self.offeredCourses.insert(END, "None found for " + self.currentSubject + " " + term + " " + year)
         else:
+            # The base case, when no subject has been selected
             self.offeredCourses.insert(END, "Please select a subject (on the left)")
             self.offeredCourses.insert(END, "and a term (below)")
 
     def courseClick(self, event):
+        # When a course in OfferedCourses is selected
         w = event.widget
         if not w.curselection() == ():
             index = int(w.curselection()[0])
             cc = w.get(index)
             if not self._contain(cc, self.takenClasses) and cc != self._offeredCoursesDefault:
+                # If it is not already in the takenClasses list
                 half = cc.split(")")[0].replace("(", "")
                 currentCourse = cc.split(")")[1:][0][1:]
                 # locate class record
@@ -870,21 +953,23 @@ class ClassManagement(tk.Tk):
                                       self._decompose(currentCourse)[1], half.split(" ")[0], half.split(" ")[1])
                 class_id = clas[0][0]
 
-                # associate the item
+                # associate the item - add it to the StudentClass table
                 scm = StudentClassModel.StudentClassModel(self.db)
                 scm.associate(self.student_id, class_id)
 
-                # insert item into the list
+                # insert item into the takenClasses list
                 self.takenClasses.insert(END,
                                          "(" + half.split(" ")[0] + " " + half.split(" ")[1] + ") " + currentCourse)
 
     def removeClass(self, event):
+        # When a class in TakenClasses is selected
         w = event.widget
         if not w.curselection() == ():
             index = int(w.curselection()[0])
             cc = w.get(index)
             half = cc.split(")")[0].replace("(", "")
             currentCourse = cc.split(")")[1:][0][1:]
+            # Ask for confirmation before deleting the class
             MsgBox = tk.messagebox.askquestion('Delete Confirmation',
                                                'Are you sure you would like to delete this class',
                                                icon='warning')
@@ -895,11 +980,13 @@ class ClassManagement(tk.Tk):
                 class_id = clas[0][0]
 
                 scm = StudentClassModel.StudentClassModel(self.db)
+                # Removes the class from the StudentClass tabel
                 scm.disassociate(self.student_id, class_id)
-
+                # Removes the class from the takenClasses listbox
                 self.takenClasses.delete(index)
 
     def _decompose(self, str):
+        # Acquires relevant course information from string which can then be processed by the database
         split = str.split(" ")
         subject = split[0]
         code = split[1]
@@ -908,8 +995,10 @@ class ClassManagement(tk.Tk):
         return subject, code, course
 
     def _compose(self, value):
+        # Puts a class in the appropriate format
         v = value[0]
         return v[3] + " " + v[4] + " - [" + v[2] + "]"
 
     def _contain(self, item, box):
+        # Determines if a class is in a given listbox
         return item in box.get(0, "end")
