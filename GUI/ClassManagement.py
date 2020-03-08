@@ -176,6 +176,15 @@ class ClassManagement(tk.Tk):
         dropMenuQuarter.config(bg=self._darkGrey)
         self.strObj2.trace('w', self.quarter_dropdown)
 
+        #Drop down menu for the student's major
+        self.majorChoice = StringVar(self.window)
+        majorChoices = sorted({"BS-Computer & Information Science", "BA-Computer & Information Science"})
+        self.majorChoice.set("BS-Computer & Information Science")
+        majorMenu = OptionMenu(self.window, self.majorChoice, *majorChoices)
+        majorMenu.config(bg = self._darkGrey)
+        majorMenu.place(x = 130, y = 385, width = 315, height = 30)
+
+
     def year_dropdown(self, *args):
         self.updateList()
 
@@ -209,7 +218,7 @@ class ClassManagement(tk.Tk):
                 for c in self.comparisonArray:
                     if c in v:
                         self.listBx1.itemconfig(i, bg=self._green)
-                        print(0, i, v)
+                        #print(0, i, v)
                 # pass
 
 
@@ -384,7 +393,9 @@ class ClassManagement(tk.Tk):
         rm = RequirementModel.RequirementModel(self.db)
         cm = ClassModel.ClassModel(self.db)
         termTracker = termsNormal.index(curTerm)
-        find = rm.find_by('type', 'BS')
+        # get the dropdown information
+        splitMajor = self.majorChoice.get().split("-")[0]
+        find = rm.find_by('type', splitMajor)
         le = len(find)
         accumulatorDict = {}
         for t in range(le // 4):
@@ -764,6 +775,8 @@ class ClassManagement(tk.Tk):
         backToClassesButton.place(x=330, y=510, height=40, width=140)
         backToClassesButton.bind("<Button-1>", backToClassMenu)
 
+
+        
     def subjectClick(self, event):
         w = event.widget
         if not w.curselection() == ():
