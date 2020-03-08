@@ -23,6 +23,7 @@ from tkinter.ttk import Notebook, Entry
 import StudentModel
 import StudentClassModel
 import ClassModel
+import json
 
 
 class classInfo(tk.Tk):
@@ -63,7 +64,12 @@ class classInfo(tk.Tk):
         if len(className) > 12:
             labelWidth = 500
 
-        print(class_id)
+        cm = ClassModel.ClassModel(self.db)
+        self.classRecord = cm.find_by('id', class_id)[0]
+        # print(self.classRecord)
+        self.sections = json.loads(self.classRecord[11])
+        # print(self.sections)
+
         roadMapLabel = Label(self.windowTop, text=className, background="#323232",
                              fg="#ffcc00")
         roadMapLabel.place(x=0, y=5, height=115, width=labelWidth)
@@ -88,20 +94,42 @@ class classInfo(tk.Tk):
         greenLine = Label(self.windowTop, text="", background=self._green)
         greenLine.place(x=0, y=120, height=8, width=800)
 
-        instructorLabel = Label(self.window, text="Instructor: ", bg=self._darkGrey, fg=self._yellow)
-        instructorLabel.place(x=21, y=175, height=25, width=250)
-        instructorLabel.config(font=("Helvetica", 28))
+        # details box is where all of the statistics information will go
+        detailsBox = Text(self.window, wrap=WORD, background=self._grey, selectbackground=self._green, fg="#e6e6e6")
+        detailsBox.place(x=20, y=195, height=285, width=760)
+        detailsBox.config(font=("Arial", 14))
 
-        prereqLabel = Label(self.window, text="Prerequisites: ", bg=self._darkGrey, fg=self._yellow)
-        prereqLabel.place(x=20, y=215, height=25, width=300)
-        prereqLabel.config(font=("Helvetica", 28))
+        # setup the scrolling mechanic for the details box
+        # scrollbar = Scrollbar(detailsBox)
+        # scrollbar.pack(side=BOTTOM, fill=X)
 
-        termsOffered = Label(self.window, text="Terms Offered: ", bg=self._darkGrey, fg=self._yellow)
-        termsOffered.place(x=20, y=255, height=25, width=315)
-        termsOffered.config(font=("Helvetica", 28))
+        # use the scrollbar
+        # detailsBox.config(xscrollcommand=scrollbar.set)
+        # scrollbar.config(command=detailsBox.xview)
+
+        # detailsBox.insert(END, "hi")
+        # detailsBox.insert(END, "\t\thi")
+
+        # get the description
+        description = []
+        prereqs = []
+        locations = []
+        for item in self.sections:
+            if item['description'] != "" and (item['type'] == "" or item['type'] == "Lecture"):
+                description.append(item['description'])
+            if item['prereqs'] != "":
+                prereqs.append(item['prereqs'])
+            if item['location'] != "":
+                locations.append(item['location'])
+
+        # insert the description, prereqs, and locations
+        # detailsBox.insert("1.0", "Description: " + "\n".join(description))
+        detailsBox.insert("1.0", "Description: " + "\n".join(description))
+        print(description, prereqs, locations)
+
 
         returnButton = Label(self.window, text='Return')
-        returnButton.config(font=("Arial Bold", 18), bg="#369148", fg=self._yellow)
+        returnButton.config(font=("Arial Bold", 18), bg=self._green, fg=self._yellow)
         returnButton.place(x=600, y=540, height=30, width=140)
         returnButton.bind(self._button, self.returnClick)
 
