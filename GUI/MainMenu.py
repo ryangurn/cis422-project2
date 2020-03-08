@@ -193,9 +193,10 @@ class MainMenu(tk.Tk):
         self.lb.bind('<Double-Button-1>', self.onClick)
         """
         w = event.widget
-        index = int(w.curselection()[0])
-        selectedStudent = w.get(index)
-        ClassManagement(self.master, selectedStudent, self.db)
+        if not w.curselection() == ():
+            index = int(w.curselection()[0])
+            selectedStudent = w.get(index)
+            ClassManagement(self.master, selectedStudent, self.db)
 
     def collectBtnClick(self, event):
         """
