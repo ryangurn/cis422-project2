@@ -67,18 +67,23 @@ class DB:
         """
         if self.conn is not None:
 
-            self._create_table("""CREATE TABLE classes (
-                                id integer NOT NULL CONSTRAINT classes_pk PRIMARY KEY AUTOINCREMENT,
-                                term integer NOT NULL,
-                                name text NOT NULL,
-                                subject text NOT NULL,
-                                number text NOT NULL,
-                                credits text NOT NULL,
-                                sections text NOT NULL,
-                                created_at datetime NOT NULL,
-                                updated_at datetime NOT NULL,
-                                CONSTRAINT class_unique UNIQUE (term, subject, number)
-                            );""")
+            self._create_table("""CREATE TABLE "classes" (
+                    	"id"	integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    	"term"	integer NOT NULL,
+                    	"name"	text NOT NULL,
+                    	"subject"	text NOT NULL,
+                    	"number"	text NOT NULL,
+                    	"credits"	text NOT NULL,
+                    	"total_count"	INTEGER DEFAULT 0,
+                    	"lecture_count"	INTEGER DEFAULT 0,
+                    	"lab_count"	INTEGER DEFAULT 0,
+                    	"discussion_count"	INTEGER DEFAULT 0,
+                    	"other_count"	INTEGER DEFAULT 0,
+                    	"sections"	text NOT NULL,
+                    	"created_at"	datetime NOT NULL,
+                    	"updated_at"	datetime NOT NULL,
+                    	CONSTRAINT "class_unique" UNIQUE("term","subject","number")
+                        );""")
 
             self._create_table("""CREATE TABLE students (
                         id integer NOT NULL CONSTRAINT students_pk PRIMARY KEY AUTOINCREMENT,
@@ -96,14 +101,14 @@ class DB:
                         );""")
 
             self._create_table("""CREATE TABLE requirements (
-                       id integer NOT NULL CONSTRAINT requirements_pk PRIMARY KEY AUTOINCREMENT,
-                       term integer NOT NULL,
-                       major varchar(255) NOT NULL,
-                       type varchar(255) NOT NULL,
-                       data text NOT NULL,
-                       created_at datetime NOT NULL,
-                       updated_at datetime NOT NULL
-                    );""")
+                        id integer NOT NULL CONSTRAINT requirements_pk PRIMARY KEY AUTOINCREMENT,
+                        term integer NOT NULL,
+                        major varchar(255) NOT NULL,
+                        type varchar(255) NOT NULL,
+                        data text NOT NULL,
+                        created_at datetime NOT NULL,
+                        updated_at datetime NOT NULL
+                     );""")
 
             rm = RequirementModel.RequirementModel(self.db)
             rm.setupTable()

@@ -123,6 +123,15 @@ class ClassParser:
                 class_obj['grading'] = self._intermediateData[key - 1][-1][1]
 
             data = self._intermediateData[key]
+
+            # store the counts of the type of sections
+            total = 0
+            lc = 0 # lecture_count
+            labc = 0 # lab_count
+            dc = 0 # discussion_count
+            oc = 0 # other_count
+
+
             for k, v in enumerate(data):
                 item = data[k]
                 if len(item) == 9:
@@ -144,13 +153,27 @@ class ClassParser:
 
                     class_obj['sections'].append(section_obj)
 
+                    # get counts of objects
+                    total += 1
+                    if item[0] == "Lecture":
+                        lc += 1
+                    elif item[0] == "+ Lab":
+                        labc += 1
+                    elif item[0] == "+ Dis":
+                        dc += 1
+                    elif item[0] == "":
+                        lc += 1
+                    else:
+                        oc += 1
+
             if class_obj != {'subject': '', 'number': '', 'name': '', 'credits': '', 'grading': '', 'sections': [], }:
-                self._saveData(class_obj)  # insert to sqlite db
+                self._saveData(class_obj, total, lc, labc, dc, oc)  # insert to sqlite db
                 self._dict.update({
                     str(class_obj['subject'] + " " + class_obj['number'] + " - [" + class_obj['name'] + "]"): class_obj
                 })  # append to the object
 
-    def _saveData(self, obj):
+    def _saveData(self, obj, total, lc, labc, dc, oc):
         """Small helper function to open the model and insert the data to the class model"""
         cm = ClassModel.ClassModel(db_file=self.db)
-        cm.insert(self.term, obj['name'], obj['subject'], obj['number'], obj['credits'], json.dumps(obj['sections']))
+        print("Total: {} | Lecture: {} | Lab: {} | Discussion: {} | Other: {}".format(total, lc, labc, dc, oc))
+        cm.insert(self.term, obj['name'], obj['subject'], obj['number'], obj['credits'], total, lc, labc, dc, oc, json.dumps(obj['sections']))
