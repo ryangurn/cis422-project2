@@ -2,11 +2,17 @@
 
 ## Authors
 Authors:
+
 (RegTools)
+
 Joseph Goh
+
 Mason Sayyadi
+
 Owen McEvoy
+
 Ryan Gurnick
+
 Samuel Lundquist
 
 ## Creation
