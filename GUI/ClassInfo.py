@@ -49,6 +49,7 @@ class classInfo(tk.Tk):
         print("|-   THERE IS NOTHING TO WORRY  -|")
         print("|- ABOUT JUST A macOS CORETEXT  -|")
         print("|-             ERROR            -|")
+        print("|-        NO ACTION NEEDED      -|")
         print("|--------------------------------|")
 
         self.db = db_file
