@@ -943,7 +943,7 @@ class ClassManagement(tk.Tk):
         if not w.curselection() == ():
             index = int(w.curselection()[0])
             cc = w.get(index)
-            if not self._contain(cc, self.takenClasses) and cc != self._offeredCoursesDefault:
+            if not self._contain(cc, self.takenClasses) and cc != self._offeredCoursesDefault and "None" not in cc and "subject" not in cc and "term" not in cc:
                 # If it is not already in the takenClasses list
                 half = cc.split(")")[0].replace("(", "")
                 currentCourse = cc.split(")")[1:][0][1:]
