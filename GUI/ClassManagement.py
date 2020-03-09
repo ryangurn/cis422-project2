@@ -18,14 +18,14 @@ class ClassManagement(tk.Tk):
     def __init__(self, master, studentName, db_file):
         """
         Initializer for the ClassManagement window. This function requires  the master window from
-        tkinter to interface with, the name of the database to connect and interact with, 
-        and also the name of the selected student. 
+        tkinter to interface with, the name of the database to connect and interact with,
+        and also the name of the selected student.
 
         :param
         master :tkinter.Tk
         studentName :str
         db_file :str
-        
+
         Example Usage:
         //Called from MainMenu.py
         ClassManagement(self.master, self.db, "Steve Smith")
@@ -59,7 +59,7 @@ class ClassManagement(tk.Tk):
         self.windowTop = Frame(master, bg=self._grey, height=125, width=800)
         self.windowTop.place(x=0, y=0)
 
-        # UO Logo 
+        # UO Logo
         logoUO = PhotoImage(file="./img/UOicon.gif")
         labelUO = Label(self.windowTop, image=logoUO, borderwidth=0)
         labelUO.image = logoUO
@@ -111,7 +111,7 @@ class ClassManagement(tk.Tk):
         self.courseSubjects.place(x=22, y=80, height=295, width=100)
         self.courseSubjects.bind(self._button, self.subjectClick)
 
-        # Interact with the database, then insert every subject into courseSubjects 
+        # Interact with the database, then insert every subject into courseSubjects
         cm = ClassModel.ClassModel(self.db)
         subject = cm.distinct('subject')
         for k, v in enumerate(subject):
@@ -480,7 +480,7 @@ class ClassManagement(tk.Tk):
             if termsNormal[(termTracker + 2) % 4] != "Summer":
                 term3.append("Required")
             if termsNormal[(termTracker + 3) % 4] != "Summer":
-                term4.append("Required")  
+                term4.append("Required")
 
             # Reads through the requirements for term 1
             for desc in json.loads(find[(4 * t) + termTracker][4]):
@@ -506,25 +506,25 @@ class ClassManagement(tk.Tk):
                                     # If the class data is not there, find the most recent occurrence of the class
                                     offeredClass = cm.predict_future_class_id(course, clss)
                                     if len(offeredClass):
-                                        theClass = "- " + course + " " + clss                                
+                                        theClass = "- " + course + " " + clss
                                         term1.append(theClass)
                                     else:
                                         term1.append("- " + desc["description"])
-                                
+
                         else:
-                            # If there's just one required class, add it 
+                            # If there's just one required class, add it
                             theClass = "- " + desc["course"]
                             term1.append(theClass)
                     else:
                         # query classes for with >
                         if (desc["course"][1] == "1"):
                             term1.append(desc["description"])
-                        
+
                         elif (desc["course"][1] == "2"):
                             term1.append(desc["description"])
                         elif (desc["course"][1] == "3"):
                             term1.append(desc["description"])
-                        
+
                         priorYear = int(datetime.now().year) - 1
                         # Variable that matches with the term column in the SQL table
                         sqlTerm = str(priorYear) + "0" + str((termsNormal.index(curTerm) % 4) + 1)
@@ -573,21 +573,21 @@ class ClassManagement(tk.Tk):
                                         term2.append(theClass)
                                     else:
                                         theClass = "- " + desc["description"]
-                                
+
                         else:
-                            # If there's just one required class, add it 
+                            # If there's just one required class, add it
                             theClass = "- " + desc["course"]
                             term2.append(theClass)
                     else:
                         # query classes for with >
                         if (desc["course"][1] == "1"):
                             term2.append(desc["description"])
-                        
+
                         elif (desc["course"][1] == "2"):
                             term2.append(desc["description"])
                         elif (desc["course"][1] == "3"):
                             term2.append(desc["description"])
-                        
+
                         priorYear = int(datetime.now().year) - 1
                         # Variable that matches with the term column in the SQL table
                         sqlTerm = str(priorYear) + "0" + str(((termsNormal.index(curTerm) + 1) % 4) + 1)
@@ -636,21 +636,21 @@ class ClassManagement(tk.Tk):
                                         term3.append(theClass)
                                     else:
                                         theClass = "- " + desc["description"]
-                        
+
                         else:
-                            # If there's just one required class, add it 
+                            # If there's just one required class, add it
                             theClass = "- " + desc["course"]
                             term3.append(theClass)
                     else:
                         # query classes for with >
                         if (desc["course"][1] == "1"):
                             term3.append(desc["description"])
-                        
+
                         elif (desc["course"][1] == "2"):
                             term3.append(desc["description"])
                         elif (desc["course"][1] == "3"):
                             term3.append(desc["description"])
-                        
+
                         priorYear = int(datetime.now().year) - 1
                         # Variable that matches with the term column in the SQL table
                         sqlTerm = str(priorYear) + "0" + str(((termsNormal.index(curTerm) + 2) %4) + 1)
@@ -676,7 +676,7 @@ class ClassManagement(tk.Tk):
                 if ((4 * t) + termTracker) % 4 == 3:
                     #If this is a summer term, break
                     break
-                if desc['course'] != "":    
+                if desc['course'] != "":
                     if desc['course'][0] != ">":
                         s4 = desc['course'].split(" ")
                         course = s4[0]
@@ -699,21 +699,21 @@ class ClassManagement(tk.Tk):
                                         term4.append(theClass)
                                     else:
                                         theClass = "- " + desc["description"]
-                                    
+
                         else:
-                            # If there's just one required class, add it 
+                            # If there's just one required class, add it
                             theClass = "- " + desc["course"]
                             term4.append(theClass)
                     else:
                         # query classes for with >
                         if (desc["course"][1] == "1"):
                             term4.append(desc["description"])
-                        
+
                         elif (desc["course"][1] == "2"):
                             term4.append(desc["description"])
                         elif (desc["course"][1] == "3"):
                             term4.append(desc["description"])
-                        
+
                         priorYear = int(datetime.now().year) - 1
                         # Variable that matches with the term column in the SQL table
                         sqlTerm = str(priorYear) + "0" + str(((termsNormal.index(curTerm) + 3) %4) + 1)
@@ -733,7 +733,7 @@ class ClassManagement(tk.Tk):
                     term4.append(secretKey)
 
             termTracker = (termTracker + 1) % 4
-            
+
             #Update the classDicts with the relevant term data
             classDict.update({termsNormal[termsNormal.index(curTerm) % 4] + " " + str(min_year): term1})
             classDict.update({termsNormal[(termsNormal.index(curTerm) + 1) % 4] + " " + str(min_year): term2})
@@ -744,7 +744,7 @@ class ClassManagement(tk.Tk):
 
         classMap = classDict
 
-        """ Below is the widgets relevant to the classRoadmap Window"""    
+        """ Below is the widgets relevant to the classRoadmap Window"""
         # Populates a list of keys (in order) from the classMap data
         for i in range(len(classMap)):
             self.classMapKeys.append([key for key in classMap.keys()][i])
@@ -892,7 +892,7 @@ class ClassManagement(tk.Tk):
         backToClassesButton.bind(self._button, backToClassMenu)
 
 
-        
+
     def subjectClick(self, event):
         # Updates the OfferedCourses list to match the selected subject
         w = event.widget
@@ -904,7 +904,7 @@ class ClassManagement(tk.Tk):
 
     def updateList(self):
         # This function updates the OfferedCourses list
-        self.offeredCourses.delete(0, END)  
+        self.offeredCourses.delete(0, END)
         year = str(self.strObj1.get())
         term = str(self.strObj2.get())
         # Determine the year and term of the classes to be added
