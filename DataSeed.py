@@ -16,8 +16,9 @@ Ryan Gurnick - 3/4/20  Creation
 
 """
 import os
-import Datastore
+
 import ClassParser
+import Datastore
 
 DB = 'seed.db'
 

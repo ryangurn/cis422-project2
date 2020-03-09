@@ -1,16 +1,17 @@
-import tkinter as tk
 import json
-from tkinter import *
-from tkinter import messagebox
-from tkinter import font
-from tkinter.ttk import Notebook, Entry
-from GUI.ClassInfo import *
+import tkinter as tk
 from datetime import date, datetime
-import StudentModel
-import StudentClassModel
+from tkinter import *
+from tkinter import font
+from tkinter import messagebox
+from tkinter.ttk import Notebook, Entry
+
 import ClassModel
 import RequirementModel
+import StudentClassModel
+import StudentModel
 import TogglesModel
+from GUI.ClassInfo import *
 
 
 class ClassManagement(tk.Tk):

@@ -16,16 +16,14 @@ Created:
 
 """
 
+import sqlite3
 from tkinter import *
 from tkinter import messagebox
-from GUI.ClassManagement import *
-from GUI.AddStudent import *
-from GUI.CollectData import *
-import csv
-import os
-import sys
+
 import StudentModel
-import sqlite3
+from GUI.AddStudent import *
+from GUI.ClassManagement import *
+from GUI.CollectData import *
 
 
 class MainMenu(tk.Tk):

@@ -18,7 +18,9 @@ Ryan Gurnick - 2/27/20  Creation
 
 """
 import sqlite3
+
 import RequirementModel
+
 
 class DB:
 

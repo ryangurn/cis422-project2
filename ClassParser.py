@@ -15,10 +15,11 @@ Ryan Gurnick - 2/25/20  Creation
 
 """
 import json
-import Parser
 import urllib.request
-import DetailsParser
+
 import ClassModel
+import DetailsParser
+import Parser
 
 
 class ClassParser:
@@ -175,5 +176,5 @@ class ClassParser:
     def _saveData(self, obj, total, lc, labc, dc, oc):
         """Small helper function to open the model and insert the data to the class model"""
         cm = ClassModel.ClassModel(db_file=self.db)
-        print("Total: {} | Lecture: {} | Lab: {} | Discussion: {} | Other: {}".format(total, lc, labc, dc, oc))
+        # print("Total: {} | Lecture: {} | Lab: {} | Discussion: {} | Other: {}".format(total, lc, labc, dc, oc))
         cm.insert(self.term, obj['name'], obj['subject'], obj['number'], obj['credits'], total, lc, labc, dc, oc, json.dumps(obj['sections']))

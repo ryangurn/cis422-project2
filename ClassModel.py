@@ -15,9 +15,10 @@ Priority credit to:
 Ryan Gurnick - 2/27/20  Creation
 
 """
-import Datastore
 import sqlite3
 from datetime import date, datetime
+
+import Datastore
 
 
 class ClassModel:

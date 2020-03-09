@@ -16,9 +16,10 @@ Ryan Gurnick - 03/05/20  Creation
 
 """
 import json
-import Datastore
 import sqlite3
 from datetime import date, datetime
+
+import Datastore
 
 
 class RequirementModel:
