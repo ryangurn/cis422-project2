@@ -15,15 +15,14 @@ Created:
 
 """
 
+import json
 import tkinter as tk
 from tkinter import *
-from tkinter import messagebox
 from tkinter import font
+from tkinter import messagebox
 from tkinter.ttk import Notebook, Entry
-import StudentModel
-import StudentClassModel
+
 import ClassModel
-import json
 
 
 class classInfo(tk.Tk):

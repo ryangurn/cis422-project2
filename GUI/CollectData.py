@@ -15,15 +15,15 @@ Created:
 
 """
 
+import random
+import socket
+import threading
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
-import StudentModel
-import ClassParser
+
 import ClassModel
-import threading
-import random
-import socket
+import ClassParser
 
 
 class collectData(tk.Tk):

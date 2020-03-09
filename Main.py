@@ -15,13 +15,7 @@ Priority credit to:
 Ryan Gurnick - 2/25/20  Creation
 
 """
-import Parser
-import ClassParser
 import Datastore
-import ClassModel
-import StudentModel
-import StudentClassModel
-import RequirementModel
 import os
 import GUI.MainMenu
 import tkinter as tk
@@ -36,27 +30,6 @@ if not os.path.exists('testing.db'):
     ds.generateTables()            
     
     
-# rm = RequirementModel.RequirementModel(DB)
-# rm.setupTable()
-
-
-# # call ClassParser
-# p = ClassParser.ClassParser("201903", "CIS")
-# p.deleteFormatting()
-# p.parseData()
-
-# classModel = ClassModel.ClassModel('testing.db')
-# print(classModel.update(201901, 'testing123', 'BIC', '123', '{}', '{}'))
-# print(classModel.find_by('term', 201903))
-
-# studentModel = StudentModel.StudentModel('testing.db')
-# studentModel.insert("Ryan Gurnick")
-# print(studentModel.find("Ryan Gurnick"))
-# print(studentModel.search("Gurnick"))
-
-# studentClassModel = StudentClassModel.StudentClassModel('testing.db')
-# studentClassModel.associate(1,1)
-
 root = tk.Tk()
 root.resizable(False, False)
 myGUI = GUI.MainMenu.MainMenu(root, DB)

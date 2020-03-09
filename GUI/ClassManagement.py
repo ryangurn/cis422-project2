@@ -1,16 +1,17 @@
-import tkinter as tk
 import json
-from tkinter import *
-from tkinter import messagebox
-from tkinter import font
-from tkinter.ttk import Notebook, Entry
-from GUI.ClassInfo import *
+import tkinter as tk
 from datetime import date, datetime
-import StudentModel
-import StudentClassModel
+from tkinter import *
+from tkinter import font
+from tkinter import messagebox
+from tkinter.ttk import Notebook, Entry
+
 import ClassModel
 import RequirementModel
+import StudentClassModel
+import StudentModel
 import TogglesModel
+from GUI.ClassInfo import *
 
 
 class ClassManagement(tk.Tk):
@@ -42,7 +43,7 @@ class ClassManagement(tk.Tk):
         self._darkGrey = "#282929"
         self._yellow = "#ffcc00"
         self._green = "#369148"
-        self._button = "<Double-Button-1>"
+        self._button = "<Button-1>"
         self._buttonHeight = 30
         self._buttonWidth = 150
         self._buttonText = ("Arial Bold", 16)
@@ -167,13 +168,13 @@ class ClassManagement(tk.Tk):
         # Button Home
         goHome = Label(self.window, text='Home')
         goHome.config(font=self._buttonText, bg=self._green, fg=self._darkGrey)
-        goHome.bind("<Button-1>", self.goHomeClick)
+        goHome.bind(self._button, self.goHomeClick)
         goHome.place(x=468, y=305, height=self._buttonHeight, width=self._buttonWidth)
 
         # Button Roadmap
         roadmap = Label(self.window, text='Class Roadmap')
         roadmap.config(font=self._buttonText, bg=self._green, fg=self._darkGrey)
-        roadmap.bind("<Button-1>", self.classRoadmap)
+        roadmap.bind(self._button, self.classRoadmap)
         roadmap.place(x=628, y=305, height=self._buttonHeight, width=self._buttonWidth)
 
         # Dropdown Menu for years
@@ -376,6 +377,7 @@ class ClassManagement(tk.Tk):
                 label2['text'] = self.classMapKeys[self.idx + 1]
                 label3['text'] = self.classMapKeys[self.idx + 2]
                 label4['text'] = self.classMapKeys[self.idx + 3]
+
 
         def update_prev(event):
             # Function for the "Prev" button
@@ -822,26 +824,26 @@ class ClassManagement(tk.Tk):
             buttonNext = Label(roadMapWindow, text=">", background="#808080", fg="#e6e6e6")
             buttonNext.config(font=("Arial Bold", 22))
             buttonNext.place(x=750, y=300, height=40, width=40)
-            buttonNext.bind("<Button-1>", update_next)
+            buttonNext.bind(self._button, update_next)
         else:
             # Set to green if it doesn't
             buttonNext = Label(roadMapWindow, text=">", background="#369148", fg="#e6e6e6")
             buttonNext.config(font=("Arial Bold", 22))
             buttonNext.place(x=750, y=300, height=40, width=40)
-            buttonNext.bind("<Button-1>", update_next)
+            buttonNext.bind(self._button, update_next)
 
         # If the index is 0, grey out the "Prev" button
         if (self.idx == 0):
             buttonPrev = Label(roadMapWindow, text="<", background="#808080", fg="#e6e6e6")
             buttonPrev.config(font=("Arial Bold", 22))
             buttonPrev.place(x=10, y=300, height=40, width=40)
-            buttonPrev.bind("<Button-1>", update_prev)
+            buttonPrev.bind(self._button, update_prev)
         else:
             # Set to green if it doesn't
             buttonPrev = Label(roadMapWindow, text="<", background="#369148", fg="#e6e6e6")
             buttonPrev.config(font=("Arial Bold", 22))
             buttonPrev.place(x=10, y=300, height=40, width=40)
-            buttonPrev.bind("<Button-1>", update_prev)
+            buttonPrev.bind(self._button, update_prev)
 
         # Title the titles for each listbox 1
         label1 = Label(roadMapWindow, text=self.classMapKeys[self.idx], background="#282929", fg="#e6e6e6")
@@ -887,7 +889,7 @@ class ClassManagement(tk.Tk):
         backToClassesButton = Label(roadMapWindow, text="CLASSES", background="#ffcc00", fg="#282929")
         backToClassesButton.config(font=("Arial", 22))
         backToClassesButton.place(x=330, y=510, height=40, width=140)
-        backToClassesButton.bind("<Button-1>", backToClassMenu)
+        backToClassesButton.bind(self._button, backToClassMenu)
 
 
         
@@ -943,7 +945,7 @@ class ClassManagement(tk.Tk):
         if not w.curselection() == ():
             index = int(w.curselection()[0])
             cc = w.get(index)
-            if not self._contain(cc, self.takenClasses) and cc != self._offeredCoursesDefault:
+            if not self._contain(cc, self.takenClasses) and cc != self._offeredCoursesDefault and "None" not in cc and "subject" not in cc and "term" not in cc:
                 # If it is not already in the takenClasses list
                 half = cc.split(")")[0].replace("(", "")
                 currentCourse = cc.split(")")[1:][0][1:]

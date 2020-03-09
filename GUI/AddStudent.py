@@ -16,9 +16,9 @@ Created:
 """
 
 import tkinter as tk
-import csv
 from tkinter import *
 from tkinter import messagebox
+
 import StudentModel
 
 

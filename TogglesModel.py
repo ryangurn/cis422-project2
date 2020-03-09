@@ -16,9 +16,12 @@ March 7nd, 2020
 
 """
 import json
-import Datastore
 import sqlite3
 from datetime import date, datetime
+
+import Datastore
+
+
 class TogglesModel:
     def __init__(self, db_file):
         """

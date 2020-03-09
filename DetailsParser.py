@@ -15,8 +15,9 @@ Priority credit to:
 Ryan Gurnick - 2/27/20  Creation
 
 """
-import Parser
 import urllib.request
+
+import Parser
 
 
 class DetailsParser:

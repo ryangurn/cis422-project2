@@ -15,9 +15,10 @@ Created:
 March 2nd, 2020
 
 """
-import Datastore
 import sqlite3
 from datetime import date, datetime
+
+import Datastore
 
 
 class StudentModel:
