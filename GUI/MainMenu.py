@@ -155,7 +155,7 @@ class MainMenu(tk.Tk):
             self.nameList.append(item[1])
             self.numberOfNames += 1
 
-    def update_listbox(self, event=None):
+    def update_listbox(self, *args):
         """
         Function to update the listbox based on what the user has entered in
         the search box on the MainMenu window. Listbox will only display
