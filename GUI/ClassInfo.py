@@ -43,6 +43,14 @@ class classInfo(tk.Tk):
         Example Usage:
 
         """
+        print("|--------------------------------|")
+        print("|- WARNING THERE WILL BE A FONT -|")
+        print("|-    ERROR THAT SHOWS BELOW    -|")
+        print("|-   THERE IS NOTHING TO WORRY  -|")
+        print("|- ABOUT JUST A macOS CORETEXT  -|")
+        print("|-             ERROR            -|")
+        print("|--------------------------------|")
+
         self.db = db_file
         self.master = master
 
