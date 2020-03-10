@@ -38,6 +38,16 @@ class RequirementModel:
         self.conn = Datastore.DB(db_file).ret().conn
 
     def _insert(self, term, major, type, data):
+        """
+        Insert method for the requirement model that allows the caller to provide the specified
+        information and create a record within the database, this will return the id of
+        the row created.
+        :param term:
+        :param major:
+        :param type:
+        :param data:
+        :return:
+        """
         sql = '''INSERT INTO "main"."requirements"("term","major","type","data","created_at","updated_at") VALUES (?,?,?,?,?,?);'''
         cur = self.conn.cursor()
         try:
@@ -49,7 +59,12 @@ class RequirementModel:
             return None
 
     def setupTable(self):
-
+        """
+        This method will seed the database and ensure that the required rows exist for
+        requirements. This data is manually generated and then added here to ensure
+        that its in the initial seed and the empty database if needed.
+        :return:
+        """
         # CIS BS
         BS = 'BS'
         # year 1 fall
@@ -638,7 +653,8 @@ class RequirementModel:
         rm = RequirementModel.RequirementModel('testing.db')
         rm.find('CIS', "BA")
         """
-        sql = "SELECT * FROM \"main\".\"requirements\" WHERE \"major\" = \"{}\" AND \"type\" = \"{}\"".format(major, type)
+        sql = "SELECT * FROM \"main\".\"requirements\" WHERE \"major\" = \"{}\" AND \"type\" = \"{}\"".format(major,
+                                                                                                              type)
         cur = self.conn.cursor()
         try:
             cur.execute(sql)
@@ -660,7 +676,8 @@ class RequirementModel:
         rm = RequirementModel.RequirementModel('testing.db')
         rm.find('CIS', "BA")
         """
-        sql = "SELECT * FROM \"main\".\"requirements\" WHERE \"major\" = \"{}\" AND \"type\" = \"{}\" AND \"term\" = \"{}\" ".format(major, type, term)
+        sql = "SELECT * FROM \"main\".\"requirements\" WHERE \"major\" = \"{}\" AND \"type\" = \"{}\" AND \"term\" = \"{}\" ".format(
+            major, type, term)
         cur = self.conn.cursor()
         try:
             cur.execute(sql)

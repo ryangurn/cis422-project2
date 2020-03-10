@@ -74,7 +74,8 @@ class StudentClassModel:
         scm = StudentModel.StudentModel('testing.db')
         scm.disassociate(1, 3) where 1 is the student_id and 3 is the class_id
         """
-        sql = "DELETE FROM \"main\".\"students_classes\" WHERE \"students_id\" = '{}' AND \"classes_id\" = '{}';".format(student_id, class_id)
+        sql = "DELETE FROM \"main\".\"students_classes\" WHERE \"students_id\" = '{}' AND \"classes_id\" = '{}';".format(
+            student_id, class_id)
         cur = self.conn.cursor()
         try:
             cur.execute(sql)

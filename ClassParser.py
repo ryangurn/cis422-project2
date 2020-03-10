@@ -30,8 +30,7 @@ class ClassParser:
         of lists
 
         Example Usage:
-        p = Parser.Parser()
-        parser = ClassParser.Parser("201903", "CIS")
+        parser = ClassParser.ClassParser("201903", "CIS")
         """
         cis_catalog_url = "http://classes.uoregon.edu/pls/prod/hwskdhnt.P_ListCrse?term_in=" + term + "&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&sel_cred=dummy&sel_tuition=dummy&sel_open=dummy&sel_weekend=dummy&sel_title=&sel_to_cred=&sel_from_cred=&sel_subj=" + subject + "&sel_crse=&sel_crn=&sel_camp=%25&sel_levl=%25&sel_attr=%25&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a&submit_btn=Show+Classes"
         # catalog = requests.get(cis_catalog_url)
@@ -94,6 +93,11 @@ class ClassParser:
         self._intermediateData = ret_arr
 
     def parseData(self):
+        """
+        This function will take the intermediateData produced after calling the deleteFormatting and
+        get it into a usable object.
+        :return:
+        """
         if self._intermediateData[0][0][0] == "No classes were found that meet your search criteria":
             return
 
@@ -127,11 +131,10 @@ class ClassParser:
 
             # store the counts of the type of sections
             total = 0
-            lc = 0 # lecture_count
-            labc = 0 # lab_count
-            dc = 0 # discussion_count
-            oc = 0 # other_count
-
+            lc = 0  # lecture_count
+            labc = 0  # lab_count
+            dc = 0  # discussion_count
+            oc = 0  # other_count
 
             for k, v in enumerate(data):
                 item = data[k]
@@ -174,7 +177,17 @@ class ClassParser:
                 })  # append to the object
 
     def _saveData(self, obj, total, lc, labc, dc, oc):
-        """Small helper function to open the model and insert the data to the class model"""
+        """
+        Small helper function to open the model and insert the data to the class model
+        :param obj:
+        :param total:
+        :param lc:
+        :param labc:
+        :param dc:
+        :param oc:
+        :return:
+        """
         cm = ClassModel.ClassModel(db_file=self.db)
         # print("Total: {} | Lecture: {} | Lab: {} | Discussion: {} | Other: {}".format(total, lc, labc, dc, oc))
-        cm.insert(self.term, obj['name'], obj['subject'], obj['number'], obj['credits'], total, lc, labc, dc, oc, json.dumps(obj['sections']))
+        cm.insert(self.term, obj['name'], obj['subject'], obj['number'], obj['credits'], total, lc, labc, dc, oc,
+                  json.dumps(obj['sections']))

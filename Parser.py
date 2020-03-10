@@ -22,10 +22,11 @@ class Parser(HTMLParser, ABC):
     """ This class serves as a html table parser. It is able to parse multiple
     tables which you feed in. You can access the result per .tables field.
     """
+
     def __init__(
-        self,
-        decode_html_entities=False,
-        data_separator=' ',
+            self,
+            decode_html_entities=False,
+            data_separator=' ',
     ):
 
         HTMLParser.__init__(self)

@@ -45,7 +45,6 @@ class DB:
     def ret(self):
         return self
 
-
     def _create_table(self, create_table_sql):
         """ create a table from the create_table_sql statement
         :param conn: Connection object
@@ -68,7 +67,6 @@ class DB:
         ds.generateTables()
         """
         if self.conn is not None:
-
             self._create_table("""CREATE TABLE "classes" (
                     	"id"	integer NOT NULL PRIMARY KEY AUTOINCREMENT,
                     	"term"	integer NOT NULL,

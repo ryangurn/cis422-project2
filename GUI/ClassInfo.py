@@ -43,11 +43,11 @@ class classInfo(tk.Tk):
 
         """
         print("|--------------------------------|")
-        print("|- WARNING THERE WILL BE A FONT -|")
-        print("|-    ERROR THAT SHOWS BELOW    -|")
-        print("|-   THERE IS NOTHING TO WORRY  -|")
-        print("|- ABOUT JUST A macOS CORETEXT  -|")
-        print("|-             ERROR            -|")
+        print("|- warning there may be a font -|")
+        print("|-    error that shows below    -|")
+        print("|-   there is nothing to worry  -|")
+        print("|- about just a macOS coretext  -|")
+        print("|-             error            -|")
         print("|-        NO ACTION NEEDED      -|")
         print("|--------------------------------|")
 
@@ -190,12 +190,12 @@ class classInfo(tk.Tk):
 
     def returnClick(self, event):
         """
-        DESC
+        This function will exit from the class info display and take us back to the roadmap
 
-        :param
+        event :param
 
         Example Usage:
-
+        self.returnClick(None)
         """
         self.windowTop.destroy()
         self.window.destroy()

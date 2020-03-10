@@ -54,7 +54,7 @@ class collectData(tk.Tk):
         self.cm = ClassModel.ClassModel(self.db)
         self.s = ""
 
-        #Defining class labels
+        # Defining class labels
         self.offlineWarning = None
         self.loadLabel = None
 
@@ -140,11 +140,10 @@ class collectData(tk.Tk):
         termMenu.config(bg=self._darkGrey)
         termMenu.place(x=525, y=185, width=150, height=30)
 
-        #Complete idle tasks then instantiate buttons
+        # Complete idle tasks then instantiate buttons
         self.newWindow.update_idletasks()
         self.newWindow.update()
         self.initButtons()
-
 
     def initButtons(self):
         """
@@ -224,15 +223,15 @@ class collectData(tk.Tk):
         # Get coordinates of buttons and remove them
         exit_info = self.exitName.place_info()
         collect_info = self.collectData.place_info()
-        xval = (int(exit_info["x"]) + int(collect_info["x"]))/2
-        yval = int(int(exit_info["y"])-100)
+        xval = (int(exit_info["x"]) + int(collect_info["x"])) / 2
+        yval = int(int(exit_info["y"]) - 100)
         self.exitName.destroy()
         self.collectData.destroy()
 
         # Load in the label for loading gif
         self.loadLabel = Label(self.newWindow)
         self.loadLabel.config(bg=self._darkGrey)
-        self.loadLabel.place(x = 300, y = yval)
+        self.loadLabel.place(x=300, y=yval)
         self.newWindow.after(0, self.updateLoadLabel)
 
     def is_online(self):
@@ -288,7 +287,7 @@ class collectData(tk.Tk):
         if self.offlineWarning == None:
             error = "Couldn't connect to the internet, please check your internet connection and try again.\n"
             note = "NOTE: This will not affect the functionality of the rest of the program."
-            self.offlineWarning = Label(self.newWindow, text=error+note)
+            self.offlineWarning = Label(self.newWindow, text=error + note)
             self.offlineWarning.config(font=("Arial", 14), bg=self._darkGrey, fg="#FFFFFF")
             self.offlineWarning.place(x=50, y=390, height=50, width=700)
 
@@ -350,14 +349,14 @@ class collectData(tk.Tk):
             self.cm.delete_sub_term(self.subjectVal.get(), self.s)
 
         if self.is_online():
-            #init loading gif
+            # init loading gif
             self.loadingLabel()
 
-            #init thread
+            # init thread
             parse_thread = threading.Thread(name="ParsingThread", target=self.parseThread)
             parse_thread.start()
 
-            #update loading gif while parsing thread runs
+            # pdate loading gif while parsing thread runs
             while parse_thread.isAlive():
                 self.newWindow.update_idletasks()
                 self.newWindow.update()

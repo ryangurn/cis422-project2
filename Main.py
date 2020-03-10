@@ -27,9 +27,8 @@ os.environ['TK_SILENCE_DEPRECATION'] = "1"
 if not os.path.exists('testing.db'):
     # setup datastore
     ds = Datastore.DB(DB)
-    ds.generateTables()            
-    
-    
+    ds.generateTables()
+
 root = tk.Tk()
 root.resizable(False, False)
 myGUI = GUI.MainMenu.MainMenu(root, DB)

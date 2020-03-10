@@ -55,4 +55,6 @@ for k, s in enumerate(subject_codes):  # for each subject
             p.deleteFormatting()
             p.parseData()
 
-            print("(S:{} - {}/{:.2%}) ENDING PARSE FOR {} {} - [{}]".format(k, len(subject_codes), k / len(subject_codes), y, i, s))
+            print(
+                "(S:{} - {}/{:.2%}) ENDING PARSE FOR {} {} - [{}]".format(k, len(subject_codes), k / len(subject_codes),
+                                                                          y, i, s))

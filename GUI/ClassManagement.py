@@ -1,3 +1,20 @@
+"""
+
+ClassManagement.py is is the graphics modules dedicated to the setup and display of
+the class roadmap and class selection window. It also handles user interaction with
+the window.
+
+Authors:
+(RegTools)
+Joseph Goh
+Mason Sayyadi
+Owen McEvoy
+Ryan Gurnick
+Samuel Lundquist
+
+Created:
+
+"""
 import json
 import tkinter as tk
 from datetime import date, datetime
@@ -195,25 +212,36 @@ class ClassManagement(tk.Tk):
         dropMenuQuarter.config(bg=self._darkGrey)
         self.strObj2.trace('w', self.quarter_dropdown)
 
-        #Drop down menu for the student's major
+        # Drop down menu for the student's major
         self.majorChoice = StringVar(self.window)
         majorChoices = sorted({"BS-Computer & Information Science", "BA-Computer & Information Science"})
         self.majorChoice.set("BS-Computer & Information Science")
         majorMenu = OptionMenu(self.window, self.majorChoice, *majorChoices)
-        majorMenu.config(bg = self._darkGrey)
-        majorMenu.place(x = 130, y = 385, width = 315, height = 30)
-
+        majorMenu.config(bg=self._darkGrey)
+        majorMenu.place(x=130, y=385, width=315, height=30)
 
     def year_dropdown(self, *args):
-        # Update the OfferedClasses list each time a new year is selected
+        """
+        Update the OfferedClasses list each time a new year is selected
+        :param args:
+        :return:
+        """
         self.updateList()
 
     def quarter_dropdown(self, *args):
-        # Update the OfferedClasses list each time a new term is selected
+        """
+        Update the OfferedClasses list each time a new term is selected
+        :param args:
+        :return:
+        """
         self.updateList()
 
     def goHomeClick(self, event):
-        # Return to the main menu
+        """
+        Return to the main menu
+        :param event:
+        :return:
+        """
         self.window.destroy()
         self.windowTop.destroy()
 
@@ -221,6 +249,8 @@ class ClassManagement(tk.Tk):
         """
         Initializer for the classRoadMap window. The purpose of this window is to display
         a student's progress of their major's requirements.
+        :param event:
+        :return:
         """
         self.idx = 0
         # An array which will store the student's completed classes
@@ -243,8 +273,12 @@ class ClassManagement(tk.Tk):
             req = rm.find_by('id', t[1])
             term = req[0][1]
             self.toggleArray.update({term: t[3]})
+
         def box1_update():
-            # Updates listbox 1 with class data given the key
+            """
+            Updates listbox 1 with class data given the key
+            :return:
+            """
             self.listBx1
             for i in reversed(range(len(classMap[self.classMapKeys[self.idx]]))):
                 self.listBx1.insert(0, classMap[self.classMapKeys[self.idx]][i])
@@ -252,7 +286,7 @@ class ClassManagement(tk.Tk):
             # add coloring to the listboxes
             for i, v in enumerate(self.listBx1.get(0, END)):
                 if '\n' in v:
-                    box = len(v.split('\n')[1:])-1
+                    box = len(v.split('\n')[1:]) - 1
                     if self.toggleArray.get(box) != None and self.toggleArray.get(box) in v:
                         self.listBx1.itemconfig(i, bg=self._green)
                 for c in self.comparisonArray:
@@ -261,9 +295,11 @@ class ClassManagement(tk.Tk):
                         # print(0, i, v)
                 # pass
 
-
         def box2_update():
-            # Updates listbox 2 with class data given the key
+            """
+            Updates listbox 2 with class data given the key
+            :return:
+            """
             self.listBx2
             for i in reversed(range(len(classMap[self.classMapKeys[self.idx + 1]]))):
                 self.listBx2.insert(0, classMap[self.classMapKeys[self.idx + 1]][i])
@@ -271,7 +307,7 @@ class ClassManagement(tk.Tk):
             # add coloring to the listboxes
             for i, v in enumerate(self.listBx2.get(0, END)):
                 if '\n' in v:
-                    box = len(v.split('\n')[1:])-1
+                    box = len(v.split('\n')[1:]) - 1
                     if self.toggleArray.get(box) != None and self.toggleArray.get(box) in v:
                         self.listBx2.itemconfig(i, bg=self._green)
                 for c in self.comparisonArray:
@@ -280,7 +316,10 @@ class ClassManagement(tk.Tk):
                 pass
 
         def box3_update():
-            # Updates listbox 3 with class data given the key
+            """
+            Updates listbox 3 with class data given the key
+            :return:
+            """
             self.listBx3
             for i in reversed(range(len(classMap[self.classMapKeys[self.idx + 2]]))):
                 self.listBx3.insert(0, classMap[self.classMapKeys[self.idx + 2]][i])
@@ -289,7 +328,7 @@ class ClassManagement(tk.Tk):
             # add coloring to the listboxes
             for i, v in enumerate(self.listBx3.get(0, END)):
                 if '\n' in v:
-                    box = len(v.split('\n')[1:])-1
+                    box = len(v.split('\n')[1:]) - 1
                     if self.toggleArray.get(box) != None and self.toggleArray.get(box) in v:
                         self.listBx3.itemconfig(i, bg=self._green)
                 for c in self.comparisonArray:
@@ -298,16 +337,19 @@ class ClassManagement(tk.Tk):
                 pass
 
         def box4_update():
-            # Updates listbox 4 with class data given the key
+            """
+            Updates listbox 4 with class data given the key
+            :return:
+            """
             self.listBx4
-            #if len(classMap[self.classMapKeys[self.idx + 3]]):
+            # if len(classMap[self.classMapKeys[self.idx + 3]]):
             for i in reversed(range(len(classMap[self.classMapKeys[self.idx + 3]]))):
                 self.listBx4.insert(0, classMap[self.classMapKeys[self.idx + 3]][i])
 
             # add coloring to the listboxes
             for i, v in enumerate(self.listBx4.get(0, END)):
                 if '\n' in v:
-                    box = len(v.split('\n')[1:])-1
+                    box = len(v.split('\n')[1:]) - 1
                     if self.toggleArray.get(box) != None and self.toggleArray.get(box) in v:
                         self.listBx4.itemconfig(i, bg=self._green)
                 for c in self.comparisonArray:
@@ -316,11 +358,18 @@ class ClassManagement(tk.Tk):
                 pass
 
         def selectedClass(event):
+            """
+            This is the event handler for the double click action on the class roadmap page.
+            This will handle the calling of the ClassInfo class and the creation of the
+            roadmaps_toggles when a general course is double clicked.
+            :param event:
+            :return:
+            """
             w = event.widget
             if not w.curselection() == ():
                 index = int(w.curselection()[0])
                 selectedCourse = w.get(index).split(" ")
-                boxindex = len(w.get(index).split('\n')[1:])-1
+                boxindex = len(w.get(index).split('\n')[1:]) - 1
                 if boxindex >= 0:
                     tm = TogglesModel.TogglesModel(self.db)
                     rm = RequirementModel.RequirementModel(self.db)
@@ -328,7 +377,8 @@ class ClassManagement(tk.Tk):
                     splitMajor = self.majorChoice.get().split("-")
                     req = rm.find_by_term(splitMajor[1], splitMajor[0], boxindex)
                     requirements_id = req[0][0]
-                    exists = len(tm.find_using(requirements_id, self.student_id, " ".join(w.get(index).split('\n')[:1])))
+                    exists = len(
+                        tm.find_using(requirements_id, self.student_id, " ".join(w.get(index).split('\n')[:1])))
                     if exists > 0:
                         tm.delete(requirements_id, self.student_id, " ".join(w.get(index).split('\n')[:1]))
 
@@ -345,7 +395,11 @@ class ClassManagement(tk.Tk):
                     pass
 
         def update_next(event):
-            # Function for the "Next" button
+            """
+            Function for the "Next" button
+            :param event:
+            :return:
+            """
             self.idx
             # Checks to see if end has been reached
             if (self.idx >= (len(classMap) - 4)):
@@ -378,9 +432,12 @@ class ClassManagement(tk.Tk):
                 label3['text'] = self.classMapKeys[self.idx + 2]
                 label4['text'] = self.classMapKeys[self.idx + 3]
 
-
         def update_prev(event):
-            # Function for the "Prev" button
+            """
+            Function for the "Prev" button
+            :param event:
+            :return:
+            """
             self.idx
             # Checks to see if beginning has been reached
             if (self.idx == 0):
@@ -414,11 +471,18 @@ class ClassManagement(tk.Tk):
                 label4['text'] = self.classMapKeys[self.idx + 3]
 
         def backToClassMenu(event):
-            # Function to go back to the classes menu
+            """
+            Function to go back to the classes menu
+            :param event:
+            :return:
+            """
             roadMapWindow.destroy()
 
         def getFirstTerm():
-            # Determines which term to start on when the student has not taken any classes
+            """
+            Determines which term to start on when the student has not taken any classes
+            :return:
+            """
             currentMonth = datetime.now().month
             if (currentMonth > 9):
                 term = "Winter"
@@ -429,7 +493,6 @@ class ClassManagement(tk.Tk):
             else:
                 term = "Spring"
             return term
-
 
         # Empty list that will store the class keys in same order as dictionary
         self.classMapKeys = []
@@ -485,7 +548,7 @@ class ClassManagement(tk.Tk):
             # Reads through the requirements for term 1
             for desc in json.loads(find[(4 * t) + termTracker][4]):
                 if ((4 * t) + termTracker) % 4 == 3:
-                    #If this is a summer term, break
+                    # If this is a summer term, break
                     break
                 if desc['course'] != "":
                     if desc['course'][0] != ">":
@@ -540,7 +603,7 @@ class ClassManagement(tk.Tk):
                 else:
                     # If there is no course, just add the description of what must be taken
                     # '\n' is appended so that we may determine which term it is in
-                    secretKey = desc["description"] +"".join(["\n" for i in range(0,((4 * t) + termTracker)+1)])
+                    secretKey = desc["description"] + "".join(["\n" for i in range(0, ((4 * t) + termTracker) + 1)])
                     term1.append(secretKey)
 
             termTracker = (termTracker + 1) % 4
@@ -548,7 +611,7 @@ class ClassManagement(tk.Tk):
             # Reads through the requirements for term 2
             for desc in json.loads(find[((4 * t) + termTracker)][4]):
                 if (((4 * t) + termTracker) % 4 == 3):
-                    #If this is a summer term, break
+                    # If this is a summer term, break
                     break
                 if desc['course'] != "":
                     if desc['course'][0] != ">":
@@ -603,7 +666,7 @@ class ClassManagement(tk.Tk):
                 else:
                     # If there is no course, just add the description of what must be taken
                     # '\n' is appended so that we may determine which term it is in
-                    secretKey = desc["description"] +"".join(["\n" for i in range(0,((4 * t) + termTracker)+1)])
+                    secretKey = desc["description"] + "".join(["\n" for i in range(0, ((4 * t) + termTracker) + 1)])
                     term2.append(secretKey)
 
             termTracker = (termTracker + 1) % 4
@@ -611,7 +674,7 @@ class ClassManagement(tk.Tk):
             # Reads through the requirements for term 3
             for desc in json.loads(find[(4 * t) + termTracker][4]):
                 if ((4 * t) + termTracker) % 4 == 3:
-                    #If this is a summer term, break
+                    # If this is a summer term, break
                     break
                 if desc['course'] != "":
                     if desc['course'][0] != ">":
@@ -653,7 +716,7 @@ class ClassManagement(tk.Tk):
 
                         priorYear = int(datetime.now().year) - 1
                         # Variable that matches with the term column in the SQL table
-                        sqlTerm = str(priorYear) + "0" + str(((termsNormal.index(curTerm) + 2) %4) + 1)
+                        sqlTerm = str(priorYear) + "0" + str(((termsNormal.index(curTerm) + 2) % 4) + 1)
                         # Gets every class that has a ">X" in it, where X is 1, 2, or 3
                         carrotClasses = cm.crt_class_search(desc["course"][1], priorYear)
                         for carrot in carrotClasses:
@@ -666,7 +729,7 @@ class ClassManagement(tk.Tk):
                 else:
                     # If there is no course, just add the description of what must be taken
                     # '\n' is appended so that we may determine which term it is in
-                    secretKey = desc["description"] +"".join(["\n" for i in range(0,((4 * t) + termTracker)+1)])
+                    secretKey = desc["description"] + "".join(["\n" for i in range(0, ((4 * t) + termTracker) + 1)])
                     term3.append(secretKey)
 
             termTracker = (termTracker + 1) % 4
@@ -674,7 +737,7 @@ class ClassManagement(tk.Tk):
             # Reads through the requirements for term 4
             for desc in json.loads(find[(4 * t) + termTracker][4]):
                 if ((4 * t) + termTracker) % 4 == 3:
-                    #If this is a summer term, break
+                    # If this is a summer term, break
                     break
                 if desc['course'] != "":
                     if desc['course'][0] != ">":
@@ -716,7 +779,7 @@ class ClassManagement(tk.Tk):
 
                         priorYear = int(datetime.now().year) - 1
                         # Variable that matches with the term column in the SQL table
-                        sqlTerm = str(priorYear) + "0" + str(((termsNormal.index(curTerm) + 3) %4) + 1)
+                        sqlTerm = str(priorYear) + "0" + str(((termsNormal.index(curTerm) + 3) % 4) + 1)
                         # Gets every class that has a ">X" in it, where X is 1, 2, or 3
                         carrotClasses = cm.crt_class_search(desc["course"][1], priorYear)
                         for carrot in carrotClasses:
@@ -729,12 +792,12 @@ class ClassManagement(tk.Tk):
                 else:
                     # If there is no course, just add the description of what must be taken
                     # '\n' is appended so that we may determine which term it is in
-                    secretKey = desc["description"] +"".join(["\n" for i in range(0,((4 * t) + termTracker)+1)])
+                    secretKey = desc["description"] + "".join(["\n" for i in range(0, ((4 * t) + termTracker) + 1)])
                     term4.append(secretKey)
 
             termTracker = (termTracker + 1) % 4
 
-            #Update the classDicts with the relevant term data
+            # Update the classDicts with the relevant term data
             classDict.update({termsNormal[termsNormal.index(curTerm) % 4] + " " + str(min_year): term1})
             classDict.update({termsNormal[(termsNormal.index(curTerm) + 1) % 4] + " " + str(min_year): term2})
             classDict.update({termsNormal[(termsNormal.index(curTerm) + 2) % 4] + " " + str(min_year): term3})
@@ -891,10 +954,12 @@ class ClassManagement(tk.Tk):
         backToClassesButton.place(x=330, y=510, height=40, width=140)
         backToClassesButton.bind(self._button, backToClassMenu)
 
-
-
     def subjectClick(self, event):
-        # Updates the OfferedCourses list to match the selected subject
+        """
+        Updates the OfferedCourses list to match the selected subject
+        :param event:
+        :return:
+        """
         w = event.widget
         if not w.curselection() == ():
             index = int(w.curselection()[0])
@@ -903,7 +968,10 @@ class ClassManagement(tk.Tk):
             self.updateList()
 
     def updateList(self):
-        # This function updates the OfferedCourses list
+        """
+        This function updates the OfferedCourses list
+        :return:
+        """
         self.offeredCourses.delete(0, END)
         year = str(self.strObj1.get())
         term = str(self.strObj2.get())
@@ -940,12 +1008,17 @@ class ClassManagement(tk.Tk):
             self.offeredCourses.insert(END, "and a term (below)")
 
     def courseClick(self, event):
-        # When a course in OfferedCourses is selected
+        """
+        When a course in OfferedCourses is selected
+        :param event:
+        :return:
+        """
         w = event.widget
         if not w.curselection() == ():
             index = int(w.curselection()[0])
             cc = w.get(index)
-            if not self._contain(cc, self.takenClasses) and cc != self._offeredCoursesDefault and "None" not in cc and "subject" not in cc and "term" not in cc:
+            if not self._contain(cc,
+                                 self.takenClasses) and cc != self._offeredCoursesDefault and "None" not in cc and "subject" not in cc and "term" not in cc:
                 # If it is not already in the takenClasses list
                 half = cc.split(")")[0].replace("(", "")
                 currentCourse = cc.split(")")[1:][0][1:]
@@ -964,7 +1037,11 @@ class ClassManagement(tk.Tk):
                                          "(" + half.split(" ")[0] + " " + half.split(" ")[1] + ") " + currentCourse)
 
     def removeClass(self, event):
-        # When a class in TakenClasses is selected
+        """
+        When a class in TakenClasses is selected
+        :param event:
+        :return:
+        """
         w = event.widget
         if not w.curselection() == ():
             index = int(w.curselection()[0])
@@ -988,7 +1065,11 @@ class ClassManagement(tk.Tk):
                 self.takenClasses.delete(index)
 
     def _decompose(self, str):
-        # Acquires relevant course information from string which can then be processed by the database
+        """
+        Acquires relevant course information from string which can then be processed by the database
+        :param str:
+        :return:
+        """
         split = str.split(" ")
         subject = split[0]
         code = split[1]
@@ -997,10 +1078,19 @@ class ClassManagement(tk.Tk):
         return subject, code, course
 
     def _compose(self, value):
-        # Puts a class in the appropriate format
+        """
+        Puts a class in the appropriate format
+        :param value:
+        :return:
+        """
         v = value[0]
         return v[3] + " " + v[4] + " - [" + v[2] + "]"
 
     def _contain(self, item, box):
-        # Determines if a class is in a given listbox
+        """
+        Determines if a class is in a given listbox
+        :param item:
+        :param box:
+        :return:
+        """
         return item in box.get(0, "end")

@@ -103,7 +103,8 @@ class StudentModel:
         sm = StudentModel.StudentModel('testing.db')
         sm.search("Ryan Gurnick")
         """
-        sql = "SELECT * FROM \"main\".\"students\" WHERE \"name\" LIKE '%{}%' ORDER BY \"id\" ASC LIMIT 0, 49999;".format(name)
+        sql = "SELECT * FROM \"main\".\"students\" WHERE \"name\" LIKE '%{}%' ORDER BY \"id\" ASC LIMIT 0, 49999;".format(
+            name)
         cur = self.conn.cursor()
         try:
             cur.execute(sql)
